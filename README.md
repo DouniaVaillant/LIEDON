@@ -18,12 +18,16 @@ Paramètres:
 - Possibilité de rendre publique ou privés sa bibliothèque et certaines de ses informations
 - Supprimer définitivement son compte
 
-EN RAPPORT AVEC LE BUT DU SITE:
+PRINCIPALES (V1):
 - Possibilité de partage d'histoires/de nouvelles créées par soi-même
 - Abonnement possible à des profils
 - Page de flux d'histoires d'autres utilisateurs (triés par date de création décroissante**)
 - Filtre des histoires en fonction de leur catégorie (+ possibilié de cacher des histoires avec des mots clés
 - Affichage du contenu adapté à l'âge de l'utilisateur
+
+- Partager un aperçu de livres (papier) lus avec des commentaires sur ces livres
+- Avoir un lien redirigeant les utilisateurs intéressés par un livre papier partagé par un utilisateur vers un site qui vendrait ce livre (ex: fnac ...)
+- Pouvoir indiquer aux autres utilisateurs que nous proposons au partage/don ( john propose Les quatre filles du reverend Latimer au partage 
 
 BIBLIOTHEQUE:
 - Ajouter/retirer une histoire de la bibliothèque
