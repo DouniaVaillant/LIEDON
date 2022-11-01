@@ -7,13 +7,13 @@ Il y a deux principales fonctionnalités:
 
 ## Fonctionnalités
 
-DE BASE:
+##### DE BASE:
 - [ ] Inscription/connexion/deconnexion
 - [ ] Barre de recherche
 - [ ] Changer la langue du site (français, anglais)
 - [ ] Contacter les gérants du site
 
-SUR SON PROFIL:
+##### SUR SON PROFIL:
 - [ ] Accéder à/modifier ses informations
 - [ ] Ajouter des liens vers ses réseaux sociaux
 - [ ] Accéder à/modifier ses abonnements
@@ -21,27 +21,27 @@ SUR SON PROFIL:
 - [ ] Ajouter un livre papier 
 - [ ] Mettre au partage/don de livre papier
 - [ ] Partager son emplacement géographique (adresse)
-Paramètres:
+##### Paramètres:
 - [ ] Possibilité de rendre publique ou privés sa bibliothèque et certaines de ses informations
 - [ ] Supprimer définitivement son compte
 - [ ] Pouvoir masquer la partie histoire ou livres papier (c-à-d ne voir que les histoires créées par les utilisateurs ou que les livres papiers partagés) 
 
-PRINCIPALES:
-V1:
+##### PRINCIPALES:
+##### V1:
 - [ ] Possibilité de publication/modif/supp d'histoires/de nouvelles créées par soi-même (l'ecriture de l'histoire sur le site)
 - [ ] Abonnement/désabonnement à des profils
 - [ ] Filtre (dans la page de flux) des histoires en fonction de leur catégorie (+ possibilié de cacher des histoires avec des mots clés)
 - [ ] Affichage du contenu adapté à l'âge de l'utilisateur
 - [ ] Newsletter des histoires/nouvelles crées (les mieux votés sont proposés à certains utilisateurs aléatoirement) 
 
-V2:
+##### V2:
 - [ ] Partager un aperçu de livres (papier) lus avec des commentaires sur ces livres
 - [ ] Pouvoir indiquer aux autres utilisateurs que nous proposons au partage/don nos livres ( john propose *Le petit prince* au partage )
 - [ ] Voir la disponibilité des livres
 - [ ] Date limite pour rendre les livres empruntés
 - [ ] Avoir un lien redirigeant les utilisateurs intéressés par un livre papier partagé par un utilisateur vers un site qui vendrait ce livre (ex: fnac ...) 
 
-BIBLIOTHEQUE:
+##### BIBLIOTHEQUE:
 - [ ] Ajouter/retirer une histoire de la bibliothèque
 - [ ] Possibilité de lire les histoires publiées par les autres utilisateurs 
 - [ ] Possibilité de commenter et de mettre un j'aime sur l'histoire 
