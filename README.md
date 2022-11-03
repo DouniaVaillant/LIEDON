@@ -144,7 +144,4 @@ Emprunt
 - date_emprunt
 - date_rendu
 
-
-<img width="597" alt="image" src="https://user-images.githubusercontent.com/100844563/199558437-186278f5-7657-44cd-b189-116fae06e0e9.png">
-
-
+<img width="603" alt="image" src="https://user-images.githubusercontent.com/100844563/199795500-9142c411-fd95-4f6e-a4b4-41d0af4e0a24.png">
