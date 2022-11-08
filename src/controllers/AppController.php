@@ -22,7 +22,25 @@ class AppController
     public static function registration()
     {
      
-      
+      if (!empty($_POST))
+      {
+        User::create([
+            'roles' => 'ROLE_USER',
+            'lastname' => $_POST['lastname'],
+            'firstname' => $_POST['firstname'],
+            'pseudo' => $_POST['pseudo'],
+            'email' => $_POST['email'],
+            'password' => $_POST['password'],
+            'birthday' => $_POST['birthday'],
+            'way' => $_POST['way'],
+            'address' => $_POST['address'],
+            'city' => $_POST['city'],
+            'postal_code' => $_POST['postal_code'],
+            'country' => $_POST['country'],
+            'gender' => $_POST['gender'],
+            'date_registration' => new DateTime()
+        ]);
+      }
      
      
      include(VIEWS."app/registration.php" ) ;

@@ -16,4 +16,20 @@ class Db {
             die;
         }
     }
+
+    protected static function htmlspecialchars($data)
+    {
+
+        foreach ($data as $marqueur=>$valeur){
+
+            $data[$marqueur]=htmlspecialchars($valeur);
+            // on transforme les chevrons en entité html qui neutralise les balises script ou style eventuellement injectées
+            // On parle de neutraliser les failles xss et css
+
+        }
+
+        return $data;
+
+
+    }
 }

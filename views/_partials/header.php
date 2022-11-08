@@ -48,24 +48,30 @@
                             <img src="<?= BASE . "assets/images/library.svg"; ?>" alt="" style="height: 30px;">
                         </a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Profil
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Profil</a></li>
-                            <hr class="hr">
-                            <li><a class="dropdown-item" href="#">Mes histoires</a></li>
-                            <li><a class="dropdown-item" href="#">Mes livres</a></li>
-                            <li><a class="dropdown-item" href="#">Mes emprunts</a></li>
-                            <hr class="hr">
-                            <li><a class="dropdown-item" href="#">Ajouter un livre</a></li>
-                            <li><a class="dropdown-item" href="#">Créer une histoire</a></li>
-                            <hr class="hr">
-                            <li><a class="dropdown-item" href="#">Paramètres</a></li>
-                            <li><a class="dropdown-item" href="#">Déconnexion</a></li>
-                        </ul>
-                    </li>
+                    <?php if (isset($_SESSION['user'])) : ?>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Profil
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Profil</a></li>
+                                <hr class="hr">
+                                <li><a class="dropdown-item" href="#">Mes histoires</a></li>
+                                <li><a class="dropdown-item" href="#">Mes livres</a></li>
+                                <li><a class="dropdown-item" href="#">Mes emprunts</a></li>
+                                <hr class="hr">
+                                <li><a class="dropdown-item" href="#">Ajouter un livre</a></li>
+                                <li><a class="dropdown-item" href="#">Créer une histoire</a></li>
+                                <hr class="hr">
+                                <li><a class="dropdown-item" href="#">Paramètres</a></li>
+                                <li><a class="dropdown-item" href="#">Déconnexion</a></li>
+                            </ul>
+                        </li>
+                    <?php else : ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= BASE_PATH . "registration"; ?>">Inscription</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
