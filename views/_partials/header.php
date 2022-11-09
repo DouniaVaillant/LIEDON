@@ -15,7 +15,7 @@
 
     <nav class="navbar navbar-expand-lg bg-light" style="background: #EECE9F;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="<?= BASE_PATH; ?>">
                 <img src="<?= BASE . "assets/images/logo.svg"; ?>" alt="" style="height: 70px;">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,10 +69,23 @@
                         </li>
                     <?php else : ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= BASE_PATH . "registration"; ?>">Inscription</a>
+                            <a class="nav-link" href="<?= BASE_PATH . "user/registration"; ?>">Inscription</a>
                         </li>
                     <?php endif; ?>
                 </ul>
             </div>
         </div>
     </nav>
+
+
+    <div class="container mt-5">
+
+    <?php if (isset($_SESSION['messages'])):
+        foreach ($_SESSION['messages'] as $type => $messages):
+            foreach ($messages as $message):
+                ?>
+                <div class="w-50 text-center mx-auto alert alert-<?= $type ?>"><?= $message; ?></div>
+
+            <?php endforeach; endforeach;
+        unset($_SESSION['messages']);
+    endif; ?>

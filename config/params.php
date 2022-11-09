@@ -35,8 +35,7 @@ const CONTROLLERS = BASE_DIR . 'src/controllers/';
 $routes = [
     ''                  => ['AppController', 'index'],
     '/'                 => ['AppController', 'index'],
-    // '/createBook'       => ['AppController', 'createbook'],
-    '/registration'       => ['AppController', 'registration'],
+    '/user/registration'       => ['AppController', 'registration'],
 
 
 ];
