@@ -73,7 +73,7 @@
         <small class="text-danger"><?=  $error['confirmMdp'] ?? '' ; ?></small>
     </div>
     <div class="form-check form-switch ms-4">
-        <input class="form-check-input" onclick="passwordRegistration(event)"  type="checkbox" id="button" >
+        <input class="form-check-input" onclick="showHidePassword(event)"  type="checkbox" id="button" >
         <label class="form-check-label" id="label" for="button">Afficher les mots de passe</label>
     </div>
 

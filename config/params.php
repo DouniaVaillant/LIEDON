@@ -33,9 +33,13 @@ const CONTROLLERS = BASE_DIR . 'src/controllers/';
  * Liste des actions/méthodes possibles (les routes du routeur)
  */
 $routes = [
-    ''                  => ['AppController', 'index'],
-    '/'                 => ['AppController', 'index'],
-    '/user/registration'       => ['AppController', 'registration'],
+    ''                      => ['AppController', 'index'],
+    '/'                     => ['AppController', 'index'],
+    '/user/registration'    => ['AppController', 'registration'],
+    '/user/logIn'           => ['AppController', 'logIn'],
+    '/user/logOut'          => ['AppController', 'logOut'],
+    '/admin/backoffice'     => ['AppController', 'backoffice'],
+    '/admin/listUser'       => ['AppController', 'listUser'],
 
 
 ];

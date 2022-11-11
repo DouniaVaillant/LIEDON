@@ -5,6 +5,7 @@ class AppController
 
   public static function index()
   {
+    var_dump($_SESSION['user']);
     include(VIEWS . 'app/index.php');
   }
 
@@ -84,7 +85,7 @@ class AppController
       }
 
       if (empty($error)) : /// Si toutes les infos ont été validées
-        $password = password_hash($_POST['mdp'], PASSWORD_DEFAULT);
+        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
         User::create([ // ? Envoi des informations au modèle
           'roles' => 'ROLE_USER',
@@ -102,8 +103,8 @@ class AppController
           'gender' => $_POST['gender']
         ]);
 
-        $_SESSION['messages']['success'][] = 'Félicitation, vous êtes à présent inscrit. Connectez-vous!!';
-        header('location:../');
+        $_SESSION['messages']['success'][] = 'Félicitation, vous êtes à présent inscrit. Connectez-vous !';
+        header('location:../user/logIn');
         exit();
       endif;
     }
@@ -111,4 +112,66 @@ class AppController
 
     include(VIEWS . "app/registration.php");
   }
+
+  public static function logIn()
+  {
+
+    if (!empty($_POST)) :
+      $user = User::findByEmail(['email' => $_POST['email']]);
+      var_dump($_POST['password'], $user['password']);
+
+      if ($user) :
+        if (password_verify($_POST['password'], $user['password'])) :
+          $_SESSION['user'] = $user;
+          $_SESSION['messages']['success'][] = "Bienvenue " . $user['pseudo'] . " !";
+          header('location:../');
+          exit();
+        else :
+          $_SESSION['messages']['danger'][] = 'Erreur sur le mot de passe';
+        endif;
+
+
+      else :
+        $_SESSION['messages']['danger'][] = 'Aucun compte existant à cette adresse mail';
+      endif;
+
+
+    endif;
+
+
+    include(VIEWS . "app/logIn.php");
+  }
+
+  public static function logOut()
+  {
+    unset($_SESSION['user']);
+    $_SESSION['messages']['info'][] = 'A bientôt !';
+    header('location:../');
+    exit();
+  }
+
+  public static function backoffice()
+  {
+   
+   include(VIEWS."app/backoffice/dashboard.php" ) ;
+  }
+
+  public static function listUser()
+  {
+   
+   $users = User::findAll(); 
+   
+   
+   include(VIEWS."app/backoffice/listUser.php" ) ;
+  }
+
+
+
+
+
+
+
+
+
+
 }

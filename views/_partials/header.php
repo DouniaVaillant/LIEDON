@@ -13,10 +13,10 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg bg-light" style="background: #EECE9F;">
+    <nav class="navbar navbar-expand-lg bg-beige" style="background: #EECE9F;">
         <div class="container-fluid">
             <a class="navbar-brand" href="<?= BASE_PATH; ?>">
-                <img src="<?= BASE . "assets/images/logo.svg"; ?>" alt="" style="height: 70px;">
+                <img src="<?= BASE . "assets/images/logo.svg"; ?>" alt="Logo_light" style="height: 70px;">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -64,12 +64,20 @@
                                 <li><a class="dropdown-item" href="#">Créer une histoire</a></li>
                                 <hr class="hr">
                                 <li><a class="dropdown-item" href="#">Paramètres</a></li>
-                                <li><a class="dropdown-item" href="#">Déconnexion</a></li>
+                                <li><a class="dropdown-item" href="<?= BASE_PATH . "user/logOut"; ?>">Déconnexion</a></li>
                             </ul>
                         </li>
+                        <?php if ($_SESSION['user']['roles'] == 'ROLE_ADMIN') : ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= BASE_PATH . "admin/backoffice"; ?>">BACKOFFICE</a>
+                            </li>
+                        <?php endif; ?>
                     <?php else : ?>
                         <li class="nav-item">
                             <a class="nav-link" href="<?= BASE_PATH . "user/registration"; ?>">Inscription</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= BASE_PATH . "user/logIn"; ?>">Connexion</a>
                         </li>
                     <?php endif; ?>
                 </ul>
@@ -80,12 +88,13 @@
 
     <div class="container mt-5">
 
-    <?php if (isset($_SESSION['messages'])):
-        foreach ($_SESSION['messages'] as $type => $messages):
-            foreach ($messages as $message):
-                ?>
-                <div class="w-50 text-center mx-auto alert alert-<?= $type ?>"><?= $message; ?></div>
+        <?php if (isset($_SESSION['messages'])) :
+            foreach ($_SESSION['messages'] as $type => $messages) :
+                foreach ($messages as $message) :
+        ?>
+                    <div class="w-50 text-center mx-auto alert alert-<?= $type ?>"><?= $message; ?></div>
 
-            <?php endforeach; endforeach;
-        unset($_SESSION['messages']);
-    endif; ?>
+        <?php endforeach;
+            endforeach;
+            unset($_SESSION['messages']);
+        endif; ?>
