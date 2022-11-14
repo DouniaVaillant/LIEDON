@@ -54,7 +54,7 @@
                                 Profil
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Profil</a></li>
+                                <li><a class="dropdown-item" href="<?= BASE_PATH . "user/profil"; ?>">Profil</a></li>
                                 <hr class="hr">
                                 <li><a class="dropdown-item" href="#">Mes histoires</a></li>
                                 <li><a class="dropdown-item" href="#">Mes livres</a></li>
@@ -86,7 +86,7 @@
     </nav>
 
 
-    <div class="container mt-5">
+    <div class="">
 
         <?php if (isset($_SESSION['messages'])) :
             foreach ($_SESSION['messages'] as $type => $messages) :

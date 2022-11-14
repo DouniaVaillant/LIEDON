@@ -40,6 +40,12 @@ $routes = [
     '/user/logOut'          => ['AppController', 'logOut'],
     '/admin/backoffice'     => ['AppController', 'backoffice'],
     '/admin/listUser'       => ['AppController', 'listUser'],
+    '/admin/edit'           => ['AppController', 'editUser'],
+    '/admin/delete'         => ['AppController', 'deleteUser'],
+    '/admin/add/user'       => ['AppController', 'addUser'],
+    '/user/profil'          => ['AppController', 'profil'],
+    '/user/profil/edit'     => ['AppController', 'editProfil'],
+    '/user/editPassword'    => ['AppController', 'editPassword'],
 
 
 ];

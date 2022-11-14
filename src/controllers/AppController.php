@@ -5,7 +5,7 @@ class AppController
 
   public static function index()
   {
-    var_dump($_SESSION['user']);
+    // var_dump($_SESSION['user']);
     include(VIEWS . 'app/index.php');
   }
 
@@ -110,7 +110,7 @@ class AppController
     }
 
 
-    include(VIEWS . "app/registration.php");
+    include(VIEWS . "app/user/registration.php");
   }
 
   public static function logIn()
@@ -139,7 +139,7 @@ class AppController
     endif;
 
 
-    include(VIEWS . "app/logIn.php");
+    include(VIEWS . "app/user/logIn.php");
   }
 
   public static function logOut()
@@ -152,26 +152,411 @@ class AppController
 
   public static function backoffice()
   {
-   
-   include(VIEWS."app/backoffice/dashboard.php" ) ;
+
+    include(VIEWS . "app/backoffice/dashboard.php");
   }
 
   public static function listUser()
   {
-   
-   $users = User::findAll(); 
-   
-   
-   include(VIEWS."app/backoffice/listUser.php" ) ;
+
+    $users = User::findAll();
+
+    include(VIEWS . "app/backoffice/listUser.php");
   }
 
+  public static function profil()
+  {
+
+    if (isset($_GET['profil'])) :
+
+      $id = $_GET['id'];
+      $user = User::findById(['id' => $id]);
+
+      include(VIEWS . "app/showProfil.php");
+
+    else :
+
+      $user = User::findById(['id' => $_SESSION['user']['id']]);
+
+      include(VIEWS . "app/user/profil.php");
+
+    endif;
+  }
+
+  public static function editProfil()
+  {
+
+    $error = [];
+    if (!empty($_POST)) {
+
+      if (empty($_POST['lastname']) || preg_match('#[0-9]#', $_POST['lastname'])) {
+        $error['lastname'] = 'Le champs est obligatoire et doit contenir uniquement des lettres';
+      }
+
+      if (empty($_POST['firstname']) || preg_match('#[0-9]#', $_POST['firstname'])) {
+        $error['firstname'] = 'Le champs est obligatoire et doit contenir uniquement des lettres';
+      }
+
+      if (empty($_POST['pseudo'])) {
+        $error['pseudo'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) || User::findByEmail(['email' => $_POST['email']])) :
+        if (User::findByEmail(['email' => $_POST['email']])) :
+          $_SESSION['messages']['danger'][] = 'Un compte est déjà existant à cette adresse mail, veuillez procéder à la récupération de mot passe';
+          $error['email'] = '';
+        else :
+          $error['email'] = 'Le champs est obligatoire et l\'adresse mail doit être valide';
+        endif;
+      endif;
+
+      if (empty($_POST['birthday']) || preg_match('#[a-zA-Z]#', $_POST['birthday'])) {
+        $error['birthday'] = 'Veuillez remplir correctement ce champs au format jj/mm/aaaa, aucune lettre n\'est acceptée';
+      }
+
+      if (empty($_POST['way'])) {
+        $error['way'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['address']) || preg_match('#[0-9]#', $_POST['address'])) {
+        $error['address'] = 'Le champs est obligatoire est ne peut pas contenir de chiffre';
+      }
+
+      if (empty($_POST['city']) || preg_match('#[0-9]#', $_POST['city'])) {
+        $error['city'] = 'Le champs est obligatoire est ne peut pas contenir de chiffre';
+      }
+
+      if (empty($_POST['postal_code']) || !preg_match('#^[0-9]{5}$#', $_POST['postal_code'])) {
+        $error['postal_code'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['country']) || preg_match('#[0-9]#', $_POST['country'])) {
+        $error['country'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['gender']) || preg_match('#[0-9]#', $_POST['gender'])) {
+        $error['gender'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($error)) :
+
+        User::update([
+          'lastname' => $_POST['lastname'],
+          'firstname' => $_POST['firstname'],
+          'pseudo' => $_POST['pseudo'],
+          'email' => $_POST['email'],
+          'birthday' => $_POST['birthday'],
+          'way' => $_POST['way'],
+          'address' => $_POST['address'],
+          'city' => $_POST['city'],
+          'postal_code' => $_POST['postal_code'],
+          'country' => $_POST['country'],
+          'gender' => $_POST['gender'],
+          'id' => $_SESSION['user']['id']
+        ]);
+
+        $sessionUser = User::findById(['id' => $_SESSION['user']['id']]);
+        $_SESSION['user'] = $sessionUser;
+        $_SESSION['messages']['success'][] = 'Modification effectuée avec succès!';
+        header('location:../user/profil');
+        exit();
+
+      endif;
+    }
+
+
+    include(VIEWS . "app/user/editProfil.php");
+  }
+
+  public static function editPassword()
+  {
+
+    $error = [];
+    if (!empty($_POST)) :
+
+      function valid_pass($candidate)
+      {
+        $r1 = '/[A-Z]/';  //Uppercase
+        $r2 = '/[a-z]/';  //lowercase
+        $r3 = '/[!@#$%^&*()\-_=+{};:,<.>]/';  // whatever you mean by 'special char'
+        $r4 = '/[0-9]/';  //numbers
+
+        if (preg_match_all($r1, $candidate, $o) < 1) return FALSE;
+        if (preg_match_all($r2, $candidate, $o) < 1) return FALSE;
+        if (preg_match_all($r3, $candidate, $o) < 1) return FALSE;
+        if (preg_match_all($r4, $candidate, $o) < 1) return FALSE;
+        if (strlen($candidate) < 8) return FALSE;
+
+        return TRUE;
+      }
+
+      if (empty($_POST['password']) || !valid_pass($_POST['password'])) :
+        $error['password'] = 'Le champs est obligatoire et votre mot de passe doit contenir, majuscule, minuscule, chiffre lettre et caractère spécial';
+      endif;
+      if (empty($_POST['confirmPassword']) || $_POST['password'] !== $_POST['confirmPassword']) :
+        $error['confirmPassword'] = 'Le champs est obligatoire et doit concorder avec le champs mot de passe';
+      endif;
+      if (empty($_POST['actualMdp']) || !password_verify($_POST['actualMdp'], $_SESSION['user']['password'])) :
+        $error['actualMdp'] = 'Le mot de passe actuel est incorrect';
+      endif;
+
+      if (empty($error)) :
+        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+        User::editPassword([
+          'password' => $password,
+          'id' => $_SESSION['user']['id'],
+        ]);
+
+        $user = User::findById(['id' => $_SESSION['user']['id']]);
+        $_SESSION['user'] = $user;
+        $_SESSION['messages']['success'][] = 'Félicitation, mot de passe modifié !';
+        header('location:../user/profil');
+        exit();
+
+      endif;
+
+
+    endif;
+
+
+    include(VIEWS . "app/user/editPassword.php");
+  }
+
+  public static function addUser()
+  {
+
+
+    // Valeur par défaut:
+    if (empty($_POST['pseudo'])) {
+      $pseudo = 'pseudo' . random_int(99, 1111);
+    } else {
+      $pseudo = $_POST['pseudo'];
+    }
+
+    $error = [];
+    if (!empty($_POST)) {
+
+      function valid_pass($candidate)
+      { // ? Vérif du mot de passe
+        $r1 = '/[A-Z]/';  //Uppercase
+        $r2 = '/[a-z]/';  //lowercase
+        $r3 = '/[!@#$%^&*()\-_=+{};:,<.>]/';  // whatever you mean by 'special char'
+        $r4 = '/[0-9]/';  //numbers
+
+        if (preg_match_all($r1, $candidate, $o) < 1) return FALSE;
+        if (preg_match_all($r2, $candidate, $o) < 1) return FALSE;
+        if (preg_match_all($r3, $candidate, $o) < 1) return FALSE;
+        if (preg_match_all($r4, $candidate, $o) < 1) return FALSE;
+        if (strlen($candidate) < 8) return FALSE;
+
+        return TRUE;
+      }
+
+      if (empty($_POST['lastname']) || preg_match('#[0-9]#', $_POST['lastname'])) {
+        $error['lastname'] = 'Le champs est obligatoire et doit contenir uniquement des lettres';
+      }
+
+      if (empty($_POST['firstname']) || preg_match('#[0-9]#', $_POST['firstname'])) {
+        $error['firstname'] = 'Le champs est obligatoire et doit contenir uniquement des lettres';
+      }
+
+      // if (empty($_POST['pseudo'])) {
+      //   $error['pseudo'] = 'Le champs est obligatoire';
+      // }
+
+      if (empty($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) || User::findByEmail(['email' => $_POST['email']])) :
+        if (User::findByEmail(['email' => $_POST['email']])) :
+          $_SESSION['messages']['danger'][] = 'Un compte est déjà existant à cette adresse mail, veuillez procéder à la récupération de mot passe';
+          $error['email'] = '';
+        else :
+          $error['email'] = 'Le champs est obligatoire et l\'adresse mail doit être valide';
+        endif;
+      endif;
+
+      if (empty($_POST['password']) || !valid_pass($_POST['password'])) :
+        $error['password'] = 'Le mot de passe doit faire plus de 8 caractères et contenir majuscule, minuscule, chiffre et au moins un caractère spécial';
+      endif;
+
+      if (empty($_POST['birthday']) || preg_match('#[a-zA-Z]#', $_POST['birthday'])) {
+        $error['birthday'] = 'Veuillez remplir correctement ce champs au format jj/mm/aaaa, aucune lettre n\'est acceptée';
+      }
+
+      if (empty($_POST['way'])) {
+        $error['way'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['address']) || preg_match('#[0-9]#', $_POST['address'])) {
+        $error['address'] = 'Le champs est obligatoire est ne peut pas contenir de chiffre';
+      }
+
+      if (empty($_POST['city']) || preg_match('#[0-9]#', $_POST['city'])) {
+        $error['city'] = 'Le champs est obligatoire est ne peut pas contenir de chiffre';
+      }
+
+      if (empty($_POST['postal_code']) || !preg_match('#^[0-9]{5}$#', $_POST['postal_code'])) {
+        $error['postal_code'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['country']) || preg_match('#[0-9]#', $_POST['country'])) {
+        $error['country'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['gender']) || preg_match('#[0-9]#', $_POST['gender'])) {
+        $error['gender'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($error)) : /// Si toutes les infos ont été validées
+        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+        User::create([ // ? Envoi des informations au modèle
+          'roles' => $_POST['roles'],
+          'lastname' => $_POST['lastname'],
+          'firstname' => $_POST['firstname'],
+          'pseudo' => $pseudo,
+          'email' => $_POST['email'],
+          'password' => $password,
+          'birthday' => $_POST['birthday'],
+          'way' => $_POST['way'],
+          'address' => $_POST['address'],
+          'city' => $_POST['city'],
+          'postal_code' => $_POST['postal_code'],
+          'country' => $_POST['country'],
+          'gender' => $_POST['gender']
+        ]);
+
+        $_SESSION['messages']['success'][] = "Création d'un nouvel utilisateur réalisée avec succès !";
+        header('location:../listUser');
+        exit();
+      endif;
+    }
 
 
 
+    include(VIEWS . "app/backoffice/addUser.php");
+  }
 
+  public static function editUser()
+  {
 
+    $user = User::findById(['id' => $_GET['id']]);
 
+    $error = [];
+    if (!empty($_POST)) {
 
+      if (isset($_FILES['photo_profil']) && !empty($_FILES['photo_profil'])) {
+        // ? Vérification de la taille du fichier
+        $maxSize = 3000000;
+        if ($_FILES['photo_profil'] > $maxSize ) {
+          $error['photo_profil'] = "Le fichier est trop volumineux";
+        }
+        // ? Vérification de l'extension du fichier
+        $validExtensions = array('jpg', 'jpeg', 'png', 'gif'); /// = Tableau contenant les types d'extensions autorisées
+        $extensionPhotoUpload = strtolower(substr(strchr($_FILES['photo_profil']['name'], '.'), 1)); /// = srttolower => met en minuscule ||| substr => ignore un élément de la chaîne ||| strrchr => récupère l'extension du fichier
+        if (in_array($extensionPhotoUpload, $validExtensions)) {
+          
+            // on supprime la précédente photo grace à la méthode unlink qui attend en argument le chemin complet d'acces au fichier à supprimer
+            unlink(PUBLIC_FOLDER . 'upload/photos/profil' . $_POST['photo']);
+            // on copie dans notre dossier d'upload le fichier chargé et renommé
+            copy($_FILES['photoProfilUpdate']['tmp_name'], PUBLIC_FOLDER . 'upload/photos/profil' . $user['id'] . $extensionPhotoUpload);
 
+        }
+      }
 
+      if (empty($_POST['lastname']) || preg_match('#[0-9]#', $_POST['lastname'])) {
+        $error['lastname'] = 'Le champs est obligatoire et doit contenir uniquement des lettres';
+      }
+
+      if (empty($_POST['firstname']) || preg_match('#[0-9]#', $_POST['firstname'])) {
+        $error['firstname'] = 'Le champs est obligatoire et doit contenir uniquement des lettres';
+      }
+
+      if (empty($_POST['pseudo'])) {
+        $error['pseudo'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) || User::findByEmail(['email' => $_POST['email']])) :
+        if ($_POST['email'] == $user['email']) :
+
+        elseif (User::findByEmail(['email' => $_POST['email']])) :
+          $_SESSION['messages']['danger'][] = 'Un compte est déjà existant à cette adresse mail, veuillez procéder à la récupération de mot passe';
+          $error['email'] = '';
+
+        else :
+          $error['email'] = 'Le champs est obligatoire et l\'adresse mail doit être valide';
+        endif;
+      endif;
+
+      if (empty($_POST['birthday']) || preg_match('#[a-zA-Z]#', $_POST['birthday'])) {
+        $error['birthday'] = 'Veuillez remplir correctement ce champs au format jj/mm/aaaa, aucune lettre n\'est acceptée';
+      }
+
+      if (empty($_POST['way'])) {
+        $error['way'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['address']) || preg_match('#[0-9]#', $_POST['address'])) {
+        $error['address'] = 'Le champs est obligatoire est ne peut pas contenir de chiffre';
+      }
+
+      if (empty($_POST['city']) || preg_match('#[0-9]#', $_POST['city'])) {
+        $error['city'] = 'Le champs est obligatoire est ne peut pas contenir de chiffre';
+      }
+
+      if (empty($_POST['postal_code']) || !preg_match('#^[0-9]{5}$#', $_POST['postal_code'])) {
+        $error['postal_code'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['country']) || preg_match('#[0-9]#', $_POST['country'])) {
+        $error['country'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['gender']) || preg_match('#[0-9]#', $_POST['gender'])) {
+        $error['gender'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($error)) :
+
+        User::update([
+          'lastname' => $_POST['lastname'],
+          'firstname' => $_POST['firstname'],
+          'pseudo' => $_POST['pseudo'],
+          'email' => $_POST['email'],
+          'birthday' => $_POST['birthday'],
+          'way' => $_POST['way'],
+          'address' => $_POST['address'],
+          'city' => $_POST['city'],
+          'postal_code' => $_POST['postal_code'],
+          'country' => $_POST['country'],
+          'gender' => $_POST['gender'],
+          'roles' => $_POST['roles'],
+          'id' => $user['id']
+        ]);
+
+        $sessionUser = User::findById(['id' => $_SESSION['user']['id']]);
+        $_SESSION['user'] = $sessionUser;
+        $_SESSION['messages']['success'][] = 'Modification effectuée avec succès!';
+        header('location:../admin/listUser');
+        exit();
+
+      endif;
+    }
+
+    include(VIEWS . "app/backoffice/editUser.php");
+  }
+
+  public static function deleteUser()
+  {
+
+    if (!empty($_GET['id'])) :
+      User::delete([
+        'id' => intval($_GET['id'])
+      ]);
+
+      $_SESSION['messages']['success'][] = 'Annonce supprimée avec succès';
+    endif;
+
+    header('location:../admin/backoffice');
+    exit();
+  }
 }

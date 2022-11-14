@@ -1,33 +1,50 @@
 :root {
-    --black: #141414;
-    --darkGreen: #283618;
-    --lightGreen: #588157;
-    --white: #F9F9F9;
-    --sun: #FEFAE0;
-    --beige: #EECE9F;
-    --lightBrown: #DDA15E;
-    --darkbrown: #CD8742;
-    --soil: #895737;
+  --black: #141414;
+  --darkGreen: #283618;
+  --lightGreen: #588157;
+  --white: #f9f9f9;
+  --sun: #fefae0;
+  --beige: #eece9f;
+  --lightBrown: #dda15e;
+  --darkbrown: #cd8742;
+  --soil: #895737;
 }
 
-
 .bg-lightGreen {
-    background: var(--lightGreen);
+  background: var(--lightGreen);
 }
 
 .bg-lightBrown {
-    background: var(--lightBrown);
+  background: var(--lightBrown);
 }
 
 .bg-sun {
-    background: var(--sun);
+  background: var(--sun);
 }
 
 .bg-beige {
-    background: var(--beige);
+  background: var(--beige);
 }
 
 .soil {
-    text-shadow: 0 0 1px var(--sun);
-    color: var(--soil);
+  text-shadow: 0 0 1px var(--sun);
+  color: var(--soil);
+}
+
+/* Arrondit des photos de profil */
+
+.newPhotoProfil {
+  text-align: center;
+  padding: 3%;
+  border: thin solid black;
+}
+
+input {
+  display: none;
+}
+label {
+  cursor: pointer;
+}
+#imageName {
+  color: green;
 }

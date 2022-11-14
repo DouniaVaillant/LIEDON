@@ -8,7 +8,7 @@ Il y a deux principales fonctionnalités:
 ## Fonctionnalités
 
 ##### DE BASE:
-- [ ] Inscription/connexion/deconnexion
+- [x] Inscription/connexion/deconnexion
 - [ ] Barre de recherche
 - [ ] Changer la langue du site (français, anglais)
 - [ ] Contacter les gérants du site
@@ -49,7 +49,7 @@ Il y a deux principales fonctionnalités:
 <!--
 ## Pages
 
-- [ ] Inscription/connexion
+- [x] Inscription/connexion
 - [ ] Accueil
 - [ ] Son Profil
 - [ ] (Consulter le) Profil d'un utilisateur
@@ -80,6 +80,7 @@ Il y a deux principales fonctionnalités:
 
 
 Utilisateur
+- roles
 - nom
 - prenom
 - email
@@ -88,7 +89,6 @@ Utilisateur
 - rue 
 - ville
 - code_postale
-- roles
 - date_naissance
 - photo_profil
 - photo_bannière
@@ -105,6 +105,7 @@ Histoire
 - langue (fr ou en) (choice)
 - droits d'auteur (choice)
 - contenu mature (oui ou non) (choice)
+- statut
 - date_creation
 
 Chapitre
@@ -136,6 +137,7 @@ Livre_papier
 - categorie
 - mot_cle
 - photo 
+- statut
 
 Emprunt
 - id_utilisateur (preteur)
