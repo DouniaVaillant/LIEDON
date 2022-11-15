@@ -1,58 +1,67 @@
 # Bibliotheque
-Projet pour jury de formation Doranco dev web Fullstack.
-Il y a deux principales fonctionnalités: 
-- "histoire" = les histoires/nouvelles créées par les utilisateurs 
-- "livre papier" = numérisation de la couverture des livres papiers lus par les utilisateurs avec leur commentaire sur ce livre et une potentielle proposition au partage/don
 
+Projet pour jury de formation Doranco dev web Fullstack.
+Il y a deux principales fonctionnalités:
+
+- "histoire" = les histoires/nouvelles créées par les utilisateurs
+- "livre papier" = numérisation de la couverture des livres papiers lus par les utilisateurs avec leur commentaire sur ce livre et une potentielle proposition au partage/don
 
 ## Fonctionnalités
 
 ##### DE BASE:
+
 - [x] Inscription/connexion/deconnexion
 - [ ] Barre de recherche
 - [ ] Changer la langue du site (français, anglais)
 - [ ] Contacter les gérants du site
 
 ##### SUR SON PROFIL:
+
 - [ ] Accéder à/modifier ses informations
 - [ ] Ajouter des liens vers ses réseaux sociaux
 - [ ] Accéder à/modifier ses abonnements
-- [ ] Possibilité de publier des posts sur son profil
-- [ ] Ajouter un livre papier 
+- [ ] Possibilité de publier des posts sur son profile
+- [ ] Ajouter un livre papier
 - [ ] Mettre au partage/don de livre papier
 - [ ] Partager son emplacement géographique (adresse)
+
 ##### Paramètres:
+
 - [ ] Possibilité de rendre publique ou privés sa bibliothèque et certaines de ses informations
 - [ ] Supprimer définitivement son compte
-- [ ] Pouvoir masquer la partie histoire ou livres papier (c-à-d ne voir que les histoires créées par les utilisateurs ou que les livres papiers partagés) 
+- [ ] Pouvoir masquer la partie histoire ou livres papier (c-à-d ne voir que les histoires créées par les utilisateurs ou que les livres papiers partagés)
 
 ##### PRINCIPALES:
+
 ##### V1:
+
 - [ ] Possibilité de publication/modif/supp d'histoires/de nouvelles créées par soi-même (l'ecriture de l'histoire sur le site)
-- [ ] Abonnement/désabonnement à des profils
+- [ ] Abonnement/désabonnement à des profiles
 - [ ] Filtre (dans la page de flux) des histoires en fonction de leur catégorie (+ possibilié de cacher des histoires avec des mots clés)
 - [ ] Affichage du contenu adapté à l'âge de l'utilisateur
-- [ ] Newsletter des histoires/nouvelles crées (les mieux votés sont proposés à certains utilisateurs aléatoirement) 
+- [ ] Newsletter des histoires/nouvelles crées (les mieux votés sont proposés à certains utilisateurs aléatoirement)
 
 ##### V2:
+
 - [ ] Partager un aperçu de livres (papier) lus avec des commentaires sur ces livres
-- [ ] Pouvoir indiquer aux autres utilisateurs que nous proposons au partage/don nos livres ( john propose *Le petit prince* au partage )
+- [ ] Pouvoir indiquer aux autres utilisateurs que nous proposons au partage/don nos livres ( john propose _Le petit prince_ au partage )
 - [ ] Voir la disponibilité des livres
 - [ ] Date limite pour rendre les livres empruntés
-- [ ] Avoir un lien redirigeant les utilisateurs intéressés par un livre papier partagé par un utilisateur vers un site qui vendrait ce livre (ex: fnac ...) 
+- [ ] Avoir un lien redirigeant les utilisateurs intéressés par un livre papier partagé par un utilisateur vers un site qui vendrait ce livre (ex: fnac ...)
 
 ##### BIBLIOTHEQUE:
+
 - [ ] Ajouter/retirer une histoire de la bibliothèque
-- [ ] Possibilité de lire les histoires publiées par les autres utilisateurs 
-- [ ] Possibilité de commenter et de mettre un j'aime sur l'histoire 
+- [ ] Possibilité de lire les histoires publiées par les autres utilisateurs
+- [ ] Possibilité de commenter et de mettre un j'aime sur l'histoire
 
 <!--
 ## Pages
 
 - [x] Inscription/connexion
 - [ ] Accueil
-- [ ] Son Profil
-- [ ] (Consulter le) Profil d'un utilisateur
+- [ ] Son Profile
+- [ ] (Consulter le) Profile d'un utilisateur
 - [ ] Page de flux d'histoires d'autres utilisateurs (triés par date de création décroissante**)
 - [ ] Page de flux de livres papier
 - [ ] Aperçu d'une histoire (photo, synopsis, mots clés, ...)
@@ -71,30 +80,31 @@ Il y a deux principales fonctionnalités:
 - [ ] Equipe
 - [ ] Gestion des préférences concernant les cookies
 
-** plus tard trier en fonction des goûts de l'utilisateur 
+** plus tard trier en fonction des goûts de l'utilisateur
 -->
 
 ## BDD
 
 <img width="461" alt="image" src="https://user-images.githubusercontent.com/100844563/199120183-0b0e84e0-51e0-492b-badf-dcba3a138182.png">
 
-
 Utilisateur
+
 - roles
 - nom
 - prenom
 - email
 - mdp
 - voie
-- rue 
+- rue
 - ville
 - code_postale
 - date_naissance
-- photo_profil
+- photo_profile
 - photo_bannière
 - date_inscription
 
 Histoire
+
 - id_utilisateur (auteur)
 - titre
 - synopsis
@@ -109,6 +119,7 @@ Histoire
 - date_creation
 
 Chapitre
+
 - id_histoire
 - ordre (num du chapitre)
 - titre
@@ -117,10 +128,12 @@ Chapitre
 - date_modification
 
 Bibliothèque
-- id_utilisateur 
+
+- id_utilisateur
 - id_histoire
 
 Avis
+
 - id_utilisateur (commentateur)
 - id_histoire
 - commentaire (null)
@@ -128,6 +141,7 @@ Avis
 - date_publication
 
 Livre_papier
+
 - id_utilisateur
 - titre
 - auteur
@@ -136,10 +150,11 @@ Livre_papier
 - editeur
 - categorie
 - mot_cle
-- photo 
+- photo
 - statut
 
 Emprunt
+
 - id_utilisateur (preteur)
 - id_utilisateur (emprunteur)
 - id_livre_papier
@@ -147,5 +162,3 @@ Emprunt
 - date_rendu
 
 <img width="429" alt="image" src="https://user-images.githubusercontent.com/100844563/199812045-5c571f8a-a271-4c07-8b98-92a8c953dd5a.png">
-
-

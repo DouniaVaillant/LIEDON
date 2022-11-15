@@ -16,22 +16,11 @@ class User extends Db
   public static function update(array $data)
   {
 
-    $request = "UPDATE user SET photo_banner = :photo_banner, photo_profil = :photo_profil, lastname = :lastname, firstname = :firstname, pseudo = :pseudo, email = :email, birthday = :birthday, way = :way, address = :address, city = :city, postal_code = :postal_code, country = :country, gender = :gender, roles = :roles WHERE id=:id";
+    $request = "UPDATE user SET photo_banner = :photo_banner, photo_profile = :photo_profile, lastname = :lastname, firstname = :firstname, pseudo = :pseudo, email = :email, birthday = :birthday, way = :way, address = :address, city = :city, postal_code = :postal_code, country = :country, gender = :gender, roles = :roles WHERE id=:id";
     $response = self::getDb()->prepare($request);
     $response->execute(self::htmlspecialchars($data));
-    
+
     return self::getDb()->lastInsertId();
-
-  }
-
-  public static function findByEmail($email)
-  {
-
-    $request = "SELECT * FROM user WHERE email = :email";
-    $response = self::getDb()->prepare($request);
-    $response->execute($email);
-
-    return $response->fetch(PDO::FETCH_ASSOC);
   }
 
   public static function findAll()
@@ -44,6 +33,16 @@ class User extends Db
     return $response->fetchAll(PDO::FETCH_ASSOC);
   }
 
+  public static function findByEmail($email)
+  {
+
+    $request = "SELECT * FROM user WHERE email = :email";
+    $response = self::getDb()->prepare($request);
+    $response->execute($email);
+
+    return $response->fetch(PDO::FETCH_ASSOC);
+  }
+
   public static function findById(array $id)
   {
 
@@ -54,6 +53,16 @@ class User extends Db
     return $response->fetch(PDO::FETCH_ASSOC);
   }
 
+  public static function findByPseudo(array $pseudo)
+  {
+    $request = "SELECT * FROM user WHERE pseudo = :pseudo";
+    $response = self::getDb()->prepare($request);
+    $response->execute(self::htmlspecialchars($pseudo));
+
+    // die(var_dump($pseudo));
+    return $response->fetchAll(PDO::FETCH_ASSOC);
+  }
+
   public static function editPassword(array $data)
   {
     $request = "UPDATE user SET password = :password WHERE id = :id";
@@ -61,14 +70,13 @@ class User extends Db
 
     return $response->execute($data);
   }
-  
+
   public static function delete(array $data)
   {
 
-      $request = "DELETE FROM user  WHERE id=:id";
+    $request = "DELETE FROM user  WHERE id=:id";
 
-      $response = self::getDb()->prepare($request);
-      return $response->execute(self::htmlspecialchars($data));
-
+    $response = self::getDb()->prepare($request);
+    return $response->execute(self::htmlspecialchars($data));
   }
 }

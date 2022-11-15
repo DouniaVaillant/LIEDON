@@ -43,8 +43,8 @@ $routes = [
     '/admin/edit'           => ['AppController', 'editUser'],
     '/admin/delete'         => ['AppController', 'deleteUser'],
     '/admin/add/user'       => ['AppController', 'addUser'],
-    '/user/profil'          => ['AppController', 'profil'],
-    '/user/profil/edit'     => ['AppController', 'editProfil'],
+    '/user/profile'          => ['AppController', 'profile'],
+    '/user/profile/edit'     => ['AppController', 'editProfile'],
     '/user/editPassword'    => ['AppController', 'editPassword'],
 
 

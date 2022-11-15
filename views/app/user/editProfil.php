@@ -1,15 +1,15 @@
 <?php include(VIEWS . '_partials/header.php'); ?>
 
 
-<h1>Modifier son profil</h1>
+<h1>Modifier son profile</h1>
 
-<form method="POST" action="<?= BASE_PATH . "user/profil/edit?id=" . $user['id']; ?>" enctype="multipart/form-data">
+<form method="POST" action="<?= BASE_PATH . "user/profile/edit?id=" . $user['id']; ?>" enctype="multipart/form-data">
 
 
     <!-- BANNIERE -->
     <input type="hidden" name="id" value="<?= $_GET['id']; ?>">
     <input type="hidden" name="photo_banner" value="<?= $user['photo_banner']; ?>">
-    <div class="form-group newPhotoProfil">
+    <div class="form-group newPhotoProfile">
         <label for="bannerFile" class="form-label mt-4">Photo de bannière</label>
         <input name="photoBannerUpdate" onchange="loadFileBanner(event)" class="form-control" type="file" id="bannerFile">
         <img src="<?= BASE . 'upload/photos/banner' . $user['photo_banner']; ?>" width="300" alt="" class="input-file">
@@ -18,12 +18,12 @@
 
     <!-- PROFIL -->
     <input type="hidden" name="id" value="<?= $_GET['id']; ?>">
-    <input type="hidden" name="photo_profil" value="<?= $user['photo_profil']; ?>">
-    <div class="form-group newPhotoProfil">
-        <label for="photoFile" class="form-label label-file labelNewPhotoProfil mt-4">Photo de profil</label>
-        <input name="photoProfilUpdate" onchange="loadFileProfil(event)" class="form-control inputNewPhotoProfil" type="file" id="photoFile">
-        <img src="<?= BASE . 'upload/photos/profil' . $user['photo_profil']; ?>" width="300" alt="" class="input-file imgNewPhotoProfil">
-        <img id="profil" alt="" width="300" border-radius>
+    <input type="hidden" name="photo_profile" value="<?= $user['photo_profile']; ?>">
+    <div class="form-group newPhotoProfile">
+        <label for="photoFile" class="form-label label-file labelNewPhotoProfile mt-4">Photo de profile</label>
+        <input name="photoProfileUpdate" onchange="loadFileProfile(event)" class="form-control inputNewPhotoProfile" type="file" id="photoFile">
+        <img src="<?= BASE . 'upload/photos/profile' . $user['photo_profile']; ?>" width="300" alt="" class="input-file imgNewPhotoProfile">
+        <img id="profile" alt="" width="300" border-radius>
     </div>
 
     <div class="mb-3">
@@ -108,9 +108,9 @@
         let banner = document.getElementById('banner');
         banner.src = URL.createObjectURL(event.target.files[0]);
     }
-    let loadFileProfil = function(event) {
-        let profil = document.getElementById('profil');
-        profil.src = URL.createObjectURL(event.target.files[0]);
+    let loadFileProfile = function(event) {
+        let profile = document.getElementById('profile');
+        profile.src = URL.createObjectURL(event.target.files[0]);
     }
 </script>
 

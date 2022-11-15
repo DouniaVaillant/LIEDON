@@ -5,7 +5,17 @@ class AppController
 
   public static function index()
   {
-    // var_dump($_SESSION['user']);
+
+    if (isset($_GET['searchUser'])) :
+      $pseudo = $_GET['searchUser'];
+      $users = User::findByPseudo([
+        'pseudo' => $pseudo
+      ]);
+
+    endif;
+
+
+
     include(VIEWS . 'app/index.php');
   }
 
@@ -164,7 +174,7 @@ class AppController
     include(VIEWS . "app/backoffice/listUser.php");
   }
 
-  public static function profil()
+  public static function profile()
   {
 
     if (isset($_GET['id'])) :
@@ -172,18 +182,18 @@ class AppController
       $id = $_GET['id'];
       $user = User::findById(['id' => $id]);
 
-      include(VIEWS . "app/user/showProfil.php");
+      include(VIEWS . "app/user/showProfile.php");
 
     else :
 
       $user = User::findById(['id' => $_SESSION['user']['id']]);
 
-      include(VIEWS . "app/user/profil.php");
+      include(VIEWS . "app/user/profile.php");
 
     endif;
   }
 
-  public static function editProfil()
+  public static function editProfile()
   {
 
     $user = User::findById(['id' => $_GET['id']]);
@@ -207,19 +217,19 @@ class AppController
 
       endif;
 
-      if (!empty($_FILES['photoProfilUpdate']['name']) && $_FILES['photoProfilUpdate']['size'] < 3000000 && ($_FILES['photoProfilUpdate']['type'] == 'image/jpeg' || $_FILES['photoProfilUpdate']['type'] == 'image/png' || $_FILES['photoProfilUpdate']['type'] == 'image/gif')) :
+      if (!empty($_FILES['photoProfileUpdate']['name']) && $_FILES['photoProfileUpdate']['size'] < 3000000 && ($_FILES['photoProfileUpdate']['type'] == 'image/jpeg' || $_FILES['photoProfileUpdate']['type'] == 'image/png' || $_FILES['photoProfileUpdate']['type'] == 'image/gif')) :
 
-        $extensionPhotoUpload = strtolower(strchr($_FILES['photoProfilUpdate']['name'], '.')); /// = srttolower => met en minuscule ||| substr => ignore un élément de la chaîne ||| strrchr => récupère l'extension du fichier
-        $photoName = $user['id'] . '-profil-' . date_format(new DateTime(), 'dmH') . '-' . uniqid() . $extensionPhotoUpload;
+        $extensionPhotoUpload = strtolower(strchr($_FILES['photoProfileUpdate']['name'], '.')); /// = srttolower => met en minuscule ||| substr => ignore un élément de la chaîne ||| strrchr => récupère l'extension du fichier
+        $photoName = $user['id'] . '-profile-' . date_format(new DateTime(), 'dmH') . '-' . uniqid() . $extensionPhotoUpload;
 
         // on supprime la précédente photo grace à la méthode unlink qui attend en argument le chemin complet d'acces au fichier à supprimer
-        unlink(PUBLIC_FOLDER . 'upload/photos/profil/' . $_POST['photo_profil']);
+        unlink(PUBLIC_FOLDER . 'upload/photos/profile/' . $_POST['photo_profile']);
         // on copie dans notre dossier d'upload le fichier chargé et renommé
-        copy($_FILES['photoProfilUpdate']['tmp_name'], PUBLIC_FOLDER . 'upload/photos/profil/' . $photoName);
+        copy($_FILES['photoProfileUpdate']['tmp_name'], PUBLIC_FOLDER . 'upload/photos/profile/' . $photoName);
 
       else :
 
-        $photoName = $_POST['photo_profil'];
+        $photoName = $_POST['photo_profile'];
 
       endif;
 
@@ -276,10 +286,10 @@ class AppController
       }
 
       if (empty($error)) :
-        // die(var_dump($_FILES['photoProfilUpdate']['name']));
+        // die(var_dump($_FILES['photoProfileUpdate']['name']));
         User::update([
           'photo_banner' => $photoBannerName,
-          'photo_profil' => $photoName,
+          'photo_profile' => $photoName,
           'lastname' => $_POST['lastname'],
           'firstname' => $_POST['firstname'],
           'pseudo' => $_POST['pseudo'],
@@ -298,14 +308,14 @@ class AppController
         $sessionUser = User::findById(['id' => $_SESSION['user']['id']]);
         $_SESSION['user'] = $sessionUser;
         $_SESSION['messages']['success'][] = 'Modification effectuée avec succès!';
-        header('location:../profil');
+        header('location:../profile');
         exit();
 
       endif;
     }
 
 
-    include(VIEWS . "app/user/editProfil.php");
+    include(VIEWS . "app/user/editProfile.php");
   }
 
   public static function editPassword()
@@ -351,7 +361,7 @@ class AppController
         $user = User::findById(['id' => $_SESSION['user']['id']]);
         $_SESSION['user'] = $user;
         $_SESSION['messages']['success'][] = 'Félicitation, mot de passe modifié !';
-        header('location:../user/profil');
+        header('location:../user/profile');
         exit();
 
       endif;
@@ -499,20 +509,20 @@ class AppController
 
       endif;
 
-      // * Profil
-      if (!empty($_FILES['photoProfilUpdate']['name']) && $_FILES['photoProfilUpdate']['size'] < 3000000 && ($_FILES['photoProfilUpdate']['type'] == 'image/jpeg' || $_FILES['photoProfilUpdate']['type'] == 'image/png' || $_FILES['photoProfilUpdate']['type'] == 'image/gif')) :
+      // * Profile
+      if (!empty($_FILES['photoProfileUpdate']['name']) && $_FILES['photoProfileUpdate']['size'] < 3000000 && ($_FILES['photoProfileUpdate']['type'] == 'image/jpeg' || $_FILES['photoProfileUpdate']['type'] == 'image/png' || $_FILES['photoProfileUpdate']['type'] == 'image/gif')) :
 
-        $extensionPhotoUpload = strtolower(strchr($_FILES['photoProfilUpdate']['name'], '.')); /// = srttolower => met en minuscule ||| substr => ignore un élément de la chaîne ||| strrchr => récupère l'extension du fichier
-        $photoName = $user['id'] . '-profil-' . date_format(new DateTime(), 'YdmHi') . '-' . uniqid() . $extensionPhotoUpload;
+        $extensionPhotoUpload = strtolower(strchr($_FILES['photoProfileUpdate']['name'], '.')); /// = srttolower => met en minuscule ||| substr => ignore un élément de la chaîne ||| strrchr => récupère l'extension du fichier
+        $photoName = $user['id'] . '-profile-' . date_format(new DateTime(), 'YdmHi') . '-' . uniqid() . $extensionPhotoUpload;
 
         // on supprime la précédente photo grace à la méthode unlink qui attend en argument le chemin complet d'acces au fichier à supprimer
-        unlink(PUBLIC_FOLDER . 'upload/photos/profil/' . $_POST['photo_profil']);
+        unlink(PUBLIC_FOLDER . 'upload/photos/profile/' . $_POST['photo_profile']);
         // on copie dans notre dossier d'upload le fichier chargé et renommé
-        copy($_FILES['photoProfilUpdate']['tmp_name'], PUBLIC_FOLDER . 'upload/photos/profil/' . $photoName);
+        copy($_FILES['photoProfileUpdate']['tmp_name'], PUBLIC_FOLDER . 'upload/photos/profile/' . $photoName);
 
       else :
 
-        $photoName = $_POST['photo_profil'];
+        $photoName = $_POST['photo_profile'];
 
       endif;
 
@@ -575,7 +585,7 @@ class AppController
 
         User::update([
           'photo_banner' => $photoBannerName,
-          'photo_profil' => $photoName,
+          'photo_profile' => $photoName,
           'lastname' => $_POST['lastname'],
           'firstname' => $_POST['firstname'],
           'pseudo' => $_POST['pseudo'],

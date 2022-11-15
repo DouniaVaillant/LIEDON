@@ -6,7 +6,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" href="<?= BASE . 'images/logo.svg'; ?>" style="height: 50px;">
+    <link rel="icon" href="<?= BASE . 'assets/images/logo.svg'; ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/css/bootstrap.min.css" integrity="sha512-CpIKUSyh9QX2+zSdfGP+eWLx23C8Dj9/XmHjZY2uDtfkdLGo0uY12jgcnkX9vXOgYajEKb/jiw67EYm+kBf+6g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="<?= BASE . 'assets/css/style.css'; ?>">
@@ -14,7 +14,7 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg bg-beige" style="background: #EECE9F;">
+    <nav class="navbar navbar-expand-lg bg-beige">
         <div class="container-fluid">
             <a class="navbar-brand" href="<?= BASE_PATH; ?>">
                 <img src="<?= BASE . "assets/images/logo.svg"; ?>" alt="Logo_light" style="height: 70px;">
@@ -52,10 +52,10 @@
                     <?php if (isset($_SESSION['user'])) : ?>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Profil
+                                Profile
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="<?= BASE_PATH . "user/profil"; ?>">Profil</a></li>
+                                <li><a class="dropdown-item" href="<?= BASE_PATH . "user/profile"; ?>">Profile</a></li>
                                 <hr class="hr">
                                 <li><a class="dropdown-item" href="#">Mes histoires</a></li>
                                 <li><a class="dropdown-item" href="#">Mes livres</a></li>
