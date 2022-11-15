@@ -30,21 +30,3 @@
   text-shadow: 0 0 1px var(--sun);
   color: var(--soil);
 }
-
-/* Arrondit des photos de profil */
-
-.newPhotoProfil {
-  text-align: center;
-  padding: 3%;
-  border: thin solid black;
-}
-
-input {
-  display: none;
-}
-label {
-  cursor: pointer;
-}
-#imageName {
-  color: green;
-}

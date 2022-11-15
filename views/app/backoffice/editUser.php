@@ -11,16 +11,15 @@
         <input type="hidden" name="id" value="<?= $_GET['id']; ?>">
         <input type="hidden" name="photo_profil" value="<?= $user['photo_profil']; ?>">
         <div class="form-group newPhotoProfil">
-            <label for="formFile" class="form-label photoProfil mt-4">Photo de profil
-                <input name="photoProfilUpdate" onchange="loadFile(event)" class="form-control" type="file" id="formFile">
-                <img src="<?= BASE . 'upload/photos/profil' . $user['photo_profil']; ?>" width="300" alt="">
-                <img id="image" alt="" width="300" border-radius>
-            </label>
+            <label for="file" class="form-label label-file labelNewPhotoProfil mt-4">Photo de profil</label>
+            <input name="photoUpdate" onchange="loadFile(event)" class="form-control inputNewPhotoProfil" type="file" id="formFile">
+            <img src="<?= BASE . 'upload/photos/profil' . $user['photo_profil']; ?>" width="300" alt="" class="input-file imgNewPhotoProfil">
+            <img id="image" alt="" width="300" border-radius>
         </div>
     <?php else : ?>
         <div class="form-group">
             <label for="formFile" class="form-label photoProfil mt-4">Photo de profil</label>
-            <input name="photo" onchange="loadFile(event)" class="form-control" type="file" id="formFile">
+            <input name="photo_profil" onchange="loadFile(event)" class="form-control" type="file" id="formFile">
             <img id="image" alt="">
         </div>
 
@@ -101,24 +100,23 @@
     </div>
 
     <div class="mb-3">
-        <label for="roles" class="form-label">Rôle</label>
-        <input type="radio" name="roles" id="roles" <?php if ($user['roles'] == 'ROLE_USER') {
+        <label for="roles" class="form-label form-check-label">Rôle</label>
+        <input type="radio" name="roles" id="roles" class="form-check-input" <?php if ($user['roles'] == 'ROLE_USER') :
                                                         echo 'checked';
-                                                    } ?> value="ROLE_USER">Membre
-        <input type="radio" name="roles" id="roles" <?php if ($user['roles'] == 'ROLE_MODO') {
+                                                    endif; ?> value="ROLE_USER">Membre
+        <input type="radio" name="roles" id="roles" class="form-check-input" <?php if ($user['roles'] == 'ROLE_MODO') :
                                                         echo 'checked';
-                                                    } ?> value="ROLE_MODO">Modérateur.trice
-        <input type="radio" name="roles" id="roles" <?php if ($user['roles'] == 'ROLE_ADMIN') {
+                                                    endif; ?> value="ROLE_MODO">Modérateur.trice
+        <input type="radio" name="roles" id="roles" class="form-check-input" <?php if ($user['roles'] == 'ROLE_ADMIN') :
                                                         echo 'checked';
-                                                    } ?> value="ROLE_ADMIN">Administrateur.trice
+                                                    endif; ?> value="ROLE_ADMIN">Administrateur.trice
         <small class="text-danger"><?= $error['roles'] ?? ""; ?></small>
     </div>
     <button type="submit" class="btn btn-primary">Enregistrer</button>
 </form>
 
 <script>
-    let loadFile = function(event)
-    {
+    let loadFile = function(event) {
         let image = document.getElementById('image');
 
         image.src = URL.createObjectURL(event.target.files[0]);

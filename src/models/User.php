@@ -16,7 +16,7 @@ class User extends Db
   public static function update(array $data)
   {
 
-    $request = "UPDATE user SET lastname = :lastname, firstname = :firstname, pseudo = :pseudo, email = :email, birthday = :birthday, way = :way, address = :address, city = :city, postal_code = :postal_code, country = :country, gender = :gender, roles = :roles WHERE id=:id";
+    $request = "UPDATE user SET photo_profil = :photo_profil, lastname = :lastname, firstname = :firstname, pseudo = :pseudo, email = :email, birthday = :birthday, way = :way, address = :address, city = :city, postal_code = :postal_code, country = :country, gender = :gender, roles = :roles WHERE id=:id";
     $response = self::getDb()->prepare($request);
     $response->execute(self::htmlspecialchars($data));
     

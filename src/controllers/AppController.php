@@ -167,12 +167,12 @@ class AppController
   public static function profil()
   {
 
-    if (isset($_GET['profil'])) :
+    if (isset($_GET['id'])) :
 
       $id = $_GET['id'];
       $user = User::findById(['id' => $id]);
 
-      include(VIEWS . "app/showProfil.php");
+      include(VIEWS . "app/user/showProfil.php");
 
     else :
 
@@ -186,8 +186,26 @@ class AppController
   public static function editProfil()
   {
 
+    $user = User::findById(['id' => $_GET['id']]);
+
     $error = [];
     if (!empty($_POST)) {
+
+      if (!empty($_FILES['photoUpdate']['name']) && $_FILES['photoUpdate']['size'] < 3000000 && ($_FILES['photoUpdate']['type'] == 'image/jpeg' || $_FILES['photoUpdate']['type'] == 'image/png' || $_FILES['photoUpdate']['type'] == 'image/gif')) :
+
+        $extensionPhotoUpload = strtolower(strchr($_FILES['photoUpdate']['name'], '.')); /// = srttolower => met en minuscule ||| substr => ignore un élément de la chaîne ||| strrchr => récupère l'extension du fichier
+        $photoName = $user['id'] . '-' . date_format(new DateTime(), 'dmHi') . $extensionPhotoUpload;
+
+        // on supprime la précédente photo grace à la méthode unlink qui attend en argument le chemin complet d'acces au fichier à supprimer
+        unlink(PUBLIC_FOLDER . 'upload/photos/profil/' . $_POST['photo_profil']);
+        // on copie dans notre dossier d'upload le fichier chargé et renommé
+        copy($_FILES['photoUpdate']['tmp_name'], PUBLIC_FOLDER . 'upload/photos/profil/' . $photoName);
+
+      else :
+
+        $photoName = $_POST['photo_profil'];
+
+      endif;
 
       if (empty($_POST['lastname']) || preg_match('#[0-9]#', $_POST['lastname'])) {
         $error['lastname'] = 'Le champs est obligatoire et doit contenir uniquement des lettres';
@@ -202,12 +220,15 @@ class AppController
       }
 
       if (empty($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) || User::findByEmail(['email' => $_POST['email']])) :
-        if (User::findByEmail(['email' => $_POST['email']])) :
+        if ($_POST['email'] == $_SESSION['user']['email']) :
+
+        else :
           $_SESSION['messages']['danger'][] = 'Un compte est déjà existant à cette adresse mail, veuillez procéder à la récupération de mot passe';
           $error['email'] = '';
-        else :
-          $error['email'] = 'Le champs est obligatoire et l\'adresse mail doit être valide';
+
         endif;
+      else :
+        $error['email'] = 'Le champs est obligatoire et l\'adresse mail doit être valide';
       endif;
 
       if (empty($_POST['birthday']) || preg_match('#[a-zA-Z]#', $_POST['birthday'])) {
@@ -239,8 +260,9 @@ class AppController
       }
 
       if (empty($error)) :
-
+        // die(var_dump($_FILES['photoUpdate']['name']));
         User::update([
+          'photo_profil' => $photoName,
           'lastname' => $_POST['lastname'],
           'firstname' => $_POST['firstname'],
           'pseudo' => $_POST['pseudo'],
@@ -252,13 +274,14 @@ class AppController
           'postal_code' => $_POST['postal_code'],
           'country' => $_POST['country'],
           'gender' => $_POST['gender'],
+          'roles' => $user['roles'],
           'id' => $_SESSION['user']['id']
         ]);
 
         $sessionUser = User::findById(['id' => $_SESSION['user']['id']]);
         $_SESSION['user'] = $sessionUser;
         $_SESSION['messages']['success'][] = 'Modification effectuée avec succès!';
-        header('location:../user/profil');
+        header('location:../profil');
         exit();
 
       endif;
@@ -444,24 +467,21 @@ class AppController
     $error = [];
     if (!empty($_POST)) {
 
-      if (isset($_FILES['photo_profil']) && !empty($_FILES['photo_profil'])) {
-        // ? Vérification de la taille du fichier
-        $maxSize = 3000000;
-        if ($_FILES['photo_profil'] > $maxSize ) {
-          $error['photo_profil'] = "Le fichier est trop volumineux";
-        }
-        // ? Vérification de l'extension du fichier
-        $validExtensions = array('jpg', 'jpeg', 'png', 'gif'); /// = Tableau contenant les types d'extensions autorisées
-        $extensionPhotoUpload = strtolower(substr(strchr($_FILES['photo_profil']['name'], '.'), 1)); /// = srttolower => met en minuscule ||| substr => ignore un élément de la chaîne ||| strrchr => récupère l'extension du fichier
-        if (in_array($extensionPhotoUpload, $validExtensions)) {
-          
-            // on supprime la précédente photo grace à la méthode unlink qui attend en argument le chemin complet d'acces au fichier à supprimer
-            unlink(PUBLIC_FOLDER . 'upload/photos/profil' . $_POST['photo']);
-            // on copie dans notre dossier d'upload le fichier chargé et renommé
-            copy($_FILES['photoProfilUpdate']['tmp_name'], PUBLIC_FOLDER . 'upload/photos/profil' . $user['id'] . $extensionPhotoUpload);
+      if (!empty($_FILES['photoUpdate']['name']) && $_FILES['photoUpdate']['size'] < 3000000 && ($_FILES['photoUpdate']['type'] == 'image/jpeg' || $_FILES['photoUpdate']['type'] == 'image/png' || $_FILES['photoUpdate']['type'] == 'image/gif')) :
 
-        }
-      }
+        $extensionPhotoUpload = strtolower(strchr($_FILES['photoUpdate']['name'], '.')); /// = srttolower => met en minuscule ||| substr => ignore un élément de la chaîne ||| strrchr => récupère l'extension du fichier
+        $photoName = $user['id'] . '-' . date_format(new DateTime(), 'dmHi') . $extensionPhotoUpload;
+
+        // on supprime la précédente photo grace à la méthode unlink qui attend en argument le chemin complet d'acces au fichier à supprimer
+        unlink(PUBLIC_FOLDER . 'upload/photos/profil/' . $_POST['photo_profil']);
+        // on copie dans notre dossier d'upload le fichier chargé et renommé
+        copy($_FILES['photoUpdate']['tmp_name'], PUBLIC_FOLDER . 'upload/photos/profil/' . $photoName);
+
+      else :
+
+        $photoName = $_POST['photo_profil'];
+
+      endif;
 
       if (empty($_POST['lastname']) || preg_match('#[0-9]#', $_POST['lastname'])) {
         $error['lastname'] = 'Le champs est obligatoire et doit contenir uniquement des lettres';
@@ -518,6 +538,7 @@ class AppController
       if (empty($error)) :
 
         User::update([
+          'photo_profil' => $photoName,
           'lastname' => $_POST['lastname'],
           'firstname' => $_POST['firstname'],
           'pseudo' => $_POST['pseudo'],
