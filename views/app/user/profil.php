@@ -1,11 +1,12 @@
 <?php include(VIEWS . '_partials/header.php'); ?>
 
-
+<div class="" style="height: 20vh; overflow: hidden;">
+    <img src="<?= BASE . 'upload/photos/banner/' . $user['photo_banner']; ?>" alt="" style="width: 100vw;">
+</div>
 
 <h1>@<?= $user['pseudo']; ?></h1>
 
 <div class="" style="height: 100px; width: 100px; overflow: hidden; border-radius: 150px;">
-
     <img src="<?= BASE . 'upload/photos/profil/' . $user['photo_profil']; ?>" alt="" style="width: 200%;">
 </div>
 
@@ -13,7 +14,7 @@
 <p><?= $user['firstname']; ?></p>
 <p><?= $user['roles']; ?></p>
 <p><?= $user['email']; ?></p>
-<p><?php echo $user['way']." ".$user['address']." ".$user['city']; ?></p>
+<p><?= $user['way']." ".$user['address']." ".$user['city']; ?></p>
 <p><?= $user['birthday']; ?></p>
 <p><?= $user['gender']; ?></p>
 <p><?= $user['date_registration']; ?></p>

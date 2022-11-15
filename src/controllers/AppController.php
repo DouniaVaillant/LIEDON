@@ -191,15 +191,31 @@ class AppController
     $error = [];
     if (!empty($_POST)) {
 
-      if (!empty($_FILES['photoUpdate']['name']) && $_FILES['photoUpdate']['size'] < 3000000 && ($_FILES['photoUpdate']['type'] == 'image/jpeg' || $_FILES['photoUpdate']['type'] == 'image/png' || $_FILES['photoUpdate']['type'] == 'image/gif')) :
+      if (!empty($_FILES['photoBannerUpdate']['name']) && $_FILES['photoBannerUpdate']['size'] < 3000000 && ($_FILES['photoBannerUpdate']['type'] == 'image/jpeg' || $_FILES['photoBannerUpdate']['type'] == 'image/png' || $_FILES['photoBannerUpdate']['type'] == 'image/gif')) :
 
-        $extensionPhotoUpload = strtolower(strchr($_FILES['photoUpdate']['name'], '.')); /// = srttolower => met en minuscule ||| substr => ignore un élément de la chaîne ||| strrchr => récupère l'extension du fichier
-        $photoName = $user['id'] . '-' . date_format(new DateTime(), 'dmHi') . $extensionPhotoUpload;
+        $extensionBannerUpload = strtolower(strchr($_FILES['photoBannerUpdate']['name'], '.')); /// = srttolower => met en minuscule ||| substr => ignore un élément de la chaîne ||| strrchr => récupère l'extension du fichier
+        $photoBannerName = $user['id'] . '-banner-' . date_format(new DateTime(), 'dmHi') . '-' . uniqid() . $extensionBannerUpload;
+
+        // on supprime la précédente photo grace à la méthode unlink qui attend en argument le chemin complet d'acces au fichier à supprimer
+        unlink(PUBLIC_FOLDER . 'upload/photos/banner/' . $_POST['photo_banner']);
+        // on copie dans notre dossier d'upload le fichier chargé et renommé
+        copy($_FILES['photoBannerUpdate']['tmp_name'], PUBLIC_FOLDER . 'upload/photos/banner/' . $photoBannerName);
+
+      else :
+
+        $photoName = $_POST['photo_banner'];
+
+      endif;
+
+      if (!empty($_FILES['photoProfilUpdate']['name']) && $_FILES['photoProfilUpdate']['size'] < 3000000 && ($_FILES['photoProfilUpdate']['type'] == 'image/jpeg' || $_FILES['photoProfilUpdate']['type'] == 'image/png' || $_FILES['photoProfilUpdate']['type'] == 'image/gif')) :
+
+        $extensionPhotoUpload = strtolower(strchr($_FILES['photoProfilUpdate']['name'], '.')); /// = srttolower => met en minuscule ||| substr => ignore un élément de la chaîne ||| strrchr => récupère l'extension du fichier
+        $photoName = $user['id'] . '-profil-' . date_format(new DateTime(), 'dmH') . '-' . uniqid() . $extensionPhotoUpload;
 
         // on supprime la précédente photo grace à la méthode unlink qui attend en argument le chemin complet d'acces au fichier à supprimer
         unlink(PUBLIC_FOLDER . 'upload/photos/profil/' . $_POST['photo_profil']);
         // on copie dans notre dossier d'upload le fichier chargé et renommé
-        copy($_FILES['photoUpdate']['tmp_name'], PUBLIC_FOLDER . 'upload/photos/profil/' . $photoName);
+        copy($_FILES['photoProfilUpdate']['tmp_name'], PUBLIC_FOLDER . 'upload/photos/profil/' . $photoName);
 
       else :
 
@@ -260,8 +276,9 @@ class AppController
       }
 
       if (empty($error)) :
-        // die(var_dump($_FILES['photoUpdate']['name']));
+        // die(var_dump($_FILES['photoProfilUpdate']['name']));
         User::update([
+          'photo_banner' => $photoBannerName,
           'photo_profil' => $photoName,
           'lastname' => $_POST['lastname'],
           'firstname' => $_POST['firstname'],
@@ -467,15 +484,31 @@ class AppController
     $error = [];
     if (!empty($_POST)) {
 
-      if (!empty($_FILES['photoUpdate']['name']) && $_FILES['photoUpdate']['size'] < 3000000 && ($_FILES['photoUpdate']['type'] == 'image/jpeg' || $_FILES['photoUpdate']['type'] == 'image/png' || $_FILES['photoUpdate']['type'] == 'image/gif')) :
+      // * Bannière
+      if (!empty($_FILES['photoBannerUpdate']['name']) && $_FILES['photoBannerUpdate']['size'] < 3000000 && ($_FILES['photoBannerUpdate']['type'] == 'image/jpeg' || $_FILES['photoBannerUpdate']['type'] == 'image/png' || $_FILES['photoBannerUpdate']['type'] == 'image/gif')) :
 
-        $extensionPhotoUpload = strtolower(strchr($_FILES['photoUpdate']['name'], '.')); /// = srttolower => met en minuscule ||| substr => ignore un élément de la chaîne ||| strrchr => récupère l'extension du fichier
-        $photoName = $user['id'] . '-' . date_format(new DateTime(), 'dmHi') . $extensionPhotoUpload;
+        $extensionBannerUpload = strtolower(strchr($_FILES['photoBannerUpdate']['name'], '.')); /// = srttolower => met en minuscule ||| substr => ignore un élément de la chaîne ||| strrchr => récupère l'extension du fichier
+        $photoBannerName = $user['id'] . '-banner-' . date_format(new DateTime(), 'YdmHi') . '-' . uniqid() . $extensionBannerUpload;
+
+        unlink(PUBLIC_FOLDER . 'upload/photos/banner/' . $_POST['photo_banner']); // ? Suppression de la précédente image
+        copy($_FILES['photoBannerUpdate']['tmp_name'], PUBLIC_FOLDER . 'upload/photos/banner/' . $photoBannerName); // ? Copie de la nouvelle image dans le dossier concerné
+
+      else :
+
+        $photoName = $_POST['photo_banner'];
+
+      endif;
+
+      // * Profil
+      if (!empty($_FILES['photoProfilUpdate']['name']) && $_FILES['photoProfilUpdate']['size'] < 3000000 && ($_FILES['photoProfilUpdate']['type'] == 'image/jpeg' || $_FILES['photoProfilUpdate']['type'] == 'image/png' || $_FILES['photoProfilUpdate']['type'] == 'image/gif')) :
+
+        $extensionPhotoUpload = strtolower(strchr($_FILES['photoProfilUpdate']['name'], '.')); /// = srttolower => met en minuscule ||| substr => ignore un élément de la chaîne ||| strrchr => récupère l'extension du fichier
+        $photoName = $user['id'] . '-profil-' . date_format(new DateTime(), 'YdmHi') . '-' . uniqid() . $extensionPhotoUpload;
 
         // on supprime la précédente photo grace à la méthode unlink qui attend en argument le chemin complet d'acces au fichier à supprimer
         unlink(PUBLIC_FOLDER . 'upload/photos/profil/' . $_POST['photo_profil']);
         // on copie dans notre dossier d'upload le fichier chargé et renommé
-        copy($_FILES['photoUpdate']['tmp_name'], PUBLIC_FOLDER . 'upload/photos/profil/' . $photoName);
+        copy($_FILES['photoProfilUpdate']['tmp_name'], PUBLIC_FOLDER . 'upload/photos/profil/' . $photoName);
 
       else :
 
@@ -483,6 +516,7 @@ class AppController
 
       endif;
 
+      // * 
       if (empty($_POST['lastname']) || preg_match('#[0-9]#', $_POST['lastname'])) {
         $error['lastname'] = 'Le champs est obligatoire et doit contenir uniquement des lettres';
       }
@@ -495,6 +529,7 @@ class AppController
         $error['pseudo'] = 'Le champs est obligatoire';
       }
 
+      // * Email
       if (empty($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) || User::findByEmail(['email' => $_POST['email']])) :
         if ($_POST['email'] == $user['email']) :
 
@@ -507,6 +542,7 @@ class AppController
         endif;
       endif;
 
+      // * 
       if (empty($_POST['birthday']) || preg_match('#[a-zA-Z]#', $_POST['birthday'])) {
         $error['birthday'] = 'Veuillez remplir correctement ce champs au format jj/mm/aaaa, aucune lettre n\'est acceptée';
       }
@@ -538,6 +574,7 @@ class AppController
       if (empty($error)) :
 
         User::update([
+          'photo_banner' => $photoBannerName,
           'photo_profil' => $photoName,
           'lastname' => $_POST['lastname'],
           'firstname' => $_POST['firstname'],

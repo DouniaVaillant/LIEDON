@@ -6,34 +6,25 @@
 <form method="POST" action="<?= BASE_PATH . "user/profil/edit?id=" . $user['id']; ?>" enctype="multipart/form-data">
 
 
-    <?php if (isset($user)) : ?>
-        <!-- BANNIERE -->
-        <input type="hidden" name="id" value="<?= $_GET['id']; ?>">
-        <input type="hidden" name="photo_banner" value="<?= $user['photo_banner']; ?>">
-        <div class="form-group newPhotoProfil">
-            <label for="bannerFile" class="form-label mt-4">Photo de bannière</label>
-            <input name="photoBannerUpdate" onchange="loadFile(event)" class="form-control" type="file" id="bannerFile">
-            <img src="<?= BASE . 'upload/photos/banner' . $user['photo_banner']; ?>" width="300" alt="" class="input-file">
-            <img id="image" alt="" width="300" border-radius>
-        </div>
+    <!-- BANNIERE -->
+    <input type="hidden" name="id" value="<?= $_GET['id']; ?>">
+    <input type="hidden" name="photo_banner" value="<?= $user['photo_banner']; ?>">
+    <div class="form-group newPhotoProfil">
+        <label for="bannerFile" class="form-label mt-4">Photo de bannière</label>
+        <input name="photoBannerUpdate" onchange="loadFileBanner(event)" class="form-control" type="file" id="bannerFile">
+        <img src="<?= BASE . 'upload/photos/banner' . $user['photo_banner']; ?>" width="300" alt="" class="input-file">
+        <img id="banner" alt="" width="300" border-radius>
+    </div>
 
-        <!-- PROFIL -->
-        <input type="hidden" name="id" value="<?= $_GET['id']; ?>">
-        <input type="hidden" name="photo_profil" value="<?= $user['photo_profil']; ?>">
-        <div class="form-group newPhotoProfil">
-            <label for="photoFile" class="form-label label-file labelNewPhotoProfil mt-4">Photo de profil</label>
-            <input name="photoUpdate" onchange="loadFile(event)" class="form-control inputNewPhotoProfil" type="file" id="photoFile">
-            <img src="<?= BASE . 'upload/photos/profil' . $user['photo_profil']; ?>" width="300" alt="" class="input-file imgNewPhotoProfil">
-            <img id="image" alt="" width="300" border-radius>
-        </div>
-    <?php else : ?>
-        <div class="form-group">
-            <label for="formFile" class="form-label photoProfil mt-4">Photo de profil</label>
-            <input name="photo_profil" onchange="loadFile(event)" class="form-control" type="file" id="formFile">
-            <img id="image" alt="">
-        </div>
-
-    <?php endif; ?>
+    <!-- PROFIL -->
+    <input type="hidden" name="id" value="<?= $_GET['id']; ?>">
+    <input type="hidden" name="photo_profil" value="<?= $user['photo_profil']; ?>">
+    <div class="form-group newPhotoProfil">
+        <label for="photoFile" class="form-label label-file labelNewPhotoProfil mt-4">Photo de profil</label>
+        <input name="photoProfilUpdate" onchange="loadFileProfil(event)" class="form-control inputNewPhotoProfil" type="file" id="photoFile">
+        <img src="<?= BASE . 'upload/photos/profil' . $user['photo_profil']; ?>" width="300" alt="" class="input-file imgNewPhotoProfil">
+        <img id="profil" alt="" width="300" border-radius>
+    </div>
 
     <div class="mb-3">
         <label for="lastname" class="form-label">Nom</label>
@@ -113,10 +104,13 @@
 
 
 <script>
-    let loadFile = function(event) {
-        let image = document.getElementById('image');
-
-        image.src = URL.createObjectURL(event.target.files[0]);
+    let loadFileBanner = function(event) {
+        let banner = document.getElementById('banner');
+        banner.src = URL.createObjectURL(event.target.files[0]);
+    }
+    let loadFileProfil = function(event) {
+        let profil = document.getElementById('profil');
+        profil.src = URL.createObjectURL(event.target.files[0]);
     }
 </script>
 

@@ -5,25 +5,25 @@
 
 <form method="POST" action="<?= BASE_PATH . "admin/edit?id=" . $user['id']; ?>" class="col-lg-6" enctype="multipart/form-data">
 
+    <!-- BANNIERE -->
+    <input type="hidden" name="id" value="<?= $_GET['id']; ?>">
+    <input type="hidden" name="photo_banner" value="<?= $user['photo_banner']; ?>">
+    <div class="form-group newPhotoProfil">
+        <label for="bannerFile" class="form-label mt-4">Photo de bannière</label>
+        <input name="photoBannerUpdate" onchange="loadFileBanner(event)" class="form-control" type="file" id="bannerFile">
+        <img src="<?= BASE . 'upload/photos/banner' . $user['photo_banner']; ?>" width="300" alt="" class="input-file">
+        <img id="banner" alt="" width="300" border-radius>
+    </div>
 
-
-    <?php if (isset($user)) : ?>
-        <input type="hidden" name="id" value="<?= $_GET['id']; ?>">
-        <input type="hidden" name="photo_profil" value="<?= $user['photo_profil']; ?>">
-        <div class="form-group newPhotoProfil">
-            <label for="file" class="form-label label-file labelNewPhotoProfil mt-4">Photo de profil</label>
-            <input name="photoUpdate" onchange="loadFile(event)" class="form-control inputNewPhotoProfil" type="file" id="formFile">
-            <img src="<?= BASE . 'upload/photos/profil' . $user['photo_profil']; ?>" width="300" alt="" class="input-file imgNewPhotoProfil">
-            <img id="image" alt="" width="300" border-radius>
-        </div>
-    <?php else : ?>
-        <div class="form-group">
-            <label for="formFile" class="form-label photoProfil mt-4">Photo de profil</label>
-            <input name="photo_profil" onchange="loadFile(event)" class="form-control" type="file" id="formFile">
-            <img id="image" alt="">
-        </div>
-
-    <?php endif; ?>
+    <!-- PROFIL -->
+    <input type="hidden" name="id" value="<?= $_GET['id']; ?>">
+    <input type="hidden" name="photo_profil" value="<?= $user['photo_profil']; ?>">
+    <div class="form-group newPhotoProfil">
+        <label for="photoFile" class="form-label label-file labelNewPhotoProfil mt-4">Photo de profil</label>
+        <input name="photoProfilUpdate" onchange="loadFileProfil(event)" class="form-control inputNewPhotoProfil" type="file" id="photoFile">
+        <img src="<?= BASE . 'upload/photos/profil' . $user['photo_profil']; ?>" width="300" alt="" class="input-file imgNewPhotoProfil">
+        <img id="profil" alt="" width="300" border-radius>
+    </div>
 
     <div class="mb-3">
         <label for="lastname" class="form-label">Nom</label>
@@ -102,24 +102,27 @@
     <div class="mb-3">
         <label for="roles" class="form-label form-check-label">Rôle</label>
         <input type="radio" name="roles" id="roles" class="form-check-input" <?php if ($user['roles'] == 'ROLE_USER') :
-                                                        echo 'checked';
-                                                    endif; ?> value="ROLE_USER">Membre
+                                                                                    echo 'checked';
+                                                                                endif; ?> value="ROLE_USER">Membre
         <input type="radio" name="roles" id="roles" class="form-check-input" <?php if ($user['roles'] == 'ROLE_MODO') :
-                                                        echo 'checked';
-                                                    endif; ?> value="ROLE_MODO">Modérateur.trice
+                                                                                    echo 'checked';
+                                                                                endif; ?> value="ROLE_MODO">Modérateur.trice
         <input type="radio" name="roles" id="roles" class="form-check-input" <?php if ($user['roles'] == 'ROLE_ADMIN') :
-                                                        echo 'checked';
-                                                    endif; ?> value="ROLE_ADMIN">Administrateur.trice
+                                                                                    echo 'checked';
+                                                                                endif; ?> value="ROLE_ADMIN">Administrateur.trice
         <small class="text-danger"><?= $error['roles'] ?? ""; ?></small>
     </div>
     <button type="submit" class="btn btn-primary">Enregistrer</button>
 </form>
 
 <script>
-    let loadFile = function(event) {
-        let image = document.getElementById('image');
-
-        image.src = URL.createObjectURL(event.target.files[0]);
+    let loadFileBanner = function(event) {
+        let banner = document.getElementById('banner');
+        banner.src = URL.createObjectURL(event.target.files[0]);
+    }
+    let loadFileProfil = function(event) {
+        let profil = document.getElementById('profil');
+        profil.src = URL.createObjectURL(event.target.files[0]);
     }
 </script>
 

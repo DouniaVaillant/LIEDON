@@ -1,5 +1,9 @@
 <?php include(VIEWS . '_partials/header.php'); ?>
 
+<div class="" style="height: 20vh; overflow: hidden;">
+    <img src="<?= BASE . 'upload/photos/banner/' . $user['photo_banner']; ?>" alt="" style="width: 100vw;">
+</div>
+
 
 <h1 class="text-center text-muted">@<?= $user['pseudo']; ?></h1>
 
@@ -8,15 +12,11 @@
     <img src="<?= BASE . 'upload/photos/profil/' . $user['photo_profil']; ?>" alt="" style="height: 200%;">
 </div>
 
-
-
-
-<p><?= $user['photo_banner']; ?></p>
 <p><?= $user['lastname']; ?></p>
 <p><?= $user['firstname']; ?></p>
 <p><?= $user['roles']; ?></p>
 <p><?= $user['email']; ?></p>
-<p><?php echo $user['way'] . " " . $user['address'] . " " . $user['city']; ?></p>
+<p><?= $user['way'] . " " . $user['address'] . " " . $user['city']; ?></p>
 <p><?= $user['birthday']; ?></p>
 <p><?= $user['gender']; ?></p>
 <p><?= $user['date_registration']; ?></p>
