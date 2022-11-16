@@ -38,17 +38,19 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Histoires numériques</a>
                     </li>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </button>
-                    </form>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <img src="<?= BASE . "assets/images/library.svg"; ?>" alt="" style="height: 30px;">
-                        </a>
-                    </li>
+                    <?php if (isset($_SESSION['user'])) : ?>
+                        <form class="d-flex" role="search">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchNav">
+                            <button class="btn btn-outline-success" type="submit">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </form>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <img src="<?= BASE . "assets/images/library.svg"; ?>" alt="" style="height: 30px;">
+                            </a>
+                        </li>
+                    <?php endif; ?>
                     <?php if (isset($_SESSION['user'])) : ?>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -68,7 +70,7 @@
                                 <li><a class="dropdown-item" href="<?= BASE_PATH . "user/logOut"; ?>">Déconnexion</a></li>
                             </ul>
                         </li>
-                        <?php if ($_SESSION['user']['roles'] == 'ROLE_ADMIN') : ?>
+                        <?php if ($_SESSION['user']['roles'] == 'ROLE_ADMIN' || $_SESSION['user']['roles'] == 'ROLE_MODO') : ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="<?= BASE_PATH . "admin/backoffice"; ?>">BACKOFFICE</a>
                             </li>

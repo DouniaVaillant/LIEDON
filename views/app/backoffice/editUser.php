@@ -1,4 +1,11 @@
-<?php include(VIEWS . '_partials/header.php'); ?>
+<?php include(VIEWS . '_partials/header.php'); 
+
+if (!isset($_SESSION['user'])) {
+    header('location:../');
+    exit();
+}
+
+?>
 
 
 <h1>Modifier l'utilisateur <?= $user['pseudo']; ?></h1>

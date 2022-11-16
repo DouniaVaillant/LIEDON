@@ -63,6 +63,17 @@ class User extends Db
     return $response->fetchAll(PDO::FETCH_ASSOC);
   }
 
+  public static function findByRole(array $role)
+  {
+   
+    $request = "SELECT * FROM user WHERE roles = :role";
+    $response = self::getDb()->prepare($request);
+    $response->execute($role);
+
+    return $response->fetchAll(PDO::FETCH_ASSOC);
+   
+  }
+
   public static function editPassword(array $data)
   {
     $request = "UPDATE user SET password = :password WHERE id = :id";

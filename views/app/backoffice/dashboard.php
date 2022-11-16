@@ -3,18 +3,18 @@
 
 <h1>BACKOFFICE</h1>
 
-<ul>
-    <li>
-        <a href="<?= BASE_PATH . "admin/listUser"; ?>">Gestion des utilisateurs</a>
+<ul class="list-group w-50 text-center">
+    <li class=" list-style-none">
+        <a href="<?= BASE_PATH . "admin/listUser"; ?>" class="list-group-item list-group-item-success rounded-2">Gestion des utilisateurs</a>
     </li>
     <li>
-        <a href="#">Gestion des Histoires numériques</a>
+        <a href="#" class="list-group-item list-group-item-success rounded-2 mt-2">Gestion des Histoires numériques</a>
     </li>
     <li>
-        <a href="#">Gestion des Livres papiers</a>
+        <a href="#" class="list-group-item list-group-item-success rounded-2 mt-2">Gestion des Livres papiers</a>
     </li>
     <li>
-        <a href="#">Gestion des emprunts</a>
+        <a href="#" class="list-group-item list-group-item-success rounded-2 mt-2">Gestion des emprunts</a>
     </li>
 </ul>
 

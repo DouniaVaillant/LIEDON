@@ -1,4 +1,11 @@
-<?php include(VIEWS . '_partials/header.php'); ?>
+<?php include(VIEWS . '_partials/header.php'); 
+
+if (!isset($_SESSION['user'])) {
+    header('location:../');
+    exit();
+}
+
+?>
 
 
 <form method="POST" action="<?= BASE_PATH . "admin/add/user"; ?>">

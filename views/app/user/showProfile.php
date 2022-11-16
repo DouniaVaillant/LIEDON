@@ -1,5 +1,11 @@
-<?php include(VIEWS . '_partials/header.php'); ?>
+<?php include(VIEWS . '_partials/header.php'); 
 
+if (!isset($_SESSION['user'])) {
+    header('location:../');
+    exit();
+}
+
+?>
 <div class="" style="height: 20vh; overflow: hidden;">
     <img src="<?= BASE . 'upload/photos/banner/' . $user['photo_banner']; ?>" alt="" style="width: 100vw;">
 </div>

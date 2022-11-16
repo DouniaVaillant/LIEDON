@@ -26,7 +26,15 @@
   background: var(--beige);
 }
 
+.bg-soil {
+  background: var(--soil);
+}
+
 .soil {
   text-shadow: 0 0 1px var(--sun);
   color: var(--soil);
+}
+
+.lightBrown {
+  color: var(--lightBrown);
 }

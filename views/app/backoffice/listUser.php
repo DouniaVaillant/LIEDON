@@ -1,26 +1,38 @@
 <?php include(VIEWS . '_partials/header.php'); ?>
 
 
-
 <div class="container-fluid mt-5">
 
-    <a href="<?= BASE_PATH . 'admin/add/user'; ?>" class="btn btn-warning">Ajouter un membre</a>
 
+    <form action="<?= BASE_PATH . 'admin/listUser'; ?>" method="GET" class="mt-4 col-lg-3">
+        <select name="roles" class="form-select">
+            <option value="ROLE_USER">Membre</option>
+            <option value="ROLE_ADMIN">Administrateur</option>
+            <option value="ROLE_MODO">Modérateur</option>
+        </select>
+        <button class="btn btn-light border border-warning" type="submit">Filtrer</button>
+    </form>
+
+    <a href="<?= BASE_PATH . 'admin/add/user'; ?>" class="btn btn-warning mt-4">Ajouter un membre</a>
+
+    <!-- TABLEAU DES UTILISATEURS -->
     <table class="table table-hover">
         <thead>
             <tr>
                 <th>#</th>
-                <th>Rôles</th>
+                <th>Rôle</th>
                 <th>Nom</th>
                 <th>Prénom</th>
                 <th>Pseudo</th>
                 <th>Email</th>
                 <th>Genre</th>
                 <th>Date de naissance</th>
-                <th>N° de voie</th>
-                <th>Adresse</th>
-                <th>Ville</th>
-                <th>Code postal</th>
+                <?php if ($_SESSION['user']['roles'] == 'ROLE_ADMIN') : ?>
+                    <th>N° de voie</th>
+                    <th>Adresse</th>
+                    <th>Ville</th>
+                    <th>Code postal</th>
+                <?php endif; ?>
                 <th>Pays</th>
                 <th>Date d'inscription</th>
                 <th>Action</th>
@@ -61,10 +73,12 @@
                         <td>Autre</td>
                     <?php endif; ?>
                     <td><?= $user['birthday']; ?></td>
-                    <td><?= $user['way']; ?></td>
-                    <td><?= $user['address']; ?></td>
-                    <td><?= $user['city']; ?></td>
-                    <td><?= $user['postal_code']; ?></td>
+                    <?php if ($_SESSION['user']['roles'] == 'ROLE_ADMIN') : ?>
+                        <td><?= $user['way']; ?></td>
+                        <td><?= $user['address']; ?></td>
+                        <td><?= $user['city']; ?></td>
+                        <td><?= $user['postal_code']; ?></td>
+                    <?php endif; ?>
                     <td><?= $user['country']; ?></td>
                     <td><?= $user['date_registration']; ?></td>
                     <td>

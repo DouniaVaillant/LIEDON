@@ -1,5 +1,11 @@
-<?php include(VIEWS . '_partials/header.php'); ?>
+<?php include(VIEWS . '_partials/header.php'); 
 
+if (!isset($_SESSION['user'])) {
+    header('location:../');
+    exit();
+}
+
+?>
 <div class="" style="height: 20vh; overflow: hidden;">
     <img src="<?= BASE . 'upload/photos/banner/' . $user['photo_banner']; ?>" alt="" style="width: 100vw;">
 </div>
@@ -20,6 +26,7 @@
 <p><?= $user['date_registration']; ?></p>
 
 <a href="<?= BASE_PATH . "user/profile/edit?id=" . $user['id']; ?>" class="btn btn-success">Modifier mes informations</a>
+<a href="<?= BASE_PATH . "user/logOut"; ?>" class="btn btn-danger">Me déconnecter</a>
 
 
 

@@ -1,5 +1,11 @@
-<?php include(VIEWS.'_partials/header.php');?>
+<?php include(VIEWS . '_partials/header.php'); 
 
+if (!isset($_SESSION['user'])) {
+    header('location:../');
+    exit();
+}
+
+?>
 
 <form method="post" action="<?=  BASE_PATH.'user/editPassword' ; ?>" class="row g-3">
 

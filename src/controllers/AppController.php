@@ -6,13 +6,14 @@ class AppController
   public static function index()
   {
 
-    if (isset($_GET['searchUser'])) :
-      $pseudo = $_GET['searchUser'];
-      $users = User::findByPseudo([
-        'pseudo' => $pseudo
-      ]);
-
-    endif;
+    if (isset($_SESSION['user'])) {
+      if (isset($_GET['searchUser'])) :
+        $pseudo = $_GET['searchUser'];
+        $users = User::findByPseudo([
+          'pseudo' => $pseudo
+        ]);
+      endif;
+    }
 
 
 
@@ -162,20 +163,36 @@ class AppController
 
   public static function backoffice()
   {
+    if (!isset($_SESSION['user']) || ($_SESSION['user']['roles'] != 'ROLE_ADMIN' && $_SESSION['user']['roles'] != 'ROLE_MODO')) { // ? Sécurité
+      header('location:../');
+      exit();
+    }
 
     include(VIEWS . "app/backoffice/dashboard.php");
   }
 
   public static function listUser()
   {
+    if (!isset($_SESSION['user']) || ($_SESSION['user']['roles'] != 'ROLE_ADMIN' && $_SESSION['user']['roles'] != 'ROLE_MODO')) { // ? Sécurité
+      header('location:../');
+      exit();
+    }
 
     $users = User::findAll();
+
+    if (isset($_GET['roles'])) {
+      $users = User::findByRole(['role' => $_GET['roles']]);
+    }
 
     include(VIEWS . "app/backoffice/listUser.php");
   }
 
   public static function profile()
   {
+    if (!isset($_SESSION['user'])) { // ? Sécurité
+      header('location:../');
+      exit();
+    }
 
     if (isset($_GET['id'])) :
 
@@ -195,6 +212,10 @@ class AppController
 
   public static function editProfile()
   {
+    if (!isset($_SESSION['user'])) { // ? Sécurité
+      header('location:../');
+      exit();
+    }
 
     $user = User::findById(['id' => $_GET['id']]);
 
@@ -320,6 +341,10 @@ class AppController
 
   public static function editPassword()
   {
+    if (!isset($_SESSION['user'])) { // ? Sécurité
+      header('location:../');
+      exit();
+    }
 
     $error = [];
     if (!empty($_POST)) :
@@ -375,7 +400,10 @@ class AppController
 
   public static function addUser()
   {
-
+    if (!isset($_SESSION['user'])) { // ? Sécurité
+      header('location:../');
+      exit();
+    }
 
     // Valeur par défaut:
     if (empty($_POST['pseudo'])) {
@@ -615,6 +643,10 @@ class AppController
 
   public static function deleteUser()
   {
+    if (!isset($_SESSION['user'])) {  // ? Sécurité
+      header('location:../');
+      exit();
+    }
 
     if (!empty($_GET['id'])) :
       User::delete([
