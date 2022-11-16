@@ -26,7 +26,7 @@ if (!isset($_SESSION['user'])) {
     <input type="hidden" name="id" value="<?= $_GET['id']; ?>">
     <input type="hidden" name="photo_profile" value="<?= $user['photo_profile']; ?>">
     <div class="form-group newPhotoProfile">
-        <label for="photoFile" class="form-label label-file labelNewPhotoProfile mt-4">Photo de profile</label>
+        <label for="photoFile" class="form-label label-file labelNewPhotoProfile mt-4">Photo de profil</label>
         <input name="photoProfileUpdate" onchange="loadFileProfile(event)" class="form-control inputNewPhotoProfile" type="file" id="photoFile">
         <img src="<?= BASE . 'upload/photos/profile' . $user['photo_profile']; ?>" width="300" alt="" class="input-file imgNewPhotoProfile">
         <img id="profile" alt="" width="300" border-radius>

@@ -4,7 +4,7 @@
 <div class="container-fluid mt-5">
 
 
-    <form action="<?= BASE_PATH . 'admin/listUser'; ?>" method="GET" class="mt-4 col-lg-3">
+    <form action="<?= BASE_PATH . 'admin/user/list'; ?>" method="GET" class="mt-4 col-lg-3">
         <select name="roles" class="form-select">
             <option value="ROLE_USER">Membre</option>
             <option value="ROLE_ADMIN">Administrateur</option>
@@ -13,7 +13,7 @@
         <button class="btn btn-light border border-warning" type="submit">Filtrer</button>
     </form>
 
-    <a href="<?= BASE_PATH . 'admin/add/user'; ?>" class="btn btn-warning mt-4">Ajouter un membre</a>
+    <a href="<?= BASE_PATH . 'admin/user/add'; ?>" class="btn btn-warning mt-4">Ajouter un membre</a>
 
     <!-- TABLEAU DES UTILISATEURS -->
     <table class="table table-hover">
@@ -83,8 +83,8 @@
                     <td><?= $user['date_registration']; ?></td>
                     <td>
                         <a href="<?= BASE_PATH . 'user/profile?id=' . $user['id']; ?>" class=""><i class="fa-solid soil fa-eye"></i></a>
-                        <a href="<?= BASE_PATH . 'admin/edit?id=' . $user['id']; ?>" class=""><i class="fa-solid soil fa-pen"></i></a>
-                        <a href="<?= BASE_PATH . 'admin/delete?id=' . $user['id']; ?>" class=""><i class="fa-solid soil fa-trash"></i></a>
+                        <a href="<?= BASE_PATH . 'admin/user/edit?id=' . $user['id']; ?>" class=""><i class="fa-solid soil fa-pen"></i></a>
+                        <a href="<?= BASE_PATH . 'admin/user/delete?id=' . $user['id']; ?>" class=""><i class="fa-solid soil fa-trash"></i></a>
                     </td>
                 </tr>
             <?php endforeach; ?>

@@ -187,6 +187,15 @@ class AppController
     include(VIEWS . "app/backoffice/listUser.php");
   }
 
+  public static function listCategory()
+  {
+
+    $categories = Category::findAll();
+
+
+    include(VIEWS . "app/backoffice/listCategory.php");
+  }
+
   public static function profile()
   {
     if (!isset($_SESSION['user'])) { // ? Sécurité
@@ -439,10 +448,6 @@ class AppController
         $error['firstname'] = 'Le champs est obligatoire et doit contenir uniquement des lettres';
       }
 
-      // if (empty($_POST['pseudo'])) {
-      //   $error['pseudo'] = 'Le champs est obligatoire';
-      // }
-
       if (empty($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) || User::findByEmail(['email' => $_POST['email']])) :
         if (User::findByEmail(['email' => $_POST['email']])) :
           $_SESSION['messages']['danger'][] = 'Un compte est déjà existant à cette adresse mail, veuillez procéder à la récupération de mot passe';
@@ -632,7 +637,7 @@ class AppController
         $sessionUser = User::findById(['id' => $_SESSION['user']['id']]);
         $_SESSION['user'] = $sessionUser;
         $_SESSION['messages']['success'][] = 'Modification effectuée avec succès!';
-        header('location:../admin/listUser');
+        header('location:../admin/user/list');
         exit();
 
       endif;
@@ -658,5 +663,101 @@ class AppController
 
     header('location:../admin/backoffice');
     exit();
+  }
+
+  public static function addCategory()
+  {
+
+
+    $error = [];
+    if (!empty($_POST)) {
+
+
+      if (empty($_POST['title']) || Category::findByTitle(['title' => $_POST['title']])) :
+        if (Category::findByTitle(['title' => $_POST['title']])) :
+          $_SESSION['messages']['danger'][] = 'Cette catégorie existe déjà';
+          $error['title'] = '';
+        else :
+          $error['title'] = 'Le champs est obligatoire';
+        endif;
+      endif;
+
+      if (empty($error)) {
+        Category::create([
+          'title' => $_POST['title']
+        ]);
+
+        $_SESSION['messages']['success'][] = "Création d'une nouvelle catégorie réalisée avec succès !";
+        header('location:../category/list');
+        exit();
+      }
+    }
+
+
+    include(VIEWS . "app/backoffice/addCategory.php");
+  }
+
+  public static function editCategory()
+  {
+
+    if (!empty($_GET['id'])) :
+      $category = Category::findById(['id' => $_GET['id']]);
+    endif;
+
+
+    $error = [];
+    if (!empty($_POST)) {
+
+
+      if (empty($_POST['title']) || Category::findByTitle(['title' => $_POST['title']])) :
+        if (Category::findByTitle(['title' => $_POST['title']])) :
+          $_SESSION['messages']['danger'][] = 'Cette catégorie existe déjà';
+          $error['title'] = '';
+        else :
+          $error['title'] = 'Le champs est obligatoire';
+        endif;
+      endif;
+
+      if (empty($error)) {
+        Category::update([
+          'title' => $_POST['title'],
+          'id' => intval($_POST['id'])
+        ]);
+
+        $_SESSION['messages']['success'][] = "Modification réalisée avec succès !";
+        header('location:../category/list');
+        exit();
+      }
+    }
+
+    include(VIEWS . "app/backoffice/addCategory.php");
+  }
+
+  public static function deleteCategory()
+  {
+    if (!isset($_SESSION['user'])) {  // ? Sécurité
+      header('location:../');
+      exit();
+    }
+
+    if (!empty($_GET['id'])) :
+      Category::delete([
+        'id' => intval($_GET['id'])
+      ]);
+
+      $_SESSION['messages']['success'][] = 'Catégorie supprimée avec succès';
+    endif;
+
+    header('location:../category/list');
+    exit();
+  }
+
+  public static function addBook()
+  {
+
+
+
+
+    include(VIEWS . "app/book/addBook.php");
   }
 }

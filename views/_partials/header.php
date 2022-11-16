@@ -54,16 +54,16 @@
                     <?php if (isset($_SESSION['user'])) : ?>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Profile
+                                Profil
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="<?= BASE_PATH . "user/profile"; ?>">Profile</a></li>
+                                <li><a class="dropdown-item" href="<?= BASE_PATH . "user/profile"; ?>">Profil</a></li>
                                 <hr class="hr">
                                 <li><a class="dropdown-item" href="#">Mes histoires</a></li>
                                 <li><a class="dropdown-item" href="#">Mes livres</a></li>
                                 <li><a class="dropdown-item" href="#">Mes emprunts</a></li>
                                 <hr class="hr">
-                                <li><a class="dropdown-item" href="#">Ajouter un livre</a></li>
+                                <li><a class="dropdown-item" href="<?= BASE_PATH . 'book/add'; ?>">Ajouter un livre</a></li>
                                 <li><a class="dropdown-item" href="#">Créer une histoire</a></li>
                                 <hr class="hr">
                                 <li><a class="dropdown-item" href="#">Paramètres</a></li>
@@ -89,7 +89,7 @@
     </nav>
 
 
-    <div class="">
+    <div class="container-fluid">
 
         <?php if (isset($_SESSION['messages'])) :
             foreach ($_SESSION['messages'] as $type => $messages) :

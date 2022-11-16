@@ -33,19 +33,27 @@ const CONTROLLERS = BASE_DIR . 'src/controllers/';
  * Liste des actions/méthodes possibles (les routes du routeur)
  */
 $routes = [
-    ''                      => ['AppController', 'index'],
-    '/'                     => ['AppController', 'index'],
-    '/user/registration'    => ['AppController', 'registration'],
-    '/user/logIn'           => ['AppController', 'logIn'],
-    '/user/logOut'          => ['AppController', 'logOut'],
-    '/admin/backoffice'     => ['AppController', 'backoffice'],
-    '/admin/listUser'       => ['AppController', 'listUser'],
-    '/admin/edit'           => ['AppController', 'editUser'],
-    '/admin/delete'         => ['AppController', 'deleteUser'],
-    '/admin/add/user'       => ['AppController', 'addUser'],
-    '/user/profile'          => ['AppController', 'profile'],
-    '/user/profile/edit'     => ['AppController', 'editProfile'],
-    '/user/editPassword'    => ['AppController', 'editPassword'],
+    ''                          => ['AppController', 'index'],
+    '/'                         => ['AppController', 'index'],
+    '/user/registration'        => ['AppController', 'registration'],
+    '/user/logIn'               => ['AppController', 'logIn'],
+    '/user/logOut'              => ['AppController', 'logOut'],
+
+    '/admin/backoffice'         => ['AppController', 'backoffice'],
+    '/admin/user/list'          => ['AppController', 'listUser'],
+    '/admin/user/add'           => ['AppController', 'addUser'],
+    '/admin/user/edit'          => ['AppController', 'editUser'],
+    '/admin/user/delete'        => ['AppController', 'deleteUser'],
+    '/admin/category/list'      => ['AppController', 'listCategory'],
+    '/admin/category/add'       => ['AppController', 'addCategory'],
+    '/admin/category/edit'      => ['AppController', 'editCategory'],
+    '/admin/category/delete'    => ['AppController', 'deleteCategory'],
+
+    '/user/profile'             => ['AppController', 'profile'],
+    '/user/profile/edit'        => ['AppController', 'editProfile'],
+    '/user/editPassword'        => ['AppController', 'editPassword'],
+
+    '/book/add'                 => ['AppController', 'addBook'],
 
 
 ];

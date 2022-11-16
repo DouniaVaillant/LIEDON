@@ -1,4 +1,4 @@
-<?php include(VIEWS . '_partials/header.php'); 
+<?php include(VIEWS . '_partials/header.php');
 
 if (!isset($_SESSION['user'])) {
     header('location:../');
@@ -29,8 +29,8 @@ if (!isset($_SESSION['user'])) {
 <p class="btn btn-danger" id="reportUser">Signaler cet utilisateur</p>
 
 <?php if ($_SESSION['user']['roles'] == 'ROLE_ADMIN') : ?>
-    <a href="<?= BASE_PATH . 'admin/edit?id=' . $user['id']; ?>" class="btn bg-lightGreen text-light">Modifier les informations de cet utilisateur</a>
-    <a href="<?= BASE_PATH . 'admin/delete?id=' . $user['id']; ?>" class="btn bg-lightGreen text-light">Supprimer cet utilisateur</a>
+    <a href="<?= BASE_PATH . 'admin/user/edit?id=' . $user['id']; ?>" class="btn bg-lightGreen text-light">Modifier les informations de cet utilisateur</a>
+    <a href="<?= BASE_PATH . 'admin/user/delete?id=' . $user['id']; ?>" class="btn bg-lightGreen text-light">Supprimer cet utilisateur</a>
 
 <?php endif; ?>
 

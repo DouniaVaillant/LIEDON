@@ -1,4 +1,4 @@
-<?php include(VIEWS . '_partials/header.php'); 
+<?php include(VIEWS . '_partials/header.php');
 
 if (!isset($_SESSION['user'])) {
     header('location:../');
@@ -10,7 +10,7 @@ if (!isset($_SESSION['user'])) {
 
 <h1>Modifier l'utilisateur <?= $user['pseudo']; ?></h1>
 
-<form method="POST" action="<?= BASE_PATH . "admin/edit?id=" . $user['id']; ?>" class="col-lg-6" enctype="multipart/form-data">
+<form method="POST" action="<?= BASE_PATH . "admin/user/edit?id=" . $user['id']; ?>" class="col-lg-6" enctype="multipart/form-data">
 
     <!-- BANNIERE -->
     <input type="hidden" name="id" value="<?= $_GET['id']; ?>">
