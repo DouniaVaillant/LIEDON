@@ -196,6 +196,15 @@ class AppController
     include(VIEWS . "app/backoffice/listCategory.php");
   }
 
+  public static function listTargetReader()
+  {
+
+    $targetReader = TargetReader::findAll();
+
+
+    include(VIEWS . "app/backoffice/listTargetReader.php");
+  }
+
   public static function profile()
   {
     if (!isset($_SESSION['user'])) { // ? Sécurité
@@ -672,7 +681,6 @@ class AppController
     $error = [];
     if (!empty($_POST)) {
 
-
       if (empty($_POST['title']) || Category::findByTitle(['title' => $_POST['title']])) :
         if (Category::findByTitle(['title' => $_POST['title']])) :
           $_SESSION['messages']['danger'][] = 'Cette catégorie existe déjà';
@@ -752,11 +760,166 @@ class AppController
     exit();
   }
 
+  public static function addTargetReader()
+  {
+
+    $error = [];
+    if (!empty($_POST)) {
+
+      if (empty($_POST['title']) || TargetReader::findByTitle(['title' => $_POST['title']]) || preg_match('/[^-+\d]+/g', $_POST['title'])) :
+        if (TargetReader::findByTitle(['title' => $_POST['title']])) :
+          $_SESSION['messages']['danger'][] = 'Cette cible existe déjà';
+          $error['title'] = '';
+        else :
+          $error['title'] = 'Le champs est obligatoire';
+        endif;
+      endif;
+
+      if (empty($error)) {
+
+        $title = strval($_POST['title']);
+
+        TargetReader::create([
+          'title' => $title
+        ]);
+
+        $_SESSION['messages']['success'][] = "Création d'une nouvelle cible réalisée avec succès !";
+        header('location:../target-reader/list');
+        exit();
+      }
+    }
+
+    include(VIEWS . "app/backoffice/addTargetReader.php");
+  }
+
+  public static function editTargetReader()
+  {
+
+    if (!empty($_GET['id'])) :
+      $targetReader = TargetReader::findById(['id' => $_GET['id']]);
+    endif;
+
+
+    $error = [];
+    if (!empty($_POST)) {
+
+
+      if (empty($_POST['title']) || TargetReader::findByTitle(['title' => $_POST['title']])) :
+        if (Category::findByTitle(['title' => $_POST['title']])) :
+          $_SESSION['messages']['danger'][] = 'Cette cible existe déjà';
+          $error['title'] = '';
+        else :
+          $error['title'] = 'Le champs est obligatoire';
+        endif;
+      endif;
+
+      if (empty($error)) {
+        TargetReader::update([
+          'title' => $_POST['title'],
+          'id' => intval($_POST['id'])
+        ]);
+
+        $_SESSION['messages']['success'][] = "Modification réalisée avec succès !";
+        header('location:../target-reader/list');
+        exit();
+      }
+    }
+
+    include(VIEWS . "app/backoffice/addTargetReader.php");
+  }
+
+  public static function deleteTargetReader()
+  {
+    if (!isset($_SESSION['user'])) {  // ? Sécurité
+      header('location:../');
+      exit();
+    }
+
+    if (!empty($_GET['id'])) :
+      TargetReader::delete([
+        'id' => intval($_GET['id'])
+      ]);
+
+      $_SESSION['messages']['success'][] = 'Cible supprimée avec succès';
+    endif;
+
+    header('location:../target-reader/list');
+    exit();
+  }
+
   public static function addBook()
   {
 
+    $categories = Category::findAll();
+    $targetReader = TargetReader::findAll();
+    $user = $_SESSION['user']['id'];
+
+    $error = [];
+    if (!empty($_POST)) :
+
+      if (!empty($_FILES['photo']['name']) && $_FILES['photo']['size'] < 3000000 && ($_FILES['photo']['type'] == 'image/jpeg' || $_FILES['photo']['type'] == 'image/png' || $_FILES['photo']['type'] == 'image/gif')) :
+
+        $extensionPhoto = strtolower(strchr($_FILES['photo']['name'], '.')); /// = srttolower => met en minuscule ||| substr => ignore un élément de la chaîne ||| strrchr => récupère l'extension du fichier
+        $photoCoverName = $user['id'] . '-' . $categories['title'] . '-' . $targetReader['title'] . date_format(new DateTime(), 'YdmHi') . '-' . uniqid() . $extensionPhoto;
+
+        copy($_FILES['photo']['tmp_name'], PUBLIC_FOLDER . 'upload/book/' . $photoCoverName); // ? Copie de la nouvelle image dans le dossier concerné
+
+      else :
+
+        $photoCoverName = $_POST['photo'];
+
+      endif;
+
+      if (empty($_POST['title'])) {
+        $error['title'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['synopsis'])) {
+        $error['synopsis'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['author'])) {
+        $error['author'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['date_publication']) || preg_match('#[a-zA-Z]#', $_POST['date_publication'])) {
+        $error['date_publication'] = 'Veuillez remplir correctement ce champs au format jj/mm/aaaa, aucune lettre n\'est acceptée';
+      }
+
+      if (empty($_POST['category'])) {
+        $error['category'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['target_reader'])) {
+        $error['target_reader'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['status'])) {
+        $error['status'] = 'Le champs est obligatoire';
+      }
 
 
+      if (empty($error)) :
+        Book::create([
+          'id_user' => $user['id'],
+          'category' => $_POST['category'],
+          'target_reader' => $_POST['target_reader'],
+          'title' => $_POST['title'],
+          'author' => $_POST['author'],
+          'synopsis' => $_POST['synopsis'],
+          'photo' => $photoCoverName,
+          'editor' => $_POST['editor'],
+          'date_publication' => $_POST['date_publication'],
+          'status' => $_POST['status']
+        ]);
+
+        $_SESSION['messages']['success'][] = 'Publication effectuée avec succès !';
+        header('location:../');
+        exit();
+
+      endif;
+
+    endif;
 
     include(VIEWS . "app/book/addBook.php");
   }

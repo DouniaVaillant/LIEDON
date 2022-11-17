@@ -19,6 +19,9 @@
     <li>
         <a href="<?= BASE_PATH . 'admin/category/list'; ?>" class="list-group-item list-group-item-warning rounded-2 mt-2">Gestion des catégories</a>
     </li>
+    <li>
+        <a href="<?= BASE_PATH . 'admin/target-reader/list'; ?>" class="list-group-item list-group-item-warning rounded-2 mt-2">Gestion des cibles (lectorat)</a>
+    </li>
 </ul>
 
 

@@ -89,7 +89,7 @@
     </nav>
 
 
-    <div class="container-fluid">
+    <div class="container-fluid mt-4">
 
         <?php if (isset($_SESSION['messages'])) :
             foreach ($_SESSION['messages'] as $type => $messages) :

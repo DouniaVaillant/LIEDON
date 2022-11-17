@@ -33,27 +33,31 @@ const CONTROLLERS = BASE_DIR . 'src/controllers/';
  * Liste des actions/méthodes possibles (les routes du routeur)
  */
 $routes = [
-    ''                          => ['AppController', 'index'],
-    '/'                         => ['AppController', 'index'],
-    '/user/registration'        => ['AppController', 'registration'],
-    '/user/logIn'               => ['AppController', 'logIn'],
-    '/user/logOut'              => ['AppController', 'logOut'],
+    ''                              => ['AppController', 'index'],
+    '/'                             => ['AppController', 'index'],
+    '/user/registration'            => ['AppController', 'registration'],
+    '/user/logIn'                   => ['AppController', 'logIn'],
+    '/user/logOut'                  => ['AppController', 'logOut'],
 
-    '/admin/backoffice'         => ['AppController', 'backoffice'],
-    '/admin/user/list'          => ['AppController', 'listUser'],
-    '/admin/user/add'           => ['AppController', 'addUser'],
-    '/admin/user/edit'          => ['AppController', 'editUser'],
-    '/admin/user/delete'        => ['AppController', 'deleteUser'],
-    '/admin/category/list'      => ['AppController', 'listCategory'],
-    '/admin/category/add'       => ['AppController', 'addCategory'],
-    '/admin/category/edit'      => ['AppController', 'editCategory'],
-    '/admin/category/delete'    => ['AppController', 'deleteCategory'],
+    '/admin/backoffice'             => ['AppController', 'backoffice'],
+    '/admin/user/list'              => ['AppController', 'listUser'],
+    '/admin/user/add'               => ['AppController', 'addUser'],
+    '/admin/user/edit'              => ['AppController', 'editUser'],
+    '/admin/user/delete'            => ['AppController', 'deleteUser'],
+    '/admin/category/list'          => ['AppController', 'listCategory'],
+    '/admin/category/add'           => ['AppController', 'addCategory'],
+    '/admin/category/edit'          => ['AppController', 'editCategory'],
+    '/admin/category/delete'        => ['AppController', 'deleteCategory'],
+    '/admin/target-reader/list'     => ['AppController', 'listTargetReader'],
+    '/admin/target-reader/add'     => ['AppController', 'addTargetReader'],
+    '/admin/target-reader/edit'     => ['AppController', 'editTargetReader'],
+    '/admin/target-reader/delete'     => ['AppController', 'deleteTargetReader'],
 
-    '/user/profile'             => ['AppController', 'profile'],
-    '/user/profile/edit'        => ['AppController', 'editProfile'],
-    '/user/editPassword'        => ['AppController', 'editPassword'],
+    '/user/profile'                 => ['AppController', 'profile'],
+    '/user/profile/edit'            => ['AppController', 'editProfile'],
+    '/user/editPassword'            => ['AppController', 'editPassword'],
 
-    '/book/add'                 => ['AppController', 'addBook'],
+    '/book/add'                     => ['AppController', 'addBook'],
 
 
 ];

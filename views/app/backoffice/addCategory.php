@@ -14,7 +14,7 @@
         <input name="title" type="text" value="<?= $category['title'] ?? ''; ?>" class="form-control" id="title">
         <small class="text-danger"><?= $error['title'] ?? ""; ?></small>
     </div>
-    <button type="submit" class="btn btn-success">Ajouter</button>
+    <button type="submit" class="btn btn-success">Enregistrer</button>
 </form>
 
 

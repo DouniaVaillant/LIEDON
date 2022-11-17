@@ -6,7 +6,7 @@ class Book extends Db
   public static function create(array $data)
   {
 
-    $request = "INSERT INTO book (id_user, id_category, id_target_reader, title, author, synopsis, photo, editor, date_publication, status, date_created) VALUES (:id_user, :id_category, :id_target_reader, :title, :author, :synopsis, :photo, :editor, :date_publication, :status, :date_created)";
+    $request = "INSERT INTO book (id_user, category, target_reader, title, author, synopsis, photo, editor, date_publication, status, date_created) VALUES (:id_user, :category, :target_reader, :title, :author, :synopsis, :photo, :editor, :date_publication, :status, NOW())";
     $response = self::getDb()->prepare($request);
     $response->execute(self::htmlspecialchars($data));
 
