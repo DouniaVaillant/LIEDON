@@ -6,16 +6,16 @@
   --sun: #fefae0;
   --beige: #eece9f;
   --lightBrown: #dda15e;
-  --darkbrown: #cd8742;
+  --darkBrown: #cd8742;
   --soil: #895737;
+}
+
+.bg-darkGreen {
+  background: var(--darkGreen);
 }
 
 .bg-lightGreen {
   background: var(--lightGreen);
-}
-
-.bg-lightBrown {
-  background: var(--lightBrown);
 }
 
 .bg-sun {
@@ -26,15 +26,46 @@
   background: var(--beige);
 }
 
+.bg-lightBrown {
+  background: var(--lightBrown);
+}
+
+.bg-darkBrown {
+  background: var(--lightBrown);
+}
+
 .bg-soil {
   background: var(--soil);
+}
+
+/* $ text-color */
+.darkGreen {
+  text-shadow: 0 0 1px var(--sun);
+  color: var(--darkGreen);
+}
+
+.lightGreen {
+  color: var(--lightGreen);
+}
+
+.sun {
+  color: var(--sun);
+}
+
+.beige {
+  color: var(--beige);
+}
+
+.lightBrown {
+  color: var(--lightBrown);
+}
+
+.darkBrown {
+  text-shadow: 0 0 1px var(--sun);
+  color: var(--darkBrown);
 }
 
 .soil {
   text-shadow: 0 0 1px var(--sun);
   color: var(--soil);
-}
-
-.lightBrown {
-  color: var(--lightBrown);
 }

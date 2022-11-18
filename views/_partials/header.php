@@ -29,10 +29,10 @@
                             Livres papiers
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Au partage</a></li>
-                            <li><a class="dropdown-item" href="#">Au don</a></li>
-                            <li><a class="dropdown-item" href="#">Documentés</a></li>
-                            <li><a class="dropdown-item" href="#">Tous</a></li>
+                            <li><a class="dropdown-item" href="<?= BASE_PATH . 'books?status=partage'; ?>">Au partage</a></li>
+                            <li><a class="dropdown-item" href="<?= BASE_PATH . 'books?status=don'; ?>">Au don</a></li>
+                            <li><a class="dropdown-item" href="<?= BASE_PATH . 'books?status=documentation'; ?>">Documentés</a></li>
+                            <li><a class="dropdown-item" href="<?= BASE_PATH . 'books'; ?>">Tous</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -54,13 +54,13 @@
                     <?php if (isset($_SESSION['user'])) : ?>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Profil
+                                <img src="<?= BASE . 'upload/photos/profile/' . $_SESSION['user']['photo_profile']; ?>" alt="" style="height: 30px; width: 30px; border-radius: 150px;">
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="<?= BASE_PATH . "user/profile"; ?>">Profil</a></li>
+                                <li><a class="dropdown-item" href="<?= BASE_PATH . "user/profile"; ?>"> Profil</a></li>
                                 <hr class="hr">
                                 <li><a class="dropdown-item" href="#">Mes histoires</a></li>
-                                <li><a class="dropdown-item" href="#">Mes livres</a></li>
+                                <li><a class="dropdown-item" href="<?= BASE_PATH . 'user/books'; ?>">Mes livres</a></li>
                                 <li><a class="dropdown-item" href="#">Mes emprunts</a></li>
                                 <hr class="hr">
                                 <li><a class="dropdown-item" href="<?= BASE_PATH . 'book/add'; ?>">Ajouter un livre</a></li>

@@ -39,6 +39,7 @@ $routes = [
     '/user/logIn'                   => ['AppController', 'logIn'],
     '/user/logOut'                  => ['AppController', 'logOut'],
 
+
     '/admin/backoffice'             => ['AppController', 'backoffice'],
     '/admin/user/list'              => ['AppController', 'listUser'],
     '/admin/user/add'               => ['AppController', 'addUser'],
@@ -49,15 +50,23 @@ $routes = [
     '/admin/category/edit'          => ['AppController', 'editCategory'],
     '/admin/category/delete'        => ['AppController', 'deleteCategory'],
     '/admin/target-reader/list'     => ['AppController', 'listTargetReader'],
-    '/admin/target-reader/add'     => ['AppController', 'addTargetReader'],
+    '/admin/target-reader/add'      => ['AppController', 'addTargetReader'],
     '/admin/target-reader/edit'     => ['AppController', 'editTargetReader'],
-    '/admin/target-reader/delete'     => ['AppController', 'deleteTargetReader'],
-
+    '/admin/target-reader/delete'   => ['AppController', 'deleteTargetReader'],
+    '/admin/book/list'              => ['AppController', 'listBook'],
+    '/admin/book/add'               => ['AppController', 'addBook'],
+    '/admin/book/edit'              => ['AppController', 'editBook'],
+    '/admin/book/delete'            => ['AppController', 'deleteBook'],
+    
     '/user/profile'                 => ['AppController', 'profile'],
     '/user/profile/edit'            => ['AppController', 'editProfile'],
     '/user/editPassword'            => ['AppController', 'editPassword'],
-
+    
+    '/books'                        => ['AppController', 'books'],
+    '/user/books'                   => ['AppController', 'userBook'],
+    '/book/show'                    => ['AppController', 'showBook'],
     '/book/add'                     => ['AppController', 'addBook'],
+    '/user/books/edit'              => ['AppController', 'editUserBook'],
 
 
 ];

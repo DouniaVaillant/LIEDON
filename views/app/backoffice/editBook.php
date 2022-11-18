@@ -1,23 +1,18 @@
-<?php include(VIEWS . '_partials/header.php');
-
-if (!isset($_SESSION['user'])) {
-  header('location:../');
-  exit();
-}
-
-?>
+<?php include(VIEWS . '_partials/header.php'); ?>
 
 <?php if (isset($_GET['id'])) : ?>
   <h1>Modifier <i class="text-muted"><?= $book['title']; ?></i></h1>
 <?php endif; ?>
 
-<form action="<?php if (isset($_GET['id'])) {
-                echo BASE_PATH . 'user/books/edit?id=' . $book['id'];
-              } else {
-                echo BASE_PATH . 'book/add';
-              } ?>" method="POST" enctype="multipart/form-data">
-
-  <?php if (isset($book)) : ?>
+<form action="<?= BASE_PATH . 'admin/book/edit?id=' . $book['id']; ?>" method="POST" enctype="multipart/form-data">
+    
+    <div class="mb-3">
+        <label for="id_user" class="form-label">Utilisateur</label>
+        <input name="id_user" value="<?= $book['id_user'] ?? ''; ?>" type="text" class="form-control" id="id_user">
+        <small class="text-danger"><?= $error['id_user'] ?? ""; ?></small>
+        <small class="text-form text-muted">Pour changer l'appartenance d'un livre à son utilisateur il faut entrer l'identifiant unique du nouvel utilisateur (pour le trouver aller dans <a href="<?= BASE_PATH . 'admin/user/list'; ?>">gestion utilisateurs</a>). <br><span class="darkBrown">Merci de vérifier que l'identifiant du nouvel utilisateur soit le bon avant d'envoyer ce formulaire.</span></small>
+    </div>
+    
     <input type="hidden" name="id" value="<?= $_GET['id']; ?>">
     <input type="hidden" name="photo" value="<?= $book['photo']; ?>">
     <div class="form-group">
@@ -27,13 +22,6 @@ if (!isset($_SESSION['user'])) {
       <img src="<?= BASE . 'upload/book/' . $book['photo']; ?>" height="300" alt="">
       <img id="cover" height="300" alt="">
     </div>
-  <?php else : ?>
-    <div class="form-group">
-      <label for="oldCoverFile" class="form-label mt-4">Photo de couverture</label>
-      <input name="photo" onchange="loadFileCover(event)" class="form-control" type="file" id="oldCoverFile">
-      <img id="cover" height="300" alt="">
-    </div>
-  <?php endif; ?>
 
   <div class="mb-3">
     <label for="title" class="form-label">Titre</label>
@@ -63,7 +51,7 @@ if (!isset($_SESSION['user'])) {
   <div class="mb-3">
     <label for="category" class="form-label">Genre littéraire</label>
     <select name="category" class="form-select" aria-label="Default select example">
-      <option selected>Selectionner</option>
+      <option value="non-défini" selected>Selectionner</option>
       <?php foreach ($categories as $category) : ?>
         <option <?php if (isset($book) && $book['category'] == $category['title']) : echo 'selected';
                 endif; ?> value="<?= $category['title']; ?>"><?= $category['title']; ?>
