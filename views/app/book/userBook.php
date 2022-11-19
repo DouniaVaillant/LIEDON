@@ -13,6 +13,7 @@
             <p class=""><?= $book['synopsis']; ?></p>
         </div>
         <a href="<?= BASE_PATH . 'user/books/edit?id=' . $book['id']; ?>" class="btn bg-soil text-light"><i class="fas fa-edit"></i></a>
+        <a href="<?= BASE_PATH . 'user/books/delete?id=' . $book['id']; ?>" class="btn bg-soil text-light"><i class="fas fa-trash"></i></a>
     </div>
 
 

@@ -13,27 +13,4 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <?php include(VIEWS . '_partials/footer.php'); ?>

@@ -36,7 +36,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Histoires numériques</a>
+                        <a class="nav-link" href="<?= BASE_PATH . 'stories'; ?>">Histoires numériques</a>
                     </li>
                     <?php if (isset($_SESSION['user'])) : ?>
                         <form class="d-flex" role="search">
@@ -59,12 +59,12 @@
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="<?= BASE_PATH . "user/profile"; ?>"> Profil</a></li>
                                 <hr class="hr">
-                                <li><a class="dropdown-item" href="#">Mes histoires</a></li>
+                                <li><a class="dropdown-item" href="<?= BASE_PATH . 'user/stories'; ?>">Mes histoires</a></li>
                                 <li><a class="dropdown-item" href="<?= BASE_PATH . 'user/books'; ?>">Mes livres</a></li>
                                 <li><a class="dropdown-item" href="#">Mes emprunts</a></li>
                                 <hr class="hr">
                                 <li><a class="dropdown-item" href="<?= BASE_PATH . 'book/add'; ?>">Ajouter un livre</a></li>
-                                <li><a class="dropdown-item" href="#">Créer une histoire</a></li>
+                                <li><a class="dropdown-item" href="<?= BASE_PATH . 'story/add'; ?>">Créer une histoire</a></li>
                                 <hr class="hr">
                                 <li><a class="dropdown-item" href="#">Paramètres</a></li>
                                 <li><a class="dropdown-item" href="<?= BASE_PATH . "user/logOut"; ?>">Déconnexion</a></li>

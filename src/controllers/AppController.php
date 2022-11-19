@@ -202,6 +202,19 @@ class AppController
     include(VIEWS . "app/backoffice/listBook.php");
   }
 
+  public static function listStory()
+  {
+
+    $stories = Story::findAll();
+    $categories = Category::findAll();
+
+    if (isset($_GET['category'])) {
+      $stories = Story::findByCategory(['category' => $_GET['category']]);
+    }
+
+    include(VIEWS . "app/backoffice/listStory.php");
+  }
+
   public static function listCategory()
   {
 
@@ -580,6 +593,91 @@ class AppController
     endif;
 
     include(VIEWS . "app/backoffice/editBook.php");
+  }
+
+  // $ CRUD story
+  public static function showStory()
+  {
+
+    $id = $_GET['id'];
+    $story = Story::findById(['id' => $id]);
+
+    include(VIEWS . "app/story/showStory.php");
+  }
+  public static function editStory()
+  {
+
+    if (!empty($_GET['id'])) {
+      $story = Story::findById(['id' => $_GET['id']]);
+    }
+    $categories = Category::findAll();
+    $targetReader = TargetReader::findAll();
+    $user = $_SESSION['user'];
+
+    $error = [];
+    if (!empty($_POST)) :
+
+      if (!empty($_FILES['photoCoverUpdate']['name']) && $_FILES['photoCoverUpdate']['size'] < 3000000 && ($_FILES['photoCoverUpdate']['type'] == 'image/jpeg' || $_FILES['photoCoverUpdate']['type'] == 'image/png' || $_FILES['photoCoverUpdate']['type'] == 'image/gif')) :
+        $extensionPhoto = strtolower(strchr($_FILES['photoCoverUpdate']['name'], '.')); /// = srttolower => met en minuscule ||| substr => ignore un élément de la chaîne ||| strrchr => récupère l'extension du fichier
+        $photoCoverName = $user['id'] . '-' . $story['id'] . '-' . htmlspecialchars(preg_replace('/[^a-zA-Z\d\àâçéèîïìñôöùûü]+/', '', $_POST['title'])) . $extensionPhoto;
+
+        unlink(PUBLIC_FOLDER . 'upload/story/' . $story['photo']); // ? Suppression de la précédente image
+        copy($_FILES['photoCoverUpdate']['tmp_name'], PUBLIC_FOLDER . 'upload/story/' . $photoCoverName); // ? Copie de la nouvelle image dans le dossier concerné
+      else :
+        $photoCoverName = $_POST['photo'];
+      endif;
+
+      if (empty($_POST['title'])) {
+        $error['title'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['synopsis'])) {
+        $error['synopsis'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['category']) || $_POST['category'] == 'Selectionner') {
+        $error['category'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['target_reader']) || $_POST['target_reader'] == 'Selectionner') {
+        $error['target_reader'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['language'])) {
+        $error['language'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['status'])) {
+        $status = 'Brouillon';
+      }
+
+      if (empty($_POST['id_user'])) {
+        $error['id_user'] = "Le champs est obligatoire et très important, si l'identité de l'utilisateur a été perdu merci d'annuler toute modification et de recommencer ultérieurement.";
+      }
+
+      if (empty($error)) :
+        Story::update([
+          'id_user' => $_POST['id_user'],
+          'title' => $_POST['title'],
+          'synopsis' => $_POST['synopsis'],
+          'photo' => $photoCoverName,
+          'status' => $_POST['status'],
+          'category' => $_POST['category'],
+          'target_reader' => $_POST['target_reader'],
+          'language' => $_POST['language'],
+          'id' => intval($_POST['id'])
+        ]);
+
+        $_SESSION['messages']['success'][] = 'Modification effectuée avec succès !';
+        header('location:../admin/story/list');
+        exit();
+
+      endif;
+    endif;
+
+
+
+    include(VIEWS . "app/backoffice/editStory.php");
   }
 
   // $ CRUD category
@@ -981,9 +1079,9 @@ class AppController
         header('location:../404.php');
         exit();
       }
-    else:
+    else :
       $books = Book::findAll();
-      
+
     endif;
 
 
@@ -1015,7 +1113,7 @@ class AppController
       if (!empty($_FILES['photo']['name']) && $_FILES['photo']['size'] < 3000000 && ($_FILES['photo']['type'] == 'image/jpeg' || $_FILES['photo']['type'] == 'image/png' || $_FILES['photo']['type'] == 'image/gif')) :
 
         $extensionPhoto = strtolower(strchr($_FILES['photo']['name'], '.')); /// = srttolower => met en minuscule ||| substr => ignore un élément de la chaîne ||| strrchr => récupère l'extension du fichier
-        $photoCoverName = $user['id'] . '-' . strval(htmlspecialchars(preg_replace('/\s+/', '', $_POST['title']))) . '-' . strval(uniqid()) . $extensionPhoto;
+        $photoCoverName = $user['id'] . '-' . strval(htmlspecialchars(preg_replace('/[^a-zA-Z\d\àâçéèîïìñôöùûü]+/', '', $_POST['title']))) . '-' . strval(uniqid()) . $extensionPhoto;
 
         copy($_FILES['photo']['tmp_name'], PUBLIC_FOLDER . 'upload/book/' . $photoCoverName); // ? Copie de la nouvelle image dans le dossier concerné
 
@@ -1100,7 +1198,7 @@ class AppController
       // * Couverture
       if (!empty($_FILES['photoCoverUpdate']['name']) && $_FILES['photoCoverUpdate']['size'] < 3000000 && ($_FILES['photoCoverUpdate']['type'] == 'image/jpeg' || $_FILES['photoCoverUpdate']['type'] == 'image/png' || $_FILES['photoCoverUpdate']['type'] == 'image/gif')) :
         $extensionPhoto = strtolower(strchr($_FILES['photoCoverUpdate']['name'], '.')); /// = srttolower => met en minuscule ||| substr => ignore un élément de la chaîne ||| strrchr => récupère l'extension du fichier
-        $photoCoverName = $user['id'] . '-' . $book['id'] . '-' . htmlspecialchars(preg_replace('/\s+/', '', $_POST['title'])) . $extensionPhoto;
+        $photoCoverName = $user['id'] . '-' . $book['id'] . '-' . htmlspecialchars(preg_replace('/[^a-zA-Z\d\àâçéèîïìñôöùûü]+/', '', $_POST['title'])) . $extensionPhoto;
 
         unlink(PUBLIC_FOLDER . 'upload/book/' . $book['photo']); // ? Suppression de la précédente image
         copy($_FILES['photoCoverUpdate']['tmp_name'], PUBLIC_FOLDER . 'upload/book/' . $photoCoverName); // ? Copie de la nouvelle image dans le dossier concerné
@@ -1189,5 +1287,189 @@ class AppController
     header('location:../book/list');
     exit();
     include(VIEWS . "app/book/deleteBook.php");
+  }
+
+  // $ User Story
+  public static function stories()
+  {
+
+    $stories = Story::findAll();
+
+    include(VIEWS . "app/story/stories.php");
+  }
+  public static function userStory()
+  {
+
+    $user = $_SESSION['user'];
+    $stories = Story::findByIdUser(['id_user' => $user['id']]);
+
+    include(VIEWS . "app/story/userStory.php");
+  }
+
+  public static function addStory()
+  {
+
+    $categories = Category::findAll();
+    $targetReader = TargetReader::findAll();
+    $user = $_SESSION['user'];
+
+    $error = [];
+    if (!empty($_POST)) :
+
+      $category = $_POST['category'];
+      $targetReader = $_POST['target_reader'];
+
+      if (!empty($_FILES['photo']['name']) && $_FILES['photo']['size'] < 3000000 && ($_FILES['photo']['type'] == 'image/jpeg' || $_FILES['photo']['type'] == 'image/png' || $_FILES['photo']['type'] == 'image/gif')) :
+
+        $extensionPhoto = strtolower(strchr($_FILES['photo']['name'], '.')); /// = srttolower => met en minuscule ||| substr => ignore un élément de la chaîne ||| strrchr => récupère l'extension du fichier
+        $photoCoverName = $user['id'] . '-' . strval(htmlspecialchars(preg_replace('/[^a-zA-Z\d\àâçéèîïìñôöùûü]+/', '', $_POST['title']))) . '-' . strval(uniqid()) . $extensionPhoto;
+
+        copy($_FILES['photo']['tmp_name'], PUBLIC_FOLDER . 'upload/story/' . $photoCoverName); // ? Copie de la nouvelle image dans le dossier concerné
+
+      else :
+
+        $photoCoverName = $_POST['photo'];
+
+      endif;
+
+      if (empty($_POST['title'])) {
+        $error['title'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['synopsis'])) {
+        $error['synopsis'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['category']) || $_POST['category'] == 'Selectionner') {
+        $error['category'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['target_reader']) || $_POST['target_reader'] == 'Selectionner') {
+        $error['target_reader'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['language'])) {
+        $error['language'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['status'])) {
+        $status = 'Brouillon';
+      }
+
+      if (empty($error)) :
+        Story::create([
+          'id_user' => $user['id'],
+          'title' => $_POST['title'],
+          'synopsis' => $_POST['synopsis'],
+          'photo' => $photoCoverName,
+          'status' => $status,
+          'category' => $_POST['category'],
+          'target_reader' => $_POST['target_reader'],
+          'language' => $_POST['language']
+        ]);
+
+        $_SESSION['messages']['success'][] = 'Publication effectuée avec succès !';
+        header('location:../');
+        exit();
+
+      endif;
+    endif;
+
+
+    include(VIEWS . "app/story/addStory.php");
+  }
+
+  public static function editUserStories()
+  {
+
+    if (!empty($_GET['id'])) {
+      $story = Story::findById(['id' => $_GET['id']]);
+    }
+    $categories = Category::findAll();
+    $targetReader = TargetReader::findAll();
+    $user = $_SESSION['user'];
+
+    $error = [];
+    if (!empty($_POST)) :
+
+      if (!empty($_FILES['photoCoverUpdate']['name']) && $_FILES['photoCoverUpdate']['size'] < 3000000 && ($_FILES['photoCoverUpdate']['type'] == 'image/jpeg' || $_FILES['photoCoverUpdate']['type'] == 'image/png' || $_FILES['photoCoverUpdate']['type'] == 'image/gif')) :
+        $extensionPhoto = strtolower(strchr($_FILES['photoCoverUpdate']['name'], '.')); /// = srttolower => met en minuscule ||| substr => ignore un élément de la chaîne ||| strrchr => récupère l'extension du fichier
+        $photoCoverName = $user['id'] . '-' . $story['id'] . '-' . htmlspecialchars(preg_replace('/[^a-zA-Z\d\àâçéèîïìñôöùûü]+/', '', $_POST['title'])) . $extensionPhoto;
+
+        unlink(PUBLIC_FOLDER . 'upload/story/' . $story['photo']); // ? Suppression de la précédente image
+        copy($_FILES['photoCoverUpdate']['tmp_name'], PUBLIC_FOLDER . 'upload/story/' . $photoCoverName); // ? Copie de la nouvelle image dans le dossier concerné
+      else :
+        $photoCoverName = $_POST['photo'];
+      endif;
+
+      if (empty($_POST['title'])) {
+        $error['title'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['synopsis'])) {
+        $error['synopsis'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['category']) || $_POST['category'] == 'Selectionner') {
+        $error['category'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['target_reader']) || $_POST['target_reader'] == 'Selectionner') {
+        $error['target_reader'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['language'])) {
+        $error['language'] = 'Le champs est obligatoire';
+      }
+
+      if (empty($_POST['status'])) {
+        $status = 'Brouillon';
+      }
+
+      if (empty($error)) :
+        Story::update([
+          'id_user' => $_SESSION['user']['id'],
+          'title' => $_POST['title'],
+          'synopsis' => $_POST['synopsis'],
+          'photo' => $photoCoverName,
+          'status' => $_POST['status'],
+          'category' => $_POST['category'],
+          'target_reader' => $_POST['target_reader'],
+          'language' => $_POST['language'],
+          'id' => intval($_POST['id'])
+        ]);
+
+        $_SESSION['messages']['success'][] = 'Modification effectuée avec succès !';
+        header('location:../stories');
+        exit();
+
+      endif;
+    endif;
+
+
+    include(VIEWS . "app/story/addStory.php");
+  }
+
+  public static function deleteStory()
+  {
+
+    if (!isset($_SESSION['user'])) {  // ? Sécurité
+      header('location:../');
+      exit();
+    }
+
+    if (!empty($_GET['id'])) :
+      $story = Story::findById(['id' => $_GET['id']]);
+      unlink(PUBLIC_FOLDER . 'upload/story/' . $story['photo']); // ? Suppression de la photo de couverture du livre à supprimer
+      Story::delete([
+        'id' => intval($_GET['id'])
+      ]);
+
+      $_SESSION['messages']['success'][] = 'Histoire supprimée avec succès';
+    endif;
+
+    header('location:../story/list');
+    exit();
+    include(VIEWS . "app/story/deleteStory.php");
   }
 }

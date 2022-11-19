@@ -49,7 +49,7 @@
                     <td>
                         <a href="<?= BASE_PATH . 'book/show?id=' . $book['id']; ?>" class=""><i class="fa-solid soil fa-eye"></i></a>
                         <a href="<?= BASE_PATH . 'admin/book/edit?id=' . $book['id']; ?>" class=""><i class="fa-solid soil fa-pen"></i></a>
-                        <a onclick="return confirm('Etes-vous sûr de vouloir supprimer cette annonce?')" href="<?= BASE_PATH . 'admin/book/delete?id=' . $book['id']; ?>" class=""><i class="fa-solid soil fa-trash"></i></a>
+                        <a onclick="return confirm('Etes-vous sûr de vouloir supprimer cette documentation ?')" href="<?= BASE_PATH . 'book/delete?id=' . $book['id']; ?>" class=""><i class="fa-solid soil fa-trash"></i></a>
                     </td>
                 </tr>
             <?php endforeach; ?>

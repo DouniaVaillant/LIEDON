@@ -1,6 +1,6 @@
 <?php include(VIEWS . '_partials/header.php'); ?>
 
-<form action="<?= BASE_PATH . 'story/add'; ?>" method="POST" enctype="multipart/form-data">
+<form action="<?php if (isset($_GET['id'])): echo BASE_PATH . 'user/stories/edit'; else : echo BASE_PATH . 'story/add'; endif; ?>" method="POST" enctype="multipart/form-data">
 
 
     <?php if (isset($story)) : ?>
@@ -21,7 +21,7 @@
         </div>
     <?php endif; ?>
 
-    <label for="category" class="form-label">Genre littéraire</label>
+    <label for="category" class="form-label mb-3">Genre littéraire</label>
     <select name="category" class="form-select" aria-label="Default select example">
         <option selected>Selectionner</option>
         <?php foreach ($categories as $category) : ?>
@@ -52,9 +52,33 @@
 
     <div class="mb-3">
         <label for="synopsis" class="form-label">Synopsis</label>
-        <textarea name="synopsis" class="form-control" id=""><?= $book['synopsis'] ?? ''; ?></textarea>
+        <textarea name="synopsis" class="form-control" id=""><?= $story['synopsis'] ?? ''; ?></textarea>
         <small class="text-danger"><?= $error['synopsis'] ?? ""; ?></small>
     </div>
+
+    <div class="mb-3">
+        <label for="status" class="form-label">statut</label>
+        <select name="status" value="<?= $_POST['status'] ?? $story['status']; ?>" class="form-select" aria-label="Default select example">
+            <option value="Brouillon" selected>Brouillon</option>
+                <option value="En réecriture">En réecriture</option>
+                <option value="Terminé">Terminé</option>
+        </select>
+        <small class="text-danger"><?= $error['status'] ?? ""; ?></small>
+    </div>
+
+    <div class="mb-3 form-check">
+        <label for="language" class="form-label">Langue</label>
+        <select name="language" value="<?= $_POST['status'] ?? $story['status']; ?>" class="form-select">
+            <option value="<?= $_POST['language'] ?? 'Français'; ?>" >Français</option>
+            <option value="<?= $_POST['language'] ?? 'Anglais'; ?>" >Anglais</option>
+            <option value="<?= $_POST['language'] ?? 'Italien'; ?>" >Italien</option>
+            <option value="<?= $_POST['language'] ?? 'Espagnol'; ?>" >Espagnol</option>
+            <option value="<?= $_POST['language'] ?? 'Allemand'; ?>" >Allemand</option>
+            <option value="<?= $_POST['language'] ?? 'Portugais'; ?>" >Portugais</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-success">Enregistrer</button>
 
 </form>
 

@@ -39,7 +39,6 @@ $routes = [
     '/user/logIn'                   => ['AppController', 'logIn'],
     '/user/logOut'                  => ['AppController', 'logOut'],
 
-
     '/admin/backoffice'             => ['AppController', 'backoffice'],
     '/admin/user/list'              => ['AppController', 'listUser'],
     '/admin/user/add'               => ['AppController', 'addUser'],
@@ -56,7 +55,8 @@ $routes = [
     '/admin/book/list'              => ['AppController', 'listBook'],
     '/admin/book/add'               => ['AppController', 'addBook'],
     '/admin/book/edit'              => ['AppController', 'editBook'],
-    '/admin/book/delete'            => ['AppController', 'deleteBook'],
+    '/admin/story/list'             => ['AppController', 'listStory'],
+    '/admin/story/edit'             => ['AppController', 'editStory'],
     
     '/user/profile'                 => ['AppController', 'profile'],
     '/user/profile/edit'            => ['AppController', 'editProfile'],
@@ -67,6 +67,13 @@ $routes = [
     '/book/show'                    => ['AppController', 'showBook'],
     '/book/add'                     => ['AppController', 'addBook'],
     '/user/books/edit'              => ['AppController', 'editUserBook'],
-
+    '/book/delete'                  => ['AppController', 'deleteBook'],
+    
+    '/stories'                      => ['AppController', 'stories'],
+    '/user/stories'                 => ['AppController', 'userStory'],
+    '/story/show'                   => ['AppController', 'showStory'],
+    '/story/add'                    => ['AppController', 'addStory'],
+    '/user/stories/edit'            => ['AppController', 'editUserStories'],
+    '/story/delete'                 => ['AppController', 'deleteStory'],
 
 ];

@@ -8,7 +8,7 @@
         <a href="<?= BASE_PATH . "admin/user/list"; ?>" class="list-group-item list-group-item-success rounded-2">Gestion des utilisateurs</a>
     </li>
     <li>
-        <a href="#" class="list-group-item list-group-item-success rounded-2 mt-2">Gestion des Histoires numériques</a>
+        <a href="<?= BASE_PATH . 'admin/story/list'; ?>" class="list-group-item list-group-item-success rounded-2 mt-2">Gestion des Histoires numériques</a>
     </li>
     <li>
         <a href="<?= BASE_PATH . 'admin/book/list'; ?>" class="list-group-item list-group-item-success rounded-2 mt-2">Gestion des Livres papiers</a>
