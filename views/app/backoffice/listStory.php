@@ -20,6 +20,7 @@
                 <th>Auteur</th>
                 <th>Couverture</th>
                 <th>Titre</th>
+                <!-- <th>Nb de chapitre</th> -->
                 <th>Catégorie</th>
                 <th>Cible</th>
                 <th>Statut</th>
@@ -37,6 +38,7 @@
                     <td><?php echo $user['pseudo']; ?></td>
                     <td><img src="<?= BASE . 'upload/story/' . $story['photo']; ?>" alt="couverture" height="100"></td>
                     <td><?= $story['title']; ?></td>
+                    <!-- <td><?php $nbChapitre = Chapter::count(['id_story' => intval($story['id'])]); echo $nbChapitre; ?></td> -->
                     <td><?= $story['category']; ?></td>
                     <td><?= $story['target_reader']; ?></td>
                     <td><?= $story['status']; ?></td>

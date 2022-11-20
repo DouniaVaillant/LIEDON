@@ -79,6 +79,7 @@
     </div>
 
     <button type="submit" class="btn btn-success">Enregistrer</button>
+    <a href="<?= BASE_PATH . 'story/chapter/add?story=' . $story['id']; ?>" class="btn bg-lightBrown">Ajouter un chapitre</a>
 
 </form>
 
