@@ -18,7 +18,7 @@
                 <td><?= $target['title']; ?></td>
                 <td>
                     <a href="<?= BASE_PATH . 'admin/target-reader/edit?id=' . $target['id']; ?>"><i class="fas fa-edit soil"></i></a>
-                    <a href="<?= BASE_PATH . 'admin/target-reader/delete?id=' . $target['id']; ?>"><i class="fas fa-trash soil"></i></a>
+                    <a onclick="return confirm('Etes-vous sûr de vouloir supprimer cette cible ?')" href="<?= BASE_PATH . 'admin/target-reader/delete?id=' . $target['id']; ?>"><i class="fas fa-trash soil"></i></a>
                 </td>
             </tr>
         <?php endforeach; ?>

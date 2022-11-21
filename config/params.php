@@ -39,7 +39,7 @@ $routes = [
     '/user/logIn'                   => ['RegistrationController', 'logIn'],
     '/user/logOut'                  => ['RegistrationController', 'logOut'],
 
-    '/admin/backoffice'             => ['AdminController', 'backoffice'],
+    '/admin/backoffice'             => ['AdminController', 'index'],
     '/admin/user/list'              => ['AdminController', 'listUser'],
     '/admin/user/add'               => ['AdminController', 'addUser'],
     '/admin/user/edit'              => ['AdminController', 'editUser'],
@@ -77,5 +77,6 @@ $routes = [
     '/story/delete'                 => ['AppController', 'deleteStory'],
 
     '/story/chapter/add'            => ['AppController', 'addChapter'],
+    '/story/chapter/show'           => ['AppController', 'showChapter'],
 
 ];

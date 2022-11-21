@@ -20,7 +20,7 @@
                 <td><?= $category['title']; ?></td>
                 <td>
                     <a href="<?= BASE_PATH . 'admin/category/edit?id=' . $category['id']; ?>"><i class="fas fa-edit soil"></i></a>
-                    <a href="<?= BASE_PATH . 'admin/category/delete?id=' . $category['id']; ?>"><i class="fas fa-trash soil"></i></a>
+                    <a onclick="return confirm('Etes-vous sûr de vouloir supprimer cette catégorie ?')" href="<?= BASE_PATH . 'admin/category/delete?id=' . $category['id']; ?>"><i class="fas fa-trash soil"></i></a>
                 </td>
             </tr>
         <?php endforeach; ?>

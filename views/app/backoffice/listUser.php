@@ -84,7 +84,7 @@
                     <td>
                         <a href="<?= BASE_PATH . 'user/profile?id=' . $user['id']; ?>" class=""><i class="fa-solid soil fa-eye"></i></a>
                         <a href="<?= BASE_PATH . 'admin/user/edit?id=' . $user['id']; ?>" class=""><i class="fa-solid soil fa-pen"></i></a>
-                        <a href="<?= BASE_PATH . 'admin/user/delete?id=' . $user['id']; ?>" class=""><i class="fa-solid soil fa-trash"></i></a>
+                        <a onclick="return confirm('Etes-vous sûr de vouloir supprimer cet utilisateur ?')" href="<?= BASE_PATH . 'admin/user/delete?id=' . $user['id']; ?>" class=""><i class="fa-solid soil fa-trash"></i></a>
                     </td>
                 </tr>
             <?php endforeach; ?>

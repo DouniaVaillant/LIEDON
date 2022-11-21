@@ -33,16 +33,26 @@ class Chapter extends Db
 
         return $response->fetchAll(PDO::FETCH_ASSOC);
     }
-
+    
     public static function findById(array $id)
     {
-
+        
         $request = "SELECT * FROM chapter WHERE id = :id";
         $response = self::getDb()->prepare($request);
         $response->execute($id);
-
+        
         return $response->fetch(PDO::FETCH_ASSOC);
     }
+    
+        public static function findByStory(array $story)
+        {
+    
+            $request = "SELECT * FROM chapter WHERE id_story = :id_story";
+            $response = self::getDb()->prepare($request);
+            $response->execute($story);
+    
+            return $response->fetchAll(PDO::FETCH_ASSOC);
+        }
 
     public static function count(array $idStory)
     {

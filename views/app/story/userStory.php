@@ -13,7 +13,7 @@
             <p class=""><?= $story['synopsis']; ?></p>
         </div>
         <a href="<?= BASE_PATH . 'user/stories/edit?id=' . $story['id']; ?>" class="btn bg-soil text-light"><i class="fas fa-edit"></i></a>
-        <a href="<?= BASE_PATH . 'user/stories/delete?id=' . $story['id']; ?>" class="btn bg-soil text-light"><i class="fas fa-trash"></i></a>
+        <a onclick="return confirm('Etes-vous sûr de vouloir supprimer cette histoire ?')" href="<?= BASE_PATH . 'story/delete?id=' . $story['id']; ?>" class="btn bg-soil text-light"><i class="fas fa-trash"></i></a>
         <a href="<?= BASE_PATH . 'story/chapter/add?story=' . $story['id']; ?>" class="btn bg-soil text-light"><i class="fas fa-plus"></i></a>
     </div>
 

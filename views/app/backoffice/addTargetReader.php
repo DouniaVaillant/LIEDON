@@ -1,13 +1,6 @@
 <?php include(VIEWS . '_partials/header.php'); ?>
 
 
-<div class="alert alert-dismissible alert-warning">
-  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-  <h4 class="alert-heading">Attention</h4>
-  <p class="mb-0">Merci d'entrer une cible au format: "age - age", "-age" ou "+age" <br><strong> exemple</strong>: "5-10 ans", "-5 ans", "+50 ans".</p>
-</div>
-
-
 
 <form action="<?php if (isset($_GET['id'])) {
                     echo BASE_PATH . 'admin/target-reader/edit';

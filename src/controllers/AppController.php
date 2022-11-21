@@ -46,8 +46,8 @@ class AppController
 
   public static function editProfile()
   {
-    if (!isset($_SESSION['user'])) { // ? Sécurité
-      header('location:../');
+    if (!isset($_SESSION['user']) || ($_GET['id'] != $_SESSION['user']['id'])) { // ? Sécurité
+      header('location:../../404.php');
       exit();
     }
 
@@ -233,6 +233,15 @@ class AppController
   }
 
   // $ User Book
+  public static function showBook()
+  {
+
+    $id = $_GET['id'];
+    $book = Book::findById(['id' => $id]);
+
+    include(VIEWS . "app/book/showBook.php");
+  }
+
   public static function books()
   {
 
@@ -459,6 +468,17 @@ class AppController
   }
 
   // $ User Story
+  public static function showStory()
+  {
+
+    $id = $_GET['id'];
+    $story = Story::findById(['id' => $id]);
+    $chapters = Chapter::findByStory(['id_story' => intval($_GET['id'])]);
+    var_dump($chapters);
+
+    include(VIEWS . "app/story/showStory.php");
+  }
+
   public static function stories()
   {
 
@@ -538,7 +558,7 @@ class AppController
         ]);
 
         $_SESSION['messages']['success'][] = 'Publication effectuée avec succès !';
-        header('location:../user/sories');
+        header('location:../user/stories');
         exit();
 
       endif;
@@ -654,11 +674,11 @@ class AppController
       $content = $_POST['content'];
       $chapterNumber = $_POST['chapter_number'];
 
-      if (empty($_POST['title'])){
+      if (empty($_POST['title'])) {
         $title = 'Chapitre';
       }
 
-      if (empty($_POST['content'])){
+      if (empty($_POST['content'])) {
         $content = 'Vide';
       }
 
@@ -675,12 +695,21 @@ class AppController
         ]);
 
         $_SESSION['messages']['success'][] = "Création d'un nouveau chapitre réalisée avec succès !";
-        header('location:../show');
+        header('location:../show?id='.$story['id']);
         exit();
       }
     }
 
 
     include(VIEWS . "app/story/chapter/addChapter.php");
+  }
+
+  public static function showChapter()
+  {
+   
+   $chapter = Chapter::findById(['id' => $_GET['id']]); 
+   
+   
+   include(VIEWS."app/story/chapter/showChapter.php" ) ;
   }
 }
