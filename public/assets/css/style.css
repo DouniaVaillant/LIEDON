@@ -86,81 +86,116 @@ a {
 
 /* -                                                                                                                                               - */
 
-.card-book {
-  border: 1px solid black;
+.cards {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.cardBook {
+  box-shadow: -1px 1px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
   margin: 10px;
   padding: 10px;
   display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  height: 250px;
+  width: 400px;
 }
 
-.synopsis {
-  background: rgba(0, 0, 0, 0.03);
-}
-
-.coverAndTitle, .right {
+.right {
   display: flex;
   flex-direction: column;
-  align-content: center;
-  justify-content: center;
+  align-items: center;
+  font-size: 0.7rem;
+  text-align: center;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-right: 10px;
+}
+
+.status {
+  background: var(--beige);
+  border-radius: 10px;
+  padding: 3px;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+
+.separator {
+  font-weight: bolder;
+  font-size: small;
+  color: rgba(0, 0, 0, 0.2);
+  margin: 0 3px;
+}
+
+.tags {
+  display: flex;
   align-items: center;
 }
 
+.bgSynopsis, .bgCommentUser {
+  background: rgba(0, 0, 0, 0.03);
+  padding: 3px;
+  
+}
 
+.bgSynopsis::before, .bgCommentUser::before {
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.2);
+}
 
+.bgSynopsis::before {
+  content: 'Synopsis';
+}
 
+.synopsis, .commentUser {
+  white-space: pre-wrap;
+  display: -webkit-box;
+  height: auto;
+  font-size: 0.8rem;
+  text-align: justify;
+  line-height: 1;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
+.comment {
+  display: flex;
+  flex-direction: row;
+}
 
+.bgCommentUser {
+  border-left: 2px solid rgba(88, 129, 87, 1);
+  margin-left: 5px;
+}
 
+.bgCommentUser::before {
+  content: 'Avis';
+}
 
+.user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
+.photoProfile {
+  height: 30px;
+  max-width: 30px;
+  overflow: hidden;
+  border-radius: 150px;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.coverBook {
+  height: 90%;
+}

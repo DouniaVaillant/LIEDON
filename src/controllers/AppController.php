@@ -100,16 +100,18 @@ class AppController
         $error['pseudo'] = 'Le champs est obligatoire';
       }
 
-      if (empty($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) || User::findByEmail(['email' => $_POST['email']])) :
-        if ($_POST['email'] == $_SESSION['user']['email']) :
 
-        else :
+      // * Email
+      if (empty($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) || User::findByEmail(['email' => $_POST['email']])) :
+        if ($_POST['email'] == $user['email']) :
+
+        elseif (User::findByEmail(['email' => $_POST['email']])) :
           $_SESSION['messages']['danger'][] = 'Un compte est déjà existant à cette adresse mail, veuillez procéder à la récupération de mot passe';
           $error['email'] = '';
 
+        else :
+          $error['email'] = 'Le champs est obligatoire et l\'adresse mail doit être valide';
         endif;
-      else :
-        $error['email'] = 'Le champs est obligatoire et l\'adresse mail doit être valide';
       endif;
 
       if (empty($_POST['birthday']) || preg_match('#[a-zA-Z]#', $_POST['birthday'])) {
@@ -727,13 +729,13 @@ class AppController
         'id_user' => $_SESSION['user']['id'],
         'id_story' => $_GET['id']
       ]);
-    } else { 
+    } else {
       Library::create([
         'id_user' => $_SESSION['user']['id'],
         'id_story' => $_GET['id']
       ]);
     }
-      
+
     header('location:stories');
     exit();
   }
