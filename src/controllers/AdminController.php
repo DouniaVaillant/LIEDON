@@ -198,7 +198,7 @@ class AdminController
                 ]);
 
                 $_SESSION['messages']['success'][] = "Création d'un nouvel utilisateur réalisée avec succès !";
-                header('location:../listUser');
+                header('location:../user/list');
                 exit();
             endif;
         }
@@ -215,123 +215,131 @@ class AdminController
 
         $user = User::findById(['id' => $_GET['id']]);
 
-        $error = [];
-        if (!empty($_POST)) {
+        // die(var_dump($_SESSION['user']['roles']));
+        if ($_SESSION['user']['roles'] != 'ROLE_ADMIN' && ($user['roles'] == 'ROLE_ADMIN' || $user['roles'] == 'ROLE_MODO')) {
+            $_SESSION['messages']['danger'][] = "Impossible pour un modérateur de modifier les informations d'un administrateur ou d'un autre modérateur";
+            header('location:../user/list');
+            exit();
+        } else {
 
-            // * Bannière
-            if (!empty($_FILES['photoBannerUpdate']['name']) && $_FILES['photoBannerUpdate']['size'] < 3000000 && ($_FILES['photoBannerUpdate']['type'] == 'image/jpeg' || $_FILES['photoBannerUpdate']['type'] == 'image/png' || $_FILES['photoBannerUpdate']['type'] == 'image/gif')) :
+            $error = [];
+            if (!empty($_POST)) {
 
-                $extensionBannerUpload = strtolower(strchr($_FILES['photoBannerUpdate']['name'], '.')); /// = srttolower => met en minuscule ||| substr => ignore un élément de la chaîne ||| strrchr => récupère l'extension du fichier
-                $photoBannerName = $user['id'] . '-banner-' . date_format(new DateTime(), 'YdmHi') . '-' . uniqid() . $extensionBannerUpload;
+                // * Bannière
+                if (!empty($_FILES['photoBannerUpdate']['name']) && $_FILES['photoBannerUpdate']['size'] < 3000000 && ($_FILES['photoBannerUpdate']['type'] == 'image/jpeg' || $_FILES['photoBannerUpdate']['type'] == 'image/png' || $_FILES['photoBannerUpdate']['type'] == 'image/gif')) :
 
-                unlink(PUBLIC_FOLDER . 'upload/photos/banner/' . $_POST['photo_banner']); // ? Suppression de la précédente image
-                copy($_FILES['photoBannerUpdate']['tmp_name'], PUBLIC_FOLDER . 'upload/photos/banner/' . $photoBannerName); // ? Copie de la nouvelle image dans le dossier concerné
+                    $extensionBannerUpload = strtolower(strchr($_FILES['photoBannerUpdate']['name'], '.')); /// = srttolower => met en minuscule ||| substr => ignore un élément de la chaîne ||| strrchr => récupère l'extension du fichier
+                    $photoBannerName = $user['id'] . '-banner-' . date_format(new DateTime(), 'YdmHi') . '-' . uniqid() . $extensionBannerUpload;
 
-            else :
-
-                $photoName = $_POST['photo_banner'];
-
-            endif;
-
-            // * Profile
-            if (!empty($_FILES['photoProfileUpdate']['name']) && $_FILES['photoProfileUpdate']['size'] < 3000000 && ($_FILES['photoProfileUpdate']['type'] == 'image/jpeg' || $_FILES['photoProfileUpdate']['type'] == 'image/png' || $_FILES['photoProfileUpdate']['type'] == 'image/gif')) :
-
-                $extensionPhotoUpload = strtolower(strchr($_FILES['photoProfileUpdate']['name'], '.')); /// = srttolower => met en minuscule ||| substr => ignore un élément de la chaîne ||| strrchr => récupère l'extension du fichier
-                $photoName = $user['id'] . '-profile-' . date_format(new DateTime(), 'YdmHi') . '-' . uniqid() . $extensionPhotoUpload;
-
-                // on supprime la précédente photo grace à la méthode unlink qui attend en argument le chemin complet d'acces au fichier à supprimer
-                unlink(PUBLIC_FOLDER . 'upload/photos/profile/' . $_POST['photo_profile']);
-                // on copie dans notre dossier d'upload le fichier chargé et renommé
-                copy($_FILES['photoProfileUpdate']['tmp_name'], PUBLIC_FOLDER . 'upload/photos/profile/' . $photoName);
-
-            else :
-
-                $photoName = $_POST['photo_profile'];
-
-            endif;
-
-            // * 
-            if (empty($_POST['lastname']) || preg_match('#[0-9]#', $_POST['lastname'])) {
-                $error['lastname'] = 'Le champs est obligatoire et doit contenir uniquement des lettres';
-            }
-
-            if (empty($_POST['firstname']) || preg_match('#[0-9]#', $_POST['firstname'])) {
-                $error['firstname'] = 'Le champs est obligatoire et doit contenir uniquement des lettres';
-            }
-
-            if (empty($_POST['pseudo'])) {
-                $error['pseudo'] = 'Le champs est obligatoire';
-            }
-
-            // * Email
-            if (empty($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) || User::findByEmail(['email' => $_POST['email']])) :
-                if ($_POST['email'] == $user['email']) :
-
-                elseif (User::findByEmail(['email' => $_POST['email']])) :
-                    $_SESSION['messages']['danger'][] = 'Un compte est déjà existant à cette adresse mail, veuillez procéder à la récupération de mot passe';
-                    $error['email'] = '';
+                    unlink(PUBLIC_FOLDER . 'upload/photos/banner/' . $_POST['photo_banner']); // ? Suppression de la précédente image
+                    copy($_FILES['photoBannerUpdate']['tmp_name'], PUBLIC_FOLDER . 'upload/photos/banner/' . $photoBannerName); // ? Copie de la nouvelle image dans le dossier concerné
 
                 else :
-                    $error['email'] = 'Le champs est obligatoire et l\'adresse mail doit être valide';
+
+                    $photoName = $_POST['photo_banner'];
+
                 endif;
-            endif;
 
-            // * 
-            if (empty($_POST['birthday']) || preg_match('#[a-zA-Z]#', $_POST['birthday'])) {
-                $error['birthday'] = 'Veuillez remplir correctement ce champs au format jj/mm/aaaa, aucune lettre n\'est acceptée';
+                // * Profile
+                if (!empty($_FILES['photoProfileUpdate']['name']) && $_FILES['photoProfileUpdate']['size'] < 3000000 && ($_FILES['photoProfileUpdate']['type'] == 'image/jpeg' || $_FILES['photoProfileUpdate']['type'] == 'image/png' || $_FILES['photoProfileUpdate']['type'] == 'image/gif')) :
+
+                    $extensionPhotoUpload = strtolower(strchr($_FILES['photoProfileUpdate']['name'], '.')); /// = srttolower => met en minuscule ||| substr => ignore un élément de la chaîne ||| strrchr => récupère l'extension du fichier
+                    $photoName = $user['id'] . '-profile-' . date_format(new DateTime(), 'YdmHi') . '-' . uniqid() . $extensionPhotoUpload;
+
+                    // on supprime la précédente photo grace à la méthode unlink qui attend en argument le chemin complet d'acces au fichier à supprimer
+                    unlink(PUBLIC_FOLDER . 'upload/photos/profile/' . $_POST['photo_profile']);
+                    // on copie dans notre dossier d'upload le fichier chargé et renommé
+                    copy($_FILES['photoProfileUpdate']['tmp_name'], PUBLIC_FOLDER . 'upload/photos/profile/' . $photoName);
+
+                else :
+
+                    $photoName = $_POST['photo_profile'];
+
+                endif;
+
+                // * 
+                if (empty($_POST['lastname']) || preg_match('#[0-9]#', $_POST['lastname'])) {
+                    $error['lastname'] = 'Le champs est obligatoire et doit contenir uniquement des lettres';
+                }
+
+                if (empty($_POST['firstname']) || preg_match('#[0-9]#', $_POST['firstname'])) {
+                    $error['firstname'] = 'Le champs est obligatoire et doit contenir uniquement des lettres';
+                }
+
+                if (empty($_POST['pseudo'])) {
+                    $error['pseudo'] = 'Le champs est obligatoire';
+                }
+
+                // * Email
+                if (empty($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) || User::findByEmail(['email' => $_POST['email']])) :
+                    if ($_POST['email'] == $user['email']) :
+
+                    elseif (User::findByEmail(['email' => $_POST['email']])) :
+                        $_SESSION['messages']['danger'][] = 'Un compte est déjà existant à cette adresse mail, veuillez procéder à la récupération de mot passe';
+                        $error['email'] = '';
+
+                    else :
+                        $error['email'] = 'Le champs est obligatoire et l\'adresse mail doit être valide';
+                    endif;
+                endif;
+
+                // * 
+                if (empty($_POST['birthday']) || preg_match('#[a-zA-Z]#', $_POST['birthday'])) {
+                    $error['birthday'] = 'Veuillez remplir correctement ce champs au format jj/mm/aaaa, aucune lettre n\'est acceptée';
+                }
+
+                if (empty($_POST['way'])) {
+                    $error['way'] = 'Le champs est obligatoire';
+                }
+
+                if (empty($_POST['address']) || preg_match('#[0-9]#', $_POST['address'])) {
+                    $error['address'] = 'Le champs est obligatoire est ne peut pas contenir de chiffre';
+                }
+
+                if (empty($_POST['city']) || preg_match('#[0-9]#', $_POST['city'])) {
+                    $error['city'] = 'Le champs est obligatoire est ne peut pas contenir de chiffre';
+                }
+
+                if (empty($_POST['postal_code']) || !preg_match('#^[0-9]{5}$#', $_POST['postal_code'])) {
+                    $error['postal_code'] = 'Le champs est obligatoire';
+                }
+
+                if (empty($_POST['country']) || preg_match('#[0-9]#', $_POST['country'])) {
+                    $error['country'] = 'Le champs est obligatoire';
+                }
+
+                if (empty($_POST['gender']) || preg_match('#[0-9]#', $_POST['gender'])) {
+                    $error['gender'] = 'Le champs est obligatoire';
+                }
+
+                if (empty($error)) :
+
+                    User::update([
+                        'photo_banner' => $photoBannerName,
+                        'photo_profile' => $photoName,
+                        'lastname' => $_POST['lastname'],
+                        'firstname' => $_POST['firstname'],
+                        'pseudo' => $_POST['pseudo'],
+                        'email' => $_POST['email'],
+                        'birthday' => $_POST['birthday'],
+                        'way' => $_POST['way'],
+                        'address' => $_POST['address'],
+                        'city' => $_POST['city'],
+                        'postal_code' => $_POST['postal_code'],
+                        'country' => $_POST['country'],
+                        'gender' => $_POST['gender'],
+                        'roles' => $_POST['roles'],
+                        'id' => $user['id']
+                    ]);
+
+                    $sessionUser = User::findById(['id' => $_SESSION['user']['id']]);
+                    $_SESSION['user'] = $sessionUser;
+                    $_SESSION['messages']['success'][] = 'Modification effectuée avec succès!';
+                    header('location:../user/list');
+                    exit();
+
+                endif;
             }
-
-            if (empty($_POST['way'])) {
-                $error['way'] = 'Le champs est obligatoire';
-            }
-
-            if (empty($_POST['address']) || preg_match('#[0-9]#', $_POST['address'])) {
-                $error['address'] = 'Le champs est obligatoire est ne peut pas contenir de chiffre';
-            }
-
-            if (empty($_POST['city']) || preg_match('#[0-9]#', $_POST['city'])) {
-                $error['city'] = 'Le champs est obligatoire est ne peut pas contenir de chiffre';
-            }
-
-            if (empty($_POST['postal_code']) || !preg_match('#^[0-9]{5}$#', $_POST['postal_code'])) {
-                $error['postal_code'] = 'Le champs est obligatoire';
-            }
-
-            if (empty($_POST['country']) || preg_match('#[0-9]#', $_POST['country'])) {
-                $error['country'] = 'Le champs est obligatoire';
-            }
-
-            if (empty($_POST['gender']) || preg_match('#[0-9]#', $_POST['gender'])) {
-                $error['gender'] = 'Le champs est obligatoire';
-            }
-
-            if (empty($error)) :
-
-                User::update([
-                    'photo_banner' => $photoBannerName,
-                    'photo_profile' => $photoName,
-                    'lastname' => $_POST['lastname'],
-                    'firstname' => $_POST['firstname'],
-                    'pseudo' => $_POST['pseudo'],
-                    'email' => $_POST['email'],
-                    'birthday' => $_POST['birthday'],
-                    'way' => $_POST['way'],
-                    'address' => $_POST['address'],
-                    'city' => $_POST['city'],
-                    'postal_code' => $_POST['postal_code'],
-                    'country' => $_POST['country'],
-                    'gender' => $_POST['gender'],
-                    'roles' => $_POST['roles'],
-                    'id' => $user['id']
-                ]);
-
-                $sessionUser = User::findById(['id' => $_SESSION['user']['id']]);
-                $_SESSION['user'] = $sessionUser;
-                $_SESSION['messages']['success'][] = 'Modification effectuée avec succès!';
-                header('location:../admin/user/list');
-                exit();
-
-            endif;
         }
 
         include(VIEWS . "app/backoffice/editUser.php");
@@ -345,24 +353,26 @@ class AdminController
         }
 
         if (!empty($_GET['id'])) :
-            // $userToDelete = User::findById(['id' => $_GET['id']]);
-            // // die(var_dump($userToDelete['id']));
-            // if ($_SESSION['user']['roles'] != 'ROLE_ADMIN' && $userToDelete['roles'] == 'ROLE_ADMIN') {
-            //     $_SESSION['messages']['danger'][] = "Impossible pour un modérateur de supprimer un administrateur";
-            //     header('Location:../list');
-            //     exit();
-            // } else {
-            User::delete([
-                'id' => intval($_GET['id'])
-            ]);
+            $userToDelete = User::findById(['id' => $_GET['id']]);
+            // die(var_dump($_SESSION['user']['roles']));
+            if ($_SESSION['user']['roles'] != 'ROLE_ADMIN' && ($userToDelete['roles'] == 'ROLE_ADMIN' || $userToDelete['roles'] == 'ROLE_MODO')) {
+                $_SESSION['messages']['danger'][] = "Impossible pour un modérateur de supprimer un administrateur/modérateur";
+                header('location:../user/list');
+                exit();
+            } else {
+                unlink(PUBLIC_FOLDER . 'upload/photos/profile/' . $userToDelete['photo_profile']);
+                unlink(PUBLIC_FOLDER . 'upload/photos/banner/' . $userToDelete['photo_banner']);
+                User::delete([
+                    'id' => intval($_GET['id'])
+                ]);
 
-            $_SESSION['messages']['success'][] = 'Utilisateur supprimé avec succès';
+                $_SESSION['messages']['success'][] = 'Utilisateur supprimé avec succès';
 
-            header('location:../backoffice');
-            exit();
-        // }
+                header('location:../user/list');
+                exit();
+            }
         endif;
-    } // ° Permettre au MODO de delete un utilisateur ???
+    } // ° Permettre au MODO de delete un utilisateur ??
 
     // $ CRUD book
     public static function editBook()

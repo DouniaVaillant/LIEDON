@@ -68,7 +68,7 @@ class AppController
 
       else :
 
-        $photoName = $_POST['photo_banner'];
+        $photoBannerName = $user['photo_banner'];
 
       endif;
 
@@ -84,7 +84,7 @@ class AppController
 
       else :
 
-        $photoName = $_POST['photo_profile'];
+        $photoName = $user['photo_profile'];
 
       endif;
 
@@ -483,9 +483,11 @@ class AppController
   {
 
     $stories = Story::findAll();
+    // ! $inLibrary 
 
     include(VIEWS . "app/story/stories.php");
   }
+
   public static function userStory()
   {
 
@@ -641,7 +643,6 @@ class AppController
 
   public static function deleteStory()
   {
-
     if (!isset($_SESSION['user'])) {  // ? Sécurité
       header('location:../');
       exit();
@@ -695,7 +696,7 @@ class AppController
         ]);
 
         $_SESSION['messages']['success'][] = "Création d'un nouveau chapitre réalisée avec succès !";
-        header('location:../show?id='.$story['id']);
+        header('location:../show?id=' . $story['id']);
         exit();
       }
     }
@@ -706,10 +707,34 @@ class AppController
 
   public static function showChapter()
   {
-   
-   $chapter = Chapter::findById(['id' => $_GET['id']]); 
-   
-   
-   include(VIEWS."app/story/chapter/showChapter.php" ) ;
+    if (!isset($_SESSION['user'])) {  // ? Sécurité
+      $_SESSION['messages']['warning'][] = 'Merci de vous connecter pour accéder à ce contenu.';
+      header('location:../../');
+      exit();
+    }
+
+    $chapter = Chapter::findById(['id' => $_GET['id']]);
+
+
+    include(VIEWS . "app/story/chapter/showChapter.php");
+  }
+
+  public static function library()
+  {
+
+    if (Library::findByIdStory(['id_story' => $_GET['id']])) {
+      Library::delete([
+        'id_user' => $_SESSION['user']['id'],
+        'id_story' => $_GET['id']
+      ]);
+    } else { 
+      Library::create([
+        'id_user' => $_SESSION['user']['id'],
+        'id_story' => $_GET['id']
+      ]);
+    }
+      
+    header('location:stories');
+    exit();
   }
 }

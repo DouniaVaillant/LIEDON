@@ -4,9 +4,10 @@
 
 <?php if (isset($_SESSION['user'])) : ?>
     <!-- RECHERCHE -->
-    <form action="<?= BASE_PATH; ?>" method="get">
-        <input type="text" name="searchUser" id="">
-        <input type="submit" value="Rechercher">
+    <form action="<?= BASE_PATH; ?>" method="get" class="col-3">
+        <input class="form-control" type="text" name="searchUser" id="" placeholder="@pseudo">
+        <input class="btn bg-beige" type="submit" value="Rechercher">
+        <a href="<?= BASE_PATH . 'admin/story/list'; ?>" class="btn bg-transparent border-warning">Réinitialiser</a>
     </form>
 
     <?php if (isset($_GET['searchUser'])) : ?>

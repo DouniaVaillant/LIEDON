@@ -14,7 +14,7 @@
     </div>
     <div class="form-check form-switch ms-4">
         <input class="form-check-input" type="checkbox" id="button">
-        <label class="form-check-label" id="label" for="button">Afficher les mots de passe</label>
+        <label class="form-check-label" id="label" for="button">Afficher le mot de passe</label>
     </div>
 
     <button class="mt-4 btn btn-warning text-light" type="submit">Se connecter</button>
@@ -31,14 +31,14 @@
 
     let passwordShow = function(event) {
 
-        if (label.innerText === "Cacher les mots de passe") {
+        if (label.innerText === "Cacher le mot de passe") {
             passwordLogIn.setAttribute("type", "password");
             button.setAttribute("checked", false);
-            label.innerText = "Afficher les mots de passe";
+            label.innerText = "Afficher le mot de passe";
         } else {
             passwordLogIn.setAttribute("type", "text");
             button.setAttribute("checked", true);
-            label.innerText = "Cacher les mots de passe";
+            label.innerText = "Cacher le mot de passe";
         }
     };
 

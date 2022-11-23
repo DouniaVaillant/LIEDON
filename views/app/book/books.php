@@ -3,12 +3,16 @@
 <h1>Livres papiers</h1>
 
 <?php foreach ($books as $book) : ?>
-    <a href="<?= BASE_PATH . 'book/show?id=' . $book['id']; ?>">
-        <img src="<?= BASE . 'upload/book/' . $book['photo']; ?>" alt="Image de couverture" style="height: 400px;">
-        <h3><?= $book['title']; ?></h3>
-        <p><?= $book['status']; ?></p>
-        <p><?= $book['synopsis']; ?></p>
-    </a>
+    <div class="card-book">
+        <a href="<?= BASE_PATH . 'book/show?id=' . $book['id']; ?>">
+            <div class="coverAndTitle">
+                <img src="<?= BASE . 'upload/book/' . $book['photo']; ?>" alt="Image de couverture" id="coverBook" style="height: 400px;">
+                <h3><?= $book['title']; ?></h3>
+            </div>
+            <p><?= $book['status']; ?></p>
+            <p><?= $book['synopsis']; ?></p>
+        </a>
+    </div>
 <?php endforeach; ?>
 
 

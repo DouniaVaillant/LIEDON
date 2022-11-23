@@ -75,6 +75,7 @@ $routes = [
     '/story/add'                    => ['AppController', 'addStory'],
     '/user/stories/edit'            => ['AppController', 'editUserStories'],
     '/story/delete'                 => ['AppController', 'deleteStory'],
+    '/library'                      => ['AppController', 'library'],
 
     '/story/chapter/add'            => ['AppController', 'addChapter'],
     '/story/chapter/show'           => ['AppController', 'showChapter'],

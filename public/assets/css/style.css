@@ -10,6 +10,20 @@
   --soil: #895737;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* border: 1px solid purple; */
+}
+
+a {
+  text-decoration: none;
+  color: #141414;
+}
+
+/* -                                                                                                                                              - */
+
 .bg-darkGreen {
   background: var(--darkGreen);
 }
@@ -69,3 +83,84 @@
   text-shadow: 0 0 1px var(--sun);
   color: var(--soil);
 }
+
+/* -                                                                                                                                               - */
+
+.card-book {
+  border: 1px solid black;
+  margin: 10px;
+  padding: 10px;
+  display: flex;
+}
+
+.synopsis {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.coverAndTitle, .right {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
