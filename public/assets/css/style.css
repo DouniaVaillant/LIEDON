@@ -85,7 +85,7 @@ a {
 }
 
 /* -                                                                                                                                               - */
-
+/*  _  books                                                                                                                                */
 .cards {
   display: flex;
   flex-flow: row wrap;
@@ -140,22 +140,24 @@ a {
   align-items: center;
 }
 
-.bgSynopsis, .bgCommentUser {
+.bgSynopsis,
+.bgCommentUser {
   background: rgba(0, 0, 0, 0.03);
   padding: 3px;
-  
 }
 
-.bgSynopsis::before, .bgCommentUser::before {
+.bgSynopsis::before,
+.bgCommentUser::before {
   font-weight: bold;
   color: rgba(0, 0, 0, 0.2);
 }
 
 .bgSynopsis::before {
-  content: 'Synopsis';
+  content: "Synopsis";
 }
 
-.synopsis, .commentUser {
+.synopsis,
+.commentUser {
   white-space: pre-wrap;
   display: -webkit-box;
   height: auto;
@@ -179,7 +181,7 @@ a {
 }
 
 .bgCommentUser::before {
-  content: 'Avis';
+  content: "Avis";
 }
 
 .user {
@@ -198,4 +200,101 @@ a {
 
 .coverBook {
   height: 90%;
+}
+
+/* -                                                                                                                                                     */
+/*  _ showBook                                                                                                                                         */
+
+.page {
+  display: flex;
+}
+
+.leftShowBook {
+  width: 20vw;
+}
+
+.rightShowBook {
+  width: 80vw;
+}
+
+.allInfos {
+  display: flex;
+}
+
+.leftInfos {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-right: 3vw;
+}
+
+.rightInfos {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.targetStatus {
+  display: flex;
+  justify-content: space-between;
+}
+
+.targetShowBook {
+  background: rgb(0 0 0 / 4%);
+  border-radius: 7px;
+  padding: 0 5px;
+}
+
+.statusShowBook {
+  background: var(--beige);
+  color: var(--darkGreen);
+  border-radius: 5px;
+  padding: 0 5px;
+}
+
+.synopsisInfos {
+  display: flex;
+  flex-direction: row-reverse;
+  /* justify-content: space-evenly; */
+}
+
+.caseSynopsis::before, .caseUserComment::before {
+  font-weight: bold;
+}
+
+.caseSynopsis::before {
+  content: 'Synopsis';
+  color: rgb(238 206 159 / 75%);
+}
+
+.caseSynopsis {
+  width: 70%;
+  padding: 5px 10px;
+  background: rgb(238 206 159 / 20%);
+}
+
+.infos {
+  width: 30%;
+}
+
+.userComment {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.caseUserComment::before {
+  content: 'Commentaire';
+  color: rgb(88 129 87 / 30%);
+}
+
+.caseUserComment {
+  background: rgba(40, 54, 24, 0.05);
+  border-left: 3px solid var(--lightGreen);
+  padding: 5px 10px;
+  margin-right: 10px;
+}
+
+.userShowBook {
+  text-align: center;
+  align-self: flex-end;
 }
