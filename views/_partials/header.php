@@ -26,7 +26,7 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="<?= BASE_PATH . 'books'; ?>" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Livres papiers
                         </a>
                         <ul class="dropdown-menu">
@@ -47,7 +47,7 @@
                             </button>
                         </form>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="<?= BASE_PATH . 'library'; ?>">
                                 <img src="<?= BASE . "assets/images/library.svg"; ?>" alt="" style="height: 30px;">
                             </a>
                         </li>
@@ -55,7 +55,7 @@
                     <?php if (isset($_SESSION['user'])) : ?>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="<?= BASE . 'upload/photos/profile/' . $_SESSION['user']['photo_profile']; ?>" alt="" style="height: 30px; width: 30px; border-radius: 150px;">
+                                <img class="roundProfile" src="<?= BASE . 'upload/photos/profile/' . $_SESSION['user']['photo_profile']; ?>" alt="">
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="<?= BASE_PATH . "user/profile"; ?>"> Profil</a></li>

@@ -721,22 +721,41 @@ class AppController
     include(VIEWS . "app/story/chapter/showChapter.php");
   }
 
+  public static function addLibrary()
+  {
+  }
+
   public static function library()
   {
 
-    if (Library::findByIdStory(['id_story' => $_GET['id']])) {
-      Library::delete([
-        'id_user' => $_SESSION['user']['id'],
-        'id_story' => $_GET['id']
-      ]);
-    } else {
-      Library::create([
-        'id_user' => $_SESSION['user']['id'],
-        'id_story' => $_GET['id']
-      ]);
-    }
+    if (isset($_GET['id'])) :
+      if (Library::findByIdStoryAndUser([
+        'id_story' => $_GET['id'],
+        'id_user' => $_SESSION['user']['id']
+      ])) {
+        Library::delete([
+          'id_user' => $_SESSION['user']['id'],
+          'id_story' => $_GET['id']
+        ]);
+      } else {
 
-    header('location:stories');
-    exit();
+        Library::create([
+          'id_user' => $_SESSION['user']['id'],
+          'id_story' => $_GET['id']
+        ]);
+      }
+
+      header('location:stories');
+      exit();
+
+    else :
+      
+      $user = $_SESSION['user'];
+      $library = Library::findAll(['id_user' => $user['id']]);
+
+    endif;
+
+
+    include(VIEWS . "app/story/library/library.php");
   }
 }

@@ -1,21 +1,25 @@
 <?php include(VIEWS . '_partials/header.php'); ?>
 
-<h1>Livres papiers</h1>
+<h1>Histoires numériques</h1>
 
-<?php foreach ($stories as $story) : ?>
-    <a href="<?= BASE_PATH . 'library?id=' . $story['id']; ?>"><i class="fa-solid fa-bookmark darkGreen" style="font-size: 2rem; text-shadow: 1px 1px 2px var(--lightBrown);"></i></a>
-    <a href="<?= BASE_PATH . 'story/show?id=' . $story['id']; ?>">
-        <div class="right">
-            <img src="<?= BASE . 'upload/story/' . $story['photo']; ?>" alt="Image de couverture" style="height: 400px;">
-            <h3><?= $story['title']; ?></h3>
+<div class="pageStory">
+    <?php foreach ($stories as $story) : ?>
+        <div class="stories">
+            <a href="<?= BASE_PATH . 'library?id=' . $story['id']; ?>"><i class="fa-solid fa-bookmark bookmarkStory"></i></a>
+            <a href="<?= BASE_PATH . 'story/show?id=' . $story['id']; ?>">
+            <div class="cardStory">
+                <img class="coverStory" src="<?= BASE . 'upload/story/' . $story['photo']; ?>" alt="Image de couverture">
+                <h3 class=""><?= $story['title']; ?></h3>
+                <div class="synopsisInfos">
+                    <p class=""><?= $story['status']; ?></p>
+                    <p class="synopsisStories"><?= $story['synopsis']; ?></p>
+                </div>
+            </div>
+            </a>
         </div>
-        <div class="left">
-            <p><?= $story['status']; ?></p>
-            <p class="synopsis"><?= $story['synopsis']; ?></p>
-        </div>
-    </a>
-<?php endforeach; ?>
+    <?php endforeach; ?>
 
+</div>
 
 
 <?php include(VIEWS . '_partials/footer.php'); ?>

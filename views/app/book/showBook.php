@@ -21,8 +21,9 @@
                     </div>
                 </div>
                 <div class="userComment">
-                    <a class="userShowBook" href="<?= BASE_PATH . 'user/profile?id=' . $book['id_user']; ?>">
-                        <img src="<?= BASE . 'upload/photos/profile/' . $user['photo_profile']; ?>" style="height: 10vh; overflow: hidden;  border-radius:150px;" alt="Photo de profil">
+                    <?php if(isset($user['id'])): ?>
+                        <a class="userShowBook" href="<?= BASE_PATH . 'user/profile?id=' . $book['id_user']; ?>">
+                            <img src="<?= BASE . 'upload/photos/profile/' . $user['photo_profile']; ?>" style="height: 10vh; overflow: hidden;  border-radius:150px;" alt="Photo de profil">
                         <p>
                             <?= $user['pseudo']; ?>
                         </p>
@@ -30,6 +31,7 @@
                     <div class="caseUserComment">
                         <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus omnis quam est voluptas animi architecto expedita hic facere sed possimus necessitatibus odit iste corporis labore magnam molestias, excepturi perspiciatis odio?</p>
                     </div>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="rightInfos">

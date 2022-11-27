@@ -194,7 +194,8 @@ a {
 .photoProfile {
   height: 30px;
   max-width: 30px;
-  overflow: hidden;
+  /* overflow: hidden; */
+  object-fit: cover;
   border-radius: 150px;
 }
 
@@ -298,3 +299,78 @@ a {
   text-align: center;
   align-self: flex-end;
 }
+
+/* -                                                                                                                                                 */
+/* _   stories                                                                                                                                    */
+
+.pageStory {
+  display: flex;
+  flex-flow: wrap;
+}
+
+.coverStory {
+  height: 350px;
+  width: 200px;
+  object-fit: cover;
+  border-radius: 2px;
+  position: relative;
+}
+
+.bookmarkStory {
+  position: absolute;
+  z-index: 2;
+}
+
+/* $ photo profil */
+
+.roundProfile {
+  height: 30px;
+  width: 30px;
+  object-fit: cover;
+  border-radius: 150px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
