@@ -12,17 +12,25 @@
 <p><strong>Publié le: </strong><?= $story['date_created']; ?></p>
 
 
-<div class="" style="height: 10vh; overflow: hidden; width: 10vh; border-radius:150px;">
-    <img src="<?= BASE . 'upload/photos/profile/' . $user['photo_profile']; ?>" style="height: 10vh;" alt="Photo de profil">
-    <?= $user['pseudo']; ?>
+<div class="">
+    <?php if (isset($user)) : ?>
+        <img src="<?= BASE . 'upload/photos/profile/' . $user['photo_profile']; ?>" class="roundProfile" alt="Photo de profil">
+        <?= $user['pseudo']; ?>
+    <?php else : ?>
+        <p><i>Utilisateur supprimé</i></p>
+    <?php endif; ?>
 </div>
 
 <div class="col-3">
-    <?php foreach ($chapters as $chapter) : ?>
-        <a href="<?= BASE_PATH . 'story/chapter/show?id=' . $chapter['id']; ?>" class="list-group-item list-group-item-warning text-center rounded-2 py-2 my-2">
-            <?= $chapter['title']; ?>
-        </a>
-    <?php endforeach; ?>
+    <?php if (!empty($chapters)) : ?>
+        <?php foreach ($chapters as $chapter) : ?>
+            <a href="<?= BASE_PATH . 'story/chapter/show?id=' . $chapter['id']; ?>" class="list-group-item list-group-item-warning text-center rounded-2 py-2 my-2">
+                <?= $chapter['title']; ?>
+            </a>
+        <?php endforeach; ?>
+    <?php else : ?>
+        <p><i>Aucun chapitre</i></p>
+    <?php endif; ?>
 </div>
 
 

@@ -83,6 +83,8 @@ if (!isset($_SESSION['user'])) {
       </select>
       <small class="text-danger"><?= $error['target_reader'] ?? ""; ?></small>
     </div>
+    <legend>Statut du livre</legend>
+    <small>Si vous proposez au don ou au partage vous acceptez d'être contacté.e par mail par des membres intéressés par le livre</small>
     <div class="mb-3 form-check">
       <input <?php if (isset($book) && $book['status'] == 'partage') : echo 'selected';
               endif; ?> class="form-check-input" type="radio" name="status" id="" value="partage">

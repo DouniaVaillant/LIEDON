@@ -5,8 +5,10 @@
 
 <?php foreach ($library as $data) : ?>
 
-<img src="<?= BASE . 'upload/story/' . $data['photo']; ?>" style="height: 100px;" alt="Couverture - <?= $data['title']; ?>">
-<?= $data['id_story']; ?>
+    <a href="<?= BASE_PATH . 'story/show?id=' . $data['id_story']; ?>">
+        <img src="<?= BASE . 'upload/story/' . $data['photo']; ?>" style="height: 100px;" alt="Couverture - <?= $data['title']; ?>">
+        <?= $data['id_story']; ?>
+    </a>
 
 
 

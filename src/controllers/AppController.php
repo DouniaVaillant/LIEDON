@@ -241,6 +241,27 @@ class AppController
     $id = $_GET['id'];
     $book = Book::findById(['id' => $id]);
 
+    $error = [];
+    if (!empty($_POST)) {
+      // var_dump('coucou');
+
+      if (empty($_POST['comment'])) {
+        $error['comment'] = 'Commentaire vide';
+      }
+
+      if (empty($error)) {
+        // die(var_dump($_POST));
+        Comment::create([
+          'id_user' => intval($_SESSION['user']['id']),
+          'id_book' => intval($_GET['id']),
+          'id_story' => NULL,
+          'comment' => $_POST['comment']
+        ]);
+      }
+    }
+
+    $comments = Comment::findAllByBook(['id_book' => $book['id']]);
+
     include(VIEWS . "app/book/showBook.php");
   }
 
@@ -476,7 +497,7 @@ class AppController
     $id = $_GET['id'];
     $story = Story::findById(['id' => $id]);
     $chapters = Chapter::findByStory(['id_story' => intval($_GET['id'])]);
-    var_dump($chapters);
+    // var_dump($chapters);
 
     include(VIEWS . "app/story/showStory.php");
   }
@@ -501,10 +522,16 @@ class AppController
 
   public static function addStory()
   {
+    $user = $_SESSION['user'];
+
+    if (!isset($user)) {
+      $_SESSION['messages']['danger'][] = "Impossible d'accéder à cette requête";
+      header('location:../');
+      exit();
+    }
 
     $categories = Category::findAll();
     $targetReader = TargetReader::findAll();
-    $user = $_SESSION['user'];
 
     $error = [];
     if (!empty($_POST)) :
@@ -568,19 +595,26 @@ class AppController
       endif;
     endif;
 
-
     include(VIEWS . "app/story/addStory.php");
   }
 
   public static function editUserStories()
   {
 
+    $user = $_SESSION['user'];
+
+    if (!isset($user)) {
+      $_SESSION['messages']['danger'][] = "Impossible d'accéder à cette requête";
+      header('location:../../');
+      exit();
+    }
+
     if (!empty($_GET['id'])) {
       $story = Story::findById(['id' => $_GET['id']]);
     }
+
     $categories = Category::findAll();
     $targetReader = TargetReader::findAll();
-    $user = $_SESSION['user'];
 
     $error = [];
     if (!empty($_POST)) :
@@ -721,10 +755,6 @@ class AppController
     include(VIEWS . "app/story/chapter/showChapter.php");
   }
 
-  public static function addLibrary()
-  {
-  }
-
   public static function library()
   {
 
@@ -749,7 +779,7 @@ class AppController
       exit();
 
     else :
-      
+
       $user = $_SESSION['user'];
       $library = Library::findAll(['id_user' => $user['id']]);
 
@@ -758,4 +788,5 @@ class AppController
 
     include(VIEWS . "app/story/library/library.php");
   }
+
 }
