@@ -33,6 +33,21 @@ class AppController
       $id = $_GET['id'];
       $user = User::findById(['id' => $id]);
 
+      if (!empty($_POST['report'])) {
+        Report::create([
+          'id_reporter' => $_SESSION['user']['id'],
+          'id_reported' => $user['id'],
+          'id_book' => NULL,
+          'id_story' => NULL,
+          'id_chapter' => NULL,
+          'id_reason' => $_POST['reason'],
+        ]);
+
+      $_SESSION['messages']['light'][] = 'Utilisateur signalé';
+      header('location:../');
+      exit();
+      }
+
       include(VIEWS . "app/user/showProfile.php");
 
     else :
@@ -237,30 +252,68 @@ class AppController
   // $ User Book
   public static function showBook()
   {
-
+    //. infos
     $id = $_GET['id'];
     $book = Book::findById(['id' => $id]);
+    $comments = Comment::findAllByBook(['id_book' => $book['id']]);
+    $likeFound = Likes::findLikeBook([
+      'id_liker' => intval($_SESSION['user']['id']),
+      'id_book' => intval($_GET['id'])
+    ]);
 
     $error = [];
-    if (!empty($_POST)) {
-      // var_dump('coucou');
+    if (!empty($_POST)) { // ? like ou comment
+      if (isset($_SESSION['user'])) {
+        if (isset($_POST['comment'])) { // ? comment 
 
-      if (empty($_POST['comment'])) {
-        $error['comment'] = 'Commentaire vide';
-      }
+          if (empty($_POST['comment'])) {
+            $error['comment'] = 'Commentaire vide';
+          }
 
-      if (empty($error)) {
-        // die(var_dump($_POST));
-        Comment::create([
-          'id_user' => intval($_SESSION['user']['id']),
-          'id_book' => intval($_GET['id']),
-          'id_story' => NULL,
-          'comment' => $_POST['comment']
-        ]);
+          if (empty($error)) {
+            // die(var_dump($_POST));
+            Comment::create([
+              'id_commentator' => intval($_SESSION['user']['id']),
+              'id_book' => intval($_GET['id']),
+              'id_story' => NULL,
+              'id_chapter' => NULL,
+              'comment' => $_POST['comment']
+            ]);
+          }
+        } elseif (isset($_POST['likes'])) { // ? like
+          if ($likeFound) { // ? si existe modifier la valeur de likes
+            // die(var_dump($likeFound));
+            if ($likeFound['likes'] == 1) {
+              Likes::updateBook([
+                'likes' => 0,
+                'id_liker' => $_SESSION['user']['id'],
+                'id_book' => $_GET['id']
+              ]);
+            } else {
+              Likes::updateBook([
+                'likes' => 1,
+                'id_liker' => $_SESSION['user']['id'],
+                'id_book' => $_GET['id']
+              ]);
+            }
+          } else {
+            Likes::create([
+              'id_liker' => $_SESSION['user']['id'],
+              'id_book' => $_GET['id'],
+              'id_story' => NULL,
+              'id_chapter' => NULL,
+              'likes' => 1
+            ]);
+          }
+        }
+        header('location:../book/show?id=' . $_GET['id']);
+        exit();
+      } else {
+        $_SESSION['messages']['warning'][] = 'Merci de vous connecter';
+        header('location:../user/logIn');
+        exit();
       }
     }
-
-    $comments = Comment::findAllByBook(['id_book' => $book['id']]);
 
     include(VIEWS . "app/book/showBook.php");
   }
@@ -498,6 +551,65 @@ class AppController
     $story = Story::findById(['id' => $id]);
     $chapters = Chapter::findByStory(['id_story' => intval($_GET['id'])]);
     // var_dump($chapters);
+    $comments = Comment::findAllByStory(['id_story' => $story['id']]);
+    $likeFound = Likes::findLikeStory([
+      'id_liker' => intval($_SESSION['user']['id']),
+      'id_story' => intval($_GET['id'])
+    ]);
+
+    $error = [];
+    if (!empty($_POST)) { // ? like ou comment
+      if (isset($_SESSION['user'])) {
+        if (isset($_POST['comment'])) { // ? comment 
+
+          if (empty($_POST['comment'])) {
+            $error['comment'] = 'Commentaire vide';
+          }
+
+          if (empty($error)) {
+            // die(var_dump($_POST));
+            Comment::create([
+              'id_commentator' => intval($_SESSION['user']['id']),
+              'id_book' => NULL,
+              'id_story' => intval($_GET['id']),
+              'id_chapter' => NULL,
+              'comment' => $_POST['comment']
+            ]);
+          }
+        } elseif (isset($_POST['likes'])) { // ? like
+          if ($likeFound) { // ? si existe modifier la valeur de likes
+            // die(var_dump($likeFound));
+            if ($likeFound['likes'] == 1) {
+              Likes::updateStory([
+                'likes' => 0,
+                'id_liker' => $_SESSION['user']['id'],
+                'id_story' => $_GET['id']
+              ]);
+            } else {
+              Likes::updateStory([
+                'likes' => 1,
+                'id_liker' => $_SESSION['user']['id'],
+                'id_story' => $_GET['id']
+              ]);
+            }
+          } else {
+            Likes::create([
+              'id_liker' => $_SESSION['user']['id'],
+              'id_book' => NULL,
+              'id_story' => $_GET['id'],
+              'id_chapter' => NULL,
+              'likes' => 1
+            ]);
+          }
+        }
+        header('location:../story/show?id=' . $_GET['id']);
+        exit();
+      } else {
+        $_SESSION['messages']['warning'][] = 'Merci de vous connecter';
+        header('location:../user/logIn');
+        exit();
+      }
+    }
 
     include(VIEWS . "app/story/showStory.php");
   }
@@ -751,6 +863,66 @@ class AppController
 
     $chapter = Chapter::findById(['id' => $_GET['id']]);
 
+    $comments = Comment::findAllByChapter(['id_chapter' => $chapter['id']]);
+    $likeFound = Likes::findLikeChapter([
+      'id_liker' => intval($_SESSION['user']['id']),
+      'id_chapter' => intval($_GET['id'])
+    ]);
+
+    $error = [];
+    if (!empty($_POST)) { // ? like ou comment
+      if (isset($_SESSION['user'])) {
+        if (isset($_POST['comment'])) { // ? comment 
+
+          if (empty($_POST['comment'])) {
+            $error['comment'] = 'Commentaire vide';
+          }
+
+          if (empty($error)) {
+            // die(var_dump($_POST));
+            Comment::create([
+              'id_commentator' => intval($_SESSION['user']['id']),
+              'id_book' => NULL,
+              'id_story' => NULL,
+              'id_chapter' => intval($_GET['id']),
+              'comment' => $_POST['comment']
+            ]);
+          }
+        } elseif (isset($_POST['likes'])) { // ? like
+          if ($likeFound) { // ? si existe modifier la valeur de likes
+            // die(var_dump($likeFound));
+            if ($likeFound['likes'] == 1) {
+              Likes::updateChapter([
+                'likes' => 0,
+                'id_liker' => $_SESSION['user']['id'],
+                'id_chapter' => $_GET['id']
+              ]);
+            } else {
+              Likes::updateChapter([
+                'likes' => 1,
+                'id_liker' => $_SESSION['user']['id'],
+                'id_chapter' => $_GET['id']
+              ]);
+            }
+          } else {
+            Likes::create([
+              'id_liker' => $_SESSION['user']['id'],
+              'id_book' => NULL,
+              'id_story' => NULL,
+              'id_chapter' => $_GET['id'],
+              'likes' => 1
+            ]);
+          }
+        }
+        header('location:../chapter/show?id=' . $_GET['id']);
+        exit();
+      } else {
+        $_SESSION['messages']['warning'][] = 'Merci de vous connecter';
+        header('location:../user/logIn');
+        exit();
+      }
+    }
+
 
     include(VIEWS . "app/story/chapter/showChapter.php");
   }
@@ -788,5 +960,16 @@ class AppController
 
     include(VIEWS . "app/story/library/library.php");
   }
+
+  public static function report()
+  {
+   
+    
+   
+   
+   include(VIEWS."app/report.php" ) ;
+  }
+
+
 
 }

@@ -79,4 +79,6 @@ $routes = [
     '/story/chapter/add'            => ['AppController', 'addChapter'],
     '/story/chapter/show'           => ['AppController', 'showChapter'],
 
+    '/report'                        => ['AppController', 'report'],
+
 ];

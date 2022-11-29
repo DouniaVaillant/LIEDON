@@ -26,7 +26,7 @@ if (!isset($_SESSION['user'])) {
 <p><?= $user['gender']; ?></p>
 <p><?= $user['date_registration']; ?></p>
 
-<p class="btn btn-danger" id="reportUser">Signaler cet utilisateur</p>
+<a class="btn btn-danger" href="<?= BASE_PATH . 'report?id-user=' . $user['id']; ?>">Signaler</a>
 
 <?php if ($_SESSION['user']['roles'] == 'ROLE_ADMIN') : ?>
     <a href="<?= BASE_PATH . 'admin/user/edit?id=' . $user['id']; ?>" class="btn bg-lightGreen text-light">Modifier les informations de cet utilisateur</a>
@@ -41,14 +41,10 @@ if (!isset($_SESSION['user'])) {
 
 
 <script>
-    let signalement = document.getElementById("reportUser");
-    // let utilisateur = prompt("quelle est sa faute ?");
-    signalement.addEventListener("click", myFunction);
-
     function myFunction() {
-        let raison = prompt("Perche");
-        console.log(raison)
-        return raison;
+        var reason = prompt("Pourquoi signaler cet utilisateur ?");
+        console.log(reason);
+        return reason;
     }
 </script>
 
