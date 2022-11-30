@@ -21,7 +21,7 @@
                     <div class="comment">
                         <?php if (isset($user['id'])) : ?>
                         <div class="user">
-                            <img class="photoProfile" src="<?= BASE . 'upload/photos/profile/' . $user['photo_profile']; ?>" alt="">
+                            <img class="photoProfile" src="<?= BASE . 'upload/photos/profile/' . $user['photo_profile']; ?>" alt="Photo de profil">
                             <?= $user['pseudo']; ?>
                         </div>
                         <div class="bgCommentUser">

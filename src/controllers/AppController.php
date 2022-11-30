@@ -33,21 +33,6 @@ class AppController
       $id = $_GET['id'];
       $user = User::findById(['id' => $id]);
 
-      if (!empty($_POST['report'])) {
-        Report::create([
-          'id_reporter' => $_SESSION['user']['id'],
-          'id_reported' => $user['id'],
-          'id_book' => NULL,
-          'id_story' => NULL,
-          'id_chapter' => NULL,
-          'id_reason' => $_POST['reason'],
-        ]);
-
-      $_SESSION['messages']['light'][] = 'Utilisateur signalé';
-      header('location:../');
-      exit();
-      }
-
       include(VIEWS . "app/user/showProfile.php");
 
     else :
@@ -619,6 +604,13 @@ class AppController
 
     $stories = Story::findAll();
     // ! $inLibrary 
+    $inLibrary = Library::findAll([
+      'id_user' => $_SESSION['user']['id']
+    ]);
+
+    // if ($inLibrary == 0) {
+    //   die(var_dump($inLibrary));
+    // }
 
     include(VIEWS . "app/story/stories.php");
   }
@@ -964,7 +956,12 @@ class AppController
   public static function report()
   {
    
-    
+    if (isset($_GET['id-user'])) {
+      if ($_POST) {
+        die(var_dump($_POST['reason']));
+        
+      }
+    }
    
    
    include(VIEWS."app/report.php" ) ;

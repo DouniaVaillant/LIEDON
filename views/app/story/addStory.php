@@ -10,14 +10,14 @@
             <label for="coverFile" class="form-label mt-4">Photo de couverture</label>
             <input name="photoCoverUpdate" onchange="loadFileCover(event)" class="form-control" type="file" id="coverFile">
             <small class="text-danger"><?= $error['photo'] ?? ""; ?></small>
-            <img src="<?= BASE . 'upload/story/' . $story['photo']; ?>" height="300" alt="">
-            <img id="cover" height="300" alt="">
+            <img src="<?= BASE . 'upload/story/' . $story['photo']; ?>" height="300" alt="Couverture">
+            <img id="cover" height="300" alt="Couverture">
         </div>
     <?php else : ?>
         <div class="form-group">
             <label for="oldCoverFile" class="form-label mt-4">Photo de couverture</label>
             <input name="photo" onchange="loadFileCover(event)" class="form-control" type="file" id="oldCoverFile">
-            <img id="cover" height="300" alt="">
+            <img id="cover" height="300" alt="Couverture">
         </div>
     <?php endif; ?>
 

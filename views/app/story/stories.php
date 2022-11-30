@@ -5,16 +5,21 @@
 <div class="pageStory">
     <?php foreach ($stories as $story) : ?>
         <div class="stories">
-            <a href="<?= BASE_PATH . 'library?id=' . $story['id']; ?>"><i class="fa-solid fa-bookmark bookmarkStory"></i></a>
+
+            <!-- <?php if (empty($inLibrary)) : ?>
+                <a href="<?= BASE_PATH . 'library?id=' . $story['id']; ?>"><i class="fa-solid fa-bookmark bookmarkStory"></i></a>
+
+                <?php elseif (!empty($inLibrary)) : ?>
+                    <?php if ($inLibrary['id_story'] == $story['id']) : ?>
+                        <a href="<?= BASE_PATH . 'library?id=' . $story['id']; ?>"><i class="fa-solid fa-bookmark beige bookmarkStory"></i></a>
+                        <?php endif; ?>
+                        <?php endif ?> -->
+
+            <a href="<?= BASE_PATH . 'library?id=' . $story['id']; ?>"><i class="fa-solid fa-5x fa-lg fa-bookmark <?php if (isset($inLibrary['id_story']) == $story['id']) : ?> bookmarkStoryInLibrary <?php else : ?> bookmarkStory <?php endif; ?>"></i></a>
             <a href="<?= BASE_PATH . 'story/show?id=' . $story['id']; ?>">
-            <div class="cardStory">
-                <img class="coverStory" src="<?= BASE . 'upload/story/' . $story['photo']; ?>" alt="Image de couverture">
-                <h3 class=""><?= $story['title']; ?></h3>
-                <div class="synopsisInfos">
-                    <p class=""><?= $story['status']; ?></p>
-                    <p class="synopsisStories"><?= $story['synopsis']; ?></p>
+                <div class="cardStory">
+                    <img class="coverStory" src="<?= BASE . 'upload/story/' . $story['photo']; ?>" alt="Image de couverture">
                 </div>
-            </div>
             </a>
         </div>
     <?php endforeach; ?>

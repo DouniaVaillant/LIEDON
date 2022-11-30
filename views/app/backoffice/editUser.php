@@ -18,8 +18,8 @@ if (!isset($_SESSION['user'])) {
     <div class="form-group newPhotoProfile">
         <label for="bannerFile" class="form-label mt-4">Photo de bannière</label>
         <input name="photoBannerUpdate" onchange="loadFileBanner(event)" class="form-control" type="file" id="bannerFile">
-        <img src="<?= BASE . 'upload/photos/banner' . $user['photo_banner']; ?>" width="300" alt="" class="input-file">
-        <img id="banner" alt="" width="300" border-radius>
+        <img src="<?= BASE . 'upload/photos/banner' . $user['photo_banner']; ?>" width="300" alt="Bannière" class="input-file">
+        <img id="banner" alt="Aperçu de la bannière" width="300" border-radius>
     </div>
 
     <!-- PROFIL -->
@@ -28,8 +28,8 @@ if (!isset($_SESSION['user'])) {
     <div class="form-group newPhotoProfile">
         <label for="photoFile" class="form-label label-file labelNewPhotoProfile mt-4">Photo de profile</label>
         <input name="photoProfileUpdate" onchange="loadFileProfile(event)" class="form-control inputNewPhotoProfile" type="file" id="photoFile">
-        <img src="<?= BASE . 'upload/photos/profile' . $user['photo_profile']; ?>" width="300" alt="" class="input-file imgNewPhotoProfile">
-        <img id="profile" alt="" width="300" border-radius>
+        <img src="<?= BASE . 'upload/photos/profile' . $user['photo_profile']; ?>" width="300" alt="Photo de profil" class="input-file imgNewPhotoProfile">
+        <img id="profile" alt="Aperçu de la photo de profil" width="300" border-radius>
     </div>
 
     <div class="mb-3">

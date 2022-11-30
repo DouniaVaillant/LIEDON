@@ -34,7 +34,7 @@
     <?php foreach ($comments as $comment) : ?>
         <div class="rightShowBook otherComment">
             <?php $otherCommentUser = User::findById(['id' => $comment['id_commentator']]); ?>
-            <img class="roundProfile" src="<?= BASE . 'upload/photos/profile/' . $otherCommentUser['photo_profile']; ?>" alt="">
+            <img class="roundProfile" src="<?= BASE . 'upload/photos/profile/' . $otherCommentUser['photo_profile']; ?>" alt="Photo de profil <?= $otherCommentUser['pseudo']; ?>">
             <?= $otherCommentUser['pseudo']; ?>
             <p><?= $comment['comment']; ?></p><br>
         </div>

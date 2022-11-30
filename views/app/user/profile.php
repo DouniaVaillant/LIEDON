@@ -7,13 +7,13 @@ if (!isset($_SESSION['user'])) {
 
 ?>
 <div class="" style="height: 20vh; overflow: hidden;">
-    <img src="<?= BASE . 'upload/photos/banner/' . $user['photo_banner']; ?>" alt="" style="width: 100vw;">
+    <img src="<?= BASE . 'upload/photos/banner/' . $user['photo_banner']; ?>" alt="Image de bannière" style="width: 100vw;">
 </div>
 
 <h1>@<?= $user['pseudo']; ?></h1>
 
 <div class="" style="height: 100px; width: 100px; overflow: hidden; border-radius: 150px;">
-    <img src="<?= BASE . 'upload/photos/profile/' . $user['photo_profile']; ?>" alt="" style="width: 200%;">
+    <img src="<?= BASE . 'upload/photos/profile/' . $user['photo_profile']; ?>" alt="Photo de profil" style="width: 200%;">
 </div>
 
 <p><?= $user['lastname']; ?></p>

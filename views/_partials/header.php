@@ -48,14 +48,14 @@
                         </form>
                         <li class="nav-item">
                             <a class="nav-link" href="<?= BASE_PATH . 'library'; ?>">
-                                <img src="<?= BASE . "assets/images/library.svg"; ?>" alt="" style="height: 30px;">
+                                <img src="<?= BASE . "assets/images/library.svg"; ?>" alt="Icone-bibliothèque" style="height: 30px;">
                             </a>
                         </li>
                     <?php endif; ?>
                     <?php if (isset($_SESSION['user'])) : ?>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img class="roundProfile" src="<?= BASE . 'upload/photos/profile/' . $_SESSION['user']['photo_profile']; ?>" alt="">
+                                <img class="roundProfile" src="<?= BASE . 'upload/photos/profile/' . $_SESSION['user']['photo_profile']; ?>" alt="Photo-de-profil">
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="<?= BASE_PATH . "user/profile"; ?>"> Profil</a></li>

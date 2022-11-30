@@ -19,8 +19,8 @@
       <label for="coverFile" class="form-label mt-4">Photo de couverture</label>
       <input name="photoCoverUpdate" onchange="loadFileCover(event)" class="form-control" type="file" id="coverFile">
       <small class="text-danger"><?= $error['photo'] ?? ""; ?></small>
-      <img src="<?= BASE . 'upload/book/' . $book['photo']; ?>" height="300" alt="">
-      <img id="cover" height="300" alt="">
+      <img src="<?= BASE . 'upload/book/' . $book['photo']; ?>" height="300" alt="Couverture">
+      <img id="cover" height="300" alt="Image de couverture">
     </div>
 
   <div class="mb-3">

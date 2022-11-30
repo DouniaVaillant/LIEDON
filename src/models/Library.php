@@ -12,12 +12,12 @@ class Library extends Db {
         return self::getDb()->lastInsertId();
     }
 
-    public static function findAll(array $idUser)
+    public static function findAll(array $data)
     {
 
         $request = "SELECT * FROM library INNER JOIN story ON library.id_story = story.id WHERE library.id_user = :id_user";
         $response = self::getDb()->prepare($request);
-        $response->execute($idUser);
+        $response->execute($data);
 
         return $response->fetchAll(PDO::FETCH_ASSOC);
     }
