@@ -84,8 +84,25 @@ a {
   color: var(--soil);
 }
 
+.btn-deco-none {
+  border: none;
+  background: none;
+}
+
+.fa-heart {
+  color: red;
+}
+
+.photoProfile, .roundProfile {
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+  border-radius: 150px;
+}
+
 /* -                                                                                                                                               - */
 /*  _  books                                                                                                                                */
+
 .cards {
   display: flex;
   flex-flow: row wrap;
@@ -192,9 +209,8 @@ a {
 }
 
 .photoProfile {
-  height: 30px;
-  max-width: 30px;
-  /* overflow: hidden; */
+  height: 50px;
+  width: 50px;
   object-fit: cover;
   border-radius: 150px;
 }
@@ -305,9 +321,30 @@ a {
 }
 
 .otherComment {
-  width: 70%;
+  /* width: 70%; */
   padding: 5px 10px;
   background: rgb(15 81 50 / 10%);
+}
+
+.formCommentBook {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.leftShowBook textarea {
+  resize: none;
+  width: 100%;
+}
+
+.leftShowBook button[type="submit"] {
+  border: 1px solid rgba(40, 54, 24, 0.3);
+  color: var(--darkGreen);
+  background: rgba(88, 129, 87, 0.3);
+  border-radius: 50px;
+  padding: 3px 8px;
+  text-transform: uppercase;
+  font-size: 0.8rem;
 }
 
 /* -                                                                                                                                                 */
@@ -338,12 +375,254 @@ a {
 
 .bookmarkStory {
   font-size: 1.5rem;
+  position: absolute;
+  right: 5px;
   color: var(--darkGreen);
-  text-shadow: 1px 0px var(--beige), 0 1px var(--beige), -1px 0 var(--beige), 0 -1px var(--beige);
+  text-shadow: 1px 0px var(--beige), 0 1px var(--beige), -1px 0 var(--beige),
+    0 -1px var(--beige);
 }
 
 .bookmarkStoryInLibrary {
   font-size: 1.5rem;
+  position: absolute;
+  right: 5px;
   color: var(--beige);
-  text-shadow: 1px 0px var(--darkGreen), 0 1px var(--darkGreen), -1px 0 var(--darkGreen), 0 -1px var(--darkGreen);
+  text-shadow: 1px 0px var(--darkGreen), 0 1px var(--darkGreen),
+    -1px 0 var(--darkGreen), 0 -1px var(--darkGreen);
 }
+
+.titleStories {
+  position: absolute;
+  /* top: 9px; */
+  left: 5px;
+  text-align: center;
+  background: white;
+  border-radius: 150px;
+  padding: 0 5px;
+}
+
+/* ! BOOK */
+
+.showBook-1 {
+  display: flex;
+}
+
+.showBook-2-1 {
+  display: flex;
+  align-items: flex-end;
+}
+
+.showBook-separator {
+  background: black;
+  width: 2px;
+  margin: 20px;
+}
+
+.showBook-2-2 {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.showBook-3-1 {
+  width: 66%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.showBook-2-2 form {
+  width: 2%;
+  margin: 2% 5px 5px auto;
+  text-align: end;
+}
+
+.showBook-3-2 {
+  width: 30%;
+  text-align: center;
+}
+
+.showBook-3-3 {
+  width: 100%;
+}
+
+.showBook-4-1 {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+}
+
+.showBook-4-2 {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+.showBook-4-3 {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.showBook-4-2 .showBook-5-1 {
+  width: 30%;
+}
+
+.showBook-4-2 .showBook-5-2 {
+  width: 70%;
+  /* margin: 10px; */
+  padding: 5px 10px;
+  background: rgb(238 206 159 / 20%);
+}
+.showBook-4-2 .showBook-5-2::before {
+  content: "Synopsis";
+  color: rgb(238 206 159 / 75%);
+}
+
+.showBook-4-3 .showBook-5-1::before {
+  content: "Commentaire";
+  color: rgb(88 129 87 / 30%);
+}
+
+.showBook-4-3 .showBook-5-1 {
+  background: rgba(40, 54, 24, 0.05);
+  border-left: 3px solid var(--lightGreen);
+  padding: 5px 10px;
+  margin-right: 10px;
+}
+
+.showBook-profile-1 {
+  text-align: center;
+}
+
+/* ! LIBRARY */
+
+.pageLibrary {
+  display: flex;
+  flex-direction: column;
+}
+
+.library-1 {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.coverLibrary {
+  height: 250px;
+  width: 150px;
+  object-fit: cover;
+  border-radius: 3px;
+  margin: auto 20px;
+}
+
+.cardLibrary {
+  position: relative;
+
+}
+
+.titleStory {
+  position: absolute;
+  top: 10px;
+  /* left: 5px; */
+  text-align: center;
+  background: white;
+  border-radius: 150px;
+  padding: 0 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -33,35 +33,44 @@ class Chapter extends Db
 
         return $response->fetchAll(PDO::FETCH_ASSOC);
     }
-    
+
     public static function findById(array $id)
     {
-        
+
         $request = "SELECT * FROM chapter WHERE id = :id";
         $response = self::getDb()->prepare($request);
         $response->execute($id);
-        
+
         return $response->fetch(PDO::FETCH_ASSOC);
     }
-    
-        public static function findByStory(array $story)
-        {
-    
-            $request = "SELECT * FROM chapter WHERE id_story = :id_story";
-            $response = self::getDb()->prepare($request);
-            $response->execute($story);
-    
-            return $response->fetchAll(PDO::FETCH_ASSOC);
-        }
 
-    public static function count(array $idStory)
+    public static function findByStory(array $data)
     {
-     
-     $request = "SELECT COUNT(id) FROM chapter WHERE id_story = :id_story";
-     $response = self::getDb()->prepare($request);
-     $response->execute($idStory);
 
-     return $response->fetch(PDO::FETCH_ASSOC);
-     
+        $request = "SELECT * FROM chapter WHERE id_story = :id_story";
+        $response = self::getDb()->prepare($request);
+        $response->execute($data);
+
+        return $response->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function readFirstChapter(array $data)
+    {
+
+        $request = "SELECT * FROM chapter WHERE id_story = :id_story ORDER BY date_created ASC LIMIT 1";
+        $response = self::getDb()->prepare($request);
+        $response->execute($data);
+
+        return $response->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public static function count(array $data)
+    {
+
+        $request = "SELECT COUNT(id) FROM chapter WHERE id_story = :id_story";
+        $response = self::getDb()->prepare($request);
+        $response->execute($data);
+
+        return $response->fetch(PDO::FETCH_ASSOC);
     }
 }

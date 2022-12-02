@@ -15,7 +15,8 @@
                         <?php endif; ?>
                         <?php endif ?> -->
 
-            <a href="<?= BASE_PATH . 'library?id=' . $story['id']; ?>"><i class="fa-solid fa-5x fa-lg fa-bookmark <?php if (isset($inLibrary['id_story']) == $story['id']) : ?> bookmarkStoryInLibrary <?php else : ?> bookmarkStory <?php endif; ?>"></i></a>
+            <a href="<?= BASE_PATH . 'library?id=' . $story['id']; ?>"><i class="fa-solid fa-bookmark <?php if (isset($inLibrary['id_story']) == $story['id']) : ?> bookmarkStoryInLibrary <?php else : ?> bookmarkStory <?php endif; ?>"></i></a>
+            <h3 class="titleStories"><?= $story['title']; ?></h3>
             <a href="<?= BASE_PATH . 'story/show?id=' . $story['id']; ?>">
                 <div class="cardStory">
                     <img class="coverStory" src="<?= BASE . 'upload/story/' . $story['photo']; ?>" alt="Image de couverture">

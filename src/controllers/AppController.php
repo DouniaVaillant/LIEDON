@@ -541,6 +541,7 @@ class AppController
       'id_liker' => intval($_SESSION['user']['id']),
       'id_story' => intval($_GET['id'])
     ]);
+    $discoverStories = Story::discoverNew();
 
     $error = [];
     if (!empty($_POST)) { // ? like ou comment
@@ -854,6 +855,7 @@ class AppController
     }
 
     $chapter = Chapter::findById(['id' => $_GET['id']]);
+    // die(var_dump($chapter));
 
     $comments = Comment::findAllByChapter(['id_chapter' => $chapter['id']]);
     $likeFound = Likes::findLikeChapter([
@@ -914,7 +916,6 @@ class AppController
         exit();
       }
     }
-
 
     include(VIEWS . "app/story/chapter/showChapter.php");
   }
