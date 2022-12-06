@@ -35,10 +35,10 @@
         <div class="showStory-3-3">
             <?php if (!empty($story['status'])) : ?>
                 <span class="showStory-status"><?= $story['status']; ?></span>
-                <?php else : ?>
-                    <span class="showStory-status">En cours</span>
+            <?php else : ?>
+                <span class="showStory-status">En cours</span>
 
-                <?php endif; ?>
+            <?php endif; ?>
             <p><strong>Publié le: </strong><?= $story['date_created']; ?></p>
             <p><strong>Dernière modification: </strong><?= $story['date_created']; ?></p>
         </div>
@@ -83,8 +83,11 @@
 
             <?php foreach ($discoverStories as $story) : ?>
                 <div class="showStory-card">
+                    <a href="<?= BASE_PATH . 'library?id=' . $story['id']; ?>"><i class="fa-solid fa-bookmark <?php if (isset($inLibrary['id_story']) == $story['id']) : ?> bookmarkStoryInLibrary <?php else : ?> bookmarkStory <?php endif; ?>"></i></a>
                     <h3><?= $story['title']; ?></h3>
-                    <img class="showStory-discover" src="<?= BASE . 'upload/story/' . $story['photo']; ?>" alt="">
+                    <a href="<?= BASE_PATH . 'story/show?id=' . $story['id']; ?>">
+                        <img class="showStory-discover" src="<?= BASE . 'upload/story/' . $story['photo']; ?>" alt="">
+                    </a>
                 </div>
             <?php endforeach; ?>
 

@@ -534,7 +534,7 @@ a {
 
   .showStory-2-3 .showStory-card h3 {
     position: absolute;
-    top: 5px;
+    bottom: 5px;
     left: 5px;
     background: var(--bg);
     border-radius: 50px;
