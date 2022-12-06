@@ -1,7 +1,8 @@
 <?php include(VIEWS . '_partials/header.php'); ?>
 
+<h1>Gestion des utilisateurs</h1>
 
-<div class="container-fluid mt-5">
+<div class="container-fluid mt-5 pageListUser">
 
 
     <form action="<?= BASE_PATH . 'admin/user/list'; ?>" method="GET" class="mt-4 col-lg-3">
@@ -18,6 +19,7 @@
 
     <!-- TABLEAU DES UTILISATEURS -->
     <table class="table table-hover">
+
         <thead>
             <tr>
                 <th>#</th>
@@ -39,22 +41,29 @@
                 <th>Action</th>
             </tr>
         </thead>
+
+
+
         <tbody>
             <?php foreach ($users as $user) : ?>
                 <tr class="<?php if ($user['roles'] == 'ROLE_ADMIN') : ?> text-light bg-lightGreen<?php elseif ($user['roles'] == 'ROLE_MODO') : ?>bg-lightBrown<?php elseif ($user['roles'] == 'ROLE_USER') : ?>bg-sun<?php endif; ?>">
                     <th scope="row"><?= $user['id']; ?></th>
+
+
                     <?php if ($user['roles'] == 'ROLE_USER') : ?>
                         <?php if ($user['gender'] == 'f') : ?>
                             <td>Utilisatrice</td>
                         <?php else : ?>
                             <td>Utilisateur</td>
                         <?php endif; ?>
+
                     <?php elseif ($user['roles'] == 'ROLE_ADMIN') : ?>
                         <?php if ($user['gender'] == 'f') : ?>
                             <td>Administratrice</td>
                         <?php else : ?>
                             <td>Administrateur</td>
                         <?php endif; ?>
+
                     <?php elseif ($user['roles'] == 'ROLE_MODO') : ?>
                         <?php if ($user['gender'] == 'f') : ?>
                             <td>Modératrice</td>
@@ -62,10 +71,16 @@
                             <td>Modérateur</td>
                         <?php endif; ?>
                     <?php endif; ?>
+
+
                     <td><?= $user['lastname']; ?></td>
+
                     <td><?= $user['firstname']; ?></td>
+
                     <td><?= $user['pseudo']; ?></td>
+
                     <td><?= $user['email']; ?></td>
+
                     <?php if ($user['gender'] == 'h') : ?>
                         <td>Homme</td>
                     <?php elseif ($user['gender'] == 'f') : ?>
@@ -73,15 +88,23 @@
                     <?php else : ?>
                         <td>Autre</td>
                     <?php endif; ?>
+
                     <td><?= $user['birthday']; ?></td>
+
                     <?php if ($_SESSION['user']['roles'] == 'ROLE_ADMIN') : ?>
                         <td><?= $user['way']; ?></td>
+
                         <td><?= $user['address']; ?></td>
+
                         <td><?= $user['city']; ?></td>
+
                         <td><?= $user['postal_code']; ?></td>
                     <?php endif; ?>
+
                     <td><?= $user['country']; ?></td>
+
                     <td><?= $user['date_registration']; ?></td>
+
                     <td>
                         <a href="<?= BASE_PATH . 'user/profile?id=' . $user['id']; ?>" class=""><i class="fa-solid soil fa-eye"></i></a>
                         <?php if (($_SESSION['user']['roles'] != 'ROLE_ADMIN' && $user['roles'] == 'ROLE_USER') || $_SESSION['user']['roles'] == 'ROLE_ADMIN') : ?>

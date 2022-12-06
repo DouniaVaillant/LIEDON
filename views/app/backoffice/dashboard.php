@@ -1,50 +1,35 @@
 <?php include(VIEWS . '_partials/header.php'); ?>
 
 
-<h1>BACKOFFICE</h1>
 
-<ul class="list-group w-50 text-center">
-    <li class=" list-style-none">
-        <a href="<?= BASE_PATH . "admin/user/list"; ?>" class="list-group-item list-group-item-success rounded-2">Gestion des utilisateurs</a>
-    </li>
-    <li>
-        <a href="<?= BASE_PATH . 'admin/story/list'; ?>" class="list-group-item list-group-item-success rounded-2 mt-2">Gestion des Histoires numériques</a>
-    </li>
-    <li>
-        <a href="<?= BASE_PATH . 'admin/book/list'; ?>" class="list-group-item list-group-item-success rounded-2 mt-2">Gestion des Livres papiers</a>
-    </li>
-    <li>
-        <a href="#" class="list-group-item list-group-item-success rounded-2 mt-2">Gestion des emprunts</a>
-    </li>
+<h1 id="dashboard-h1">Tableau de bord</h1>
+<div class="pageDashboard">
 
-    <?php if ($_SESSION['user']['roles'] == 'ROLE_ADMIN') : ?>
+    <ul>
         <li>
-            <a href="<?= BASE_PATH . 'admin/category/list'; ?>" class="list-group-item list-group-item-warning rounded-2 mt-2">Gestion des catégories</a>
+            <a href="<?= BASE_PATH . "admin/user/list"; ?>">Gestion des utilisateurs</a>
         </li>
         <li>
-            <a href="<?= BASE_PATH . 'admin/target-reader/list'; ?>" class="list-group-item list-group-item-warning rounded-2 mt-2">Gestion des cibles (lectorat)</a>
+            <a href="<?= BASE_PATH . 'admin/story/list'; ?>">Gestion des Histoires numériques</a>
         </li>
-    <?php endif; ?>
-</ul>
+        <li>
+            <a href="<?= BASE_PATH . 'admin/book/list'; ?>">Gestion des Livres papiers</a>
+        </li>
+        <li>
+            <a href="#">Gestion des emprunts</a>
+        </li>
 
+        <?php if ($_SESSION['user']['roles'] == 'ROLE_ADMIN') : ?>
+            <li>
+                <a href="<?= BASE_PATH . 'admin/category/list'; ?>">Gestion des catégories</a>
+            </li>
+            <li>
+                <a href="<?= BASE_PATH . 'admin/target-reader/list'; ?>">Gestion des cibles (lectorat)</a>
+            </li>
+        <?php endif; ?>
+    </ul>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</div>
 
 
 

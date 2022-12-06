@@ -27,6 +27,10 @@ a {
   color: #141414;
 }
 
+li {
+  list-style: none;
+}
+
 /* -                                                                                                                                              - */
 
 .bg-darkGreen {
@@ -552,7 +556,8 @@ a {
 }
 
 /* -                                                                   */
-/* _ LIBRARY */
+/* _ LIBRARY                                                           */
+
 
 @media screen and (min-width: 760px) {
   .pageLibrary {
@@ -587,3 +592,98 @@ a {
     padding: 0 5px;
   }
 }
+
+
+/* -                                                                   */
+/* _ BACKOFFICE                                                           */
+
+@media screen and (min-width: 760px) {
+  #dashboard-h1 {
+    text-align: center;
+  }
+
+  .pageDashboard {
+    width: 100%;
+  }
+
+} /* ! incomplet */
+
+@media screen and (max-width: 760px) {
+  #dashboard-h1, .pageDashboard {
+    text-align: center;
+    margin: 5% auto;
+    text-transform: uppercase;
+  }
+
+  .pageDashboard li {
+    background: #2f452e46;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+  }
+
+}
+
+
+/* -                                                                   */
+/* _ list :     USER  |  BOOKS  |  STORIES  |  ...                                                         */
+
+@media screen and (min-width: 760px) {
+  
+}
+
+@media screen and (max-width: 760px) {
+  .pageListUser * {
+    font-size: 0.6rem;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
