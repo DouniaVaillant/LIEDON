@@ -245,6 +245,8 @@ class AppController
       'id_liker' => intval($_SESSION['user']['id']),
       'id_book' => intval($_GET['id'])
     ]);
+    $countLikes = Likes::countLikesBook(['id_book' => $id]);
+
 
     $error = [];
     if (!empty($_POST)) { // ? like ou comment
@@ -535,12 +537,12 @@ class AppController
     $id = $_GET['id'];
     $story = Story::findById(['id' => $id]);
     $chapters = Chapter::findByStory(['id_story' => intval($_GET['id'])]);
-    // var_dump($chapters);
     $comments = Comment::findAllByStory(['id_story' => $story['id']]);
     $likeFound = Likes::findLikeStory([
       'id_liker' => intval($_SESSION['user']['id']),
       'id_story' => intval($_GET['id'])
     ]);
+    $countLikes = Likes::countLikesStory(['id_story' => $id]);
     $discoverStories = Story::discoverNew();
 
     $error = [];
@@ -608,10 +610,6 @@ class AppController
     $inLibrary = Library::findAll([
       'id_user' => $_SESSION['user']['id']
     ]);
-
-    // if ($inLibrary == 0) {
-    //   die(var_dump($inLibrary));
-    // }
 
     include(VIEWS . "app/story/stories.php");
   }

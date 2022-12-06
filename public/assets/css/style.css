@@ -2,7 +2,7 @@
   --black: #141414;
   --darkGreen: #283618;
   --lightGreen: #588157;
-  --white: #f9f9f9;
+  --bg: whitesmoke;
   --sun: #fefae0;
   --beige: #eece9f;
   --lightBrown: #dda15e;
@@ -15,6 +15,11 @@
   padding: 0;
   box-sizing: border-box;
   /* border: 1px solid purple; */
+  /* color: white; */
+}
+
+body {
+  background: var(--bg);
 }
 
 a {
@@ -224,12 +229,26 @@ a {
     margin: 10px;
   }
 
+  .formCommentBook {
+    text-align: right;
+  }
+
+  .formCommentBook > * {
+    margin: 5px;
+  }
+
+  .formCommentBook label {
+    text-align: justify;
+  }
+
   .showBook-2-1 textarea {
     resize: none;
     width: 100%;
+    min-width: 200px;
   }
 
   .showBook-2-1 button[type="submit"] {
+    text-align: end;
     border: 1px solid rgba(40, 54, 24, 0.3);
     color: var(--darkGreen);
     background: rgba(88, 129, 87, 0.3);
@@ -237,6 +256,7 @@ a {
     padding: 3px 8px;
     text-transform: uppercase;
     font-size: 0.8rem;
+    text-align: right;
   }
 
   .showBook-separator {
@@ -262,29 +282,44 @@ a {
     margin: 2% 5px 5px auto;
     text-align: end;
   }
-
+  
   .showBook-3-2 {
     width: 30%;
     text-align: center;
   }
-
+   
   .showBook-3-3 {
     width: 100%;
   }
-
-  .showBook-4-1 {
+  
+  .showBook-3-1 .showBook-4-1 {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 90%;
   }
 
-  .showBook-4-2 {
+  .showBook-target, .showStory-target {
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 50px;
+    padding-inline: 10px;
+  }
+
+  .showBook-status, .showStory-status {
+    background: var(--beige);
+    border-radius: 10px;
+    padding: 5px 10px;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+  }
+
+  .showBook-3-1 .showBook-4-2 {
     display: flex;
     flex-wrap: nowrap;
     width: 100%;
   }
 
-  .showBook-4-3 {
+  .showBook-3-1 .showBook-4-3 {
     display: flex;
     flex-wrap: nowrap;
   }
@@ -301,11 +336,13 @@ a {
   }
   .showBook-4-2 .showBook-5-2::before {
     content: "Synopsis";
+    font-weight: bold;
     color: rgb(238 206 159 / 75%);
   }
 
   .showBook-4-3 .showBook-5-1::before {
     content: "Commentaire";
+    font-weight: bold;
     color: rgb(88 129 87 / 30%);
   }
 
@@ -318,6 +355,22 @@ a {
 
   .showBook-profile-1 {
     text-align: center;
+  }
+
+  .showBook-comments {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    background: rgba(40, 54, 24, 0.03);
+    padding: 5px;
+    margin: 2px 0;
+  }
+
+  .showBook-profile-2 {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-right: 20px;
   }
 }
 
@@ -368,44 +421,10 @@ a {
     left: 5px;
     font-size: 1rem;
     text-align: center;
-    background: white;
+    background: var(--bg);
     border-radius: 150px;
     padding: 0 5px;
   }
-}
-
-/* ! LIBRARY */
-
-.pageLibrary {
-  display: flex;
-  flex-direction: column;
-}
-
-.library-1 {
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.coverLibrary {
-  height: 250px;
-  width: 150px;
-  object-fit: cover;
-  border-radius: 3px;
-  margin: auto 20px;
-}
-
-.cardLibrary {
-  position: relative;
-}
-
-.titleStory {
-  position: absolute;
-  top: 10px;
-  /* left: 5px; */
-  text-align: center;
-  background: white;
-  border-radius: 150px;
-  padding: 0 5px;
 }
 
 /* -                                                                       */
@@ -438,6 +457,10 @@ a {
     text-align: center;
   }
 
+  .showStory-2-2 .showStory-3-2 {
+    margin-top: 5%;
+  }
+
   .showStory-2-2 .showStory-3-1 img {
     height: 300px;
     width: 190px;
@@ -454,6 +477,7 @@ a {
   .showStory-2-2 .showStory-3-3 {
     display: flex;
     justify-content: space-evenly;
+    align-items: center;
     margin: 15px;
   }
 
@@ -489,7 +513,7 @@ a {
     height: 1px;
     width: 90vw;
     margin: 5vh auto;
-    background: #000;
+    background: rgba(0, 0, 0, 0.313);
   }
 
   .showStory-2-3 h2 {
@@ -503,7 +527,6 @@ a {
     overflow-x: scroll;
   }
 
-
   .showStory-2-3 .showStory-card {
     position: relative;
     margin: 10px;
@@ -513,7 +536,7 @@ a {
     position: absolute;
     top: 5px;
     left: 5px;
-    background: white;
+    background: var(--bg);
     border-radius: 50px;
     font-size: 1rem;
     padding: 0 5px;
@@ -525,5 +548,42 @@ a {
     object-fit: cover;
     border-radius: 5px;
     background: #14141414;
+  }
+}
+
+/* -                                                                   */
+/* _ LIBRARY */
+
+@media screen and (min-width: 760px) {
+  .pageLibrary {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .library-1 {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .coverLibrary {
+    height: 250px;
+    width: 150px;
+    object-fit: cover;
+    border-radius: 3px;
+    margin: auto 20px;
+  }
+
+  .cardLibrary {
+    position: relative;
+  }
+
+  .titleStory {
+    position: absolute;
+    top: 10px;
+    /* left: 5px; */
+    text-align: center;
+    background: var(--bg);
+    border-radius: 150px;
+    padding: 0 5px;
   }
 }

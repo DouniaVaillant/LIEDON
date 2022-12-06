@@ -1,6 +1,7 @@
-<?php 
+<?php
 
-class Likes extends Db {
+class Likes extends Db
+{
 
     public static function create(array $data)
     {
@@ -11,6 +12,8 @@ class Likes extends Db {
 
         return self::getDb()->lastInsertId();
     }
+
+    // -                                                                                                                        
 
     public static function updateBook(array $data)
     {
@@ -41,7 +44,9 @@ class Likes extends Db {
 
         return self::getDb()->lastInsertId();
     }
- 
+
+    // -                                                                                                                        
+
     public static function findLikeBook(array $data)
     {
 
@@ -51,7 +56,7 @@ class Likes extends Db {
 
         return $response->fetch(PDO::FETCH_ASSOC);
     }
- 
+
     public static function findLikeStory(array $data)
     {
 
@@ -61,7 +66,7 @@ class Likes extends Db {
 
         return $response->fetch(PDO::FETCH_ASSOC);
     }
- 
+
     public static function findLikeChapter(array $data)
     {
 
@@ -71,17 +76,32 @@ class Likes extends Db {
 
         return $response->fetch(PDO::FETCH_ASSOC);
     }
- 
-    public static function countLike()
+
+    // -                                                                                                                        
+
+    public static function countLikesBook(array $data)
     {
 
         $request = "SELECT * FROM likes WHERE id_book = :id_book";
         $response = self::getDb()->prepare($request);
-        $response->rowCount();
+        $response->execute($data);
 
-        return $response->fetchAll(PDO::FETCH_ASSOC);
+        return $response->rowCount();
     }
- 
+
+    public static function countLikesStory(array $data)
+    {
+
+        $request = "SELECT * FROM likes WHERE id_story = :id_story";
+        $response = self::getDb()->prepare($request);
+        $response->execute($data);
+
+        return $response->rowCount();
+    }
+
+    // -                                                                                                                        
+
+
     public static function findByBook(array $data)
     {
 
@@ -91,33 +111,4 @@ class Likes extends Db {
 
         return $response->fetchAll(PDO::FETCH_ASSOC);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

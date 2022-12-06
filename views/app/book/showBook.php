@@ -26,8 +26,8 @@
         <div class="showBook-3 showBook-3-1">
 
             <div class="showBook-4 showBook-4-1">
-                <span><?= $book['target_reader']; ?></span>
-                <span><?= $book['status']; ?></span>
+                <span class="showBook-target"><?= $book['target_reader']; ?></span>
+                <span class="showBook-status"><?= $book['status']; ?></span>
             </div>
 
             <div class="showBook-4 showBook-4-2">
@@ -61,7 +61,7 @@
         </div>
 
 
-        <form action="<?= BASE_PATH . 'book/show?id=' . $book['id']; ?>" method="post">
+        <form action="<?= BASE_PATH . 'book/show?id=' . $book['id']; ?>" method="POST">
             <button type="submit" class="btn-deco-none" name="likes">
                 <?php if ($likeFound && ($likeFound['likes'] == 1)) : ?>
                     <i class="fa-solid fa-heart"></i>
@@ -69,6 +69,7 @@
                     <i class="fa-regular fa-heart"></i>
                 <?php endif; ?>
             </button>
+            <?= $countLikes; ?>
         </form>
 
 
@@ -81,9 +82,13 @@
         <div class="showBook-3 showBook-3-3">
             <?php foreach ($comments as $comment) : ?>
                 <?php $otherCommentUser = User::findById(['id' => $comment['id_commentator']]); ?>
-                <img class="roundProfile" src="<?= BASE . 'upload/photos/profile/' . $otherCommentUser['photo_profile']; ?>" alt="Photo de profil">
-                <?= $otherCommentUser['pseudo']; ?>
-                <p><?= $comment['comment']; ?></p>
+                <div class="showBook-comments">
+                    <div class="showBook-profile-2">
+                        <img class="roundProfile" src="<?= BASE . 'upload/photos/profile/' . $otherCommentUser['photo_profile']; ?>" alt="Photo de profil">
+                        <p><?= $otherCommentUser['pseudo']; ?></p>
+                    </div>
+                    <p><?= $comment['comment']; ?></p>
+                </div>
             <?php endforeach; ?>
         </div>
 

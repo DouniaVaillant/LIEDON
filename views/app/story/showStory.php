@@ -33,7 +33,12 @@
 
 
         <div class="showStory-3-3">
-            <span><?= $story['status']; ?></span>
+            <?php if (!empty($story['status'])) : ?>
+                <span class="showStory-status"><?= $story['status']; ?></span>
+                <?php else : ?>
+                    <span class="showStory-status">En cours</span>
+
+                <?php endif; ?>
             <p><strong>Publié le: </strong><?= $story['date_created']; ?></p>
             <p><strong>Dernière modification: </strong><?= $story['date_created']; ?></p>
         </div>
@@ -49,6 +54,7 @@
                         <i class="fa-regular fa-heart text-danger"></i>
                     <?php endif; ?>
                 </button>
+                <?= $countLikes; ?>
             </form>
 
             <a href="#">Lire</a>
@@ -59,7 +65,7 @@
 
 
         <div class="showStory-3-5">
-            <?= $story['target_reader']; ?>
+            <span class="showStory-target"><?= $story['target_reader']; ?></span>
         </div>
 
     </div>
@@ -71,7 +77,7 @@
 
         <div class="showStory-separator"></div>
 
-        <h2>Decouvrez</h2>
+        <h2>Découvrez</h2>
 
         <div class="showStory-3-1">
 
