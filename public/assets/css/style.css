@@ -27,6 +27,11 @@ a {
   color: #141414;
 }
 
+ul{
+  margin: 0;
+  padding: 0;
+}
+
 li {
   list-style: none;
 }
@@ -429,6 +434,23 @@ li {
     border-radius: 150px;
     padding: 0 5px;
   }
+
+  .stories-report {
+    padding: 5px 10px 0 3px;
+  }
+
+  .hide {
+    display: none;
+  }
+
+  .stories-moreOptions {
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 5px;
+    position: absolute;
+    z-index: 2;
+    background: var(--bg);
+  }
 }
 
 /* -                                                                       */
@@ -629,12 +651,20 @@ li {
 /* _ list :     USER  |  BOOKS  |  STORIES  |  ...                                                         */
 
 @media screen and (min-width: 760px) {
-  
+  .pageListUser * {
+    font-size: 0.9rem;
+  }
+  .table {
+    text-align: center;
+  }
 }
 
 @media screen and (max-width: 760px) {
   .pageListUser * {
-    font-size: 0.6rem;
+    font-size: 0.9rem;
+  }
+  .table {
+    text-align: center;
   }
 }
 

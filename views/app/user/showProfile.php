@@ -26,12 +26,11 @@ if (!isset($_SESSION['user'])) {
 <p><?= $user['gender']; ?></p>
 <p><?= $user['date_registration']; ?></p>
 
-<a class="btn btn-danger" href="<?= BASE_PATH . 'report?id-user=' . $user['id']; ?>">Signaler</a>
+<a class="btn btn-danger" href="<?= BASE_PATH . 'report?u=' . $user['id']; ?>">Signaler</a>
 
 <?php if ($_SESSION['user']['roles'] == 'ROLE_ADMIN') : ?>
     <a href="<?= BASE_PATH . 'admin/user/edit?id=' . $user['id']; ?>" class="btn bg-lightGreen text-light">Modifier les informations de cet utilisateur</a>
     <a href="<?= BASE_PATH . 'admin/user/delete?id=' . $user['id']; ?>" class="btn bg-lightGreen text-light">Supprimer cet utilisateur</a>
-
 <?php endif; ?>
 
 
@@ -39,14 +38,6 @@ if (!isset($_SESSION['user'])) {
 
 
 
-
-<script>
-    function myFunction() {
-        var reason = prompt("Pourquoi signaler cet utilisateur ?");
-        console.log(reason);
-        return reason;
-    }
-</script>
 
 
 

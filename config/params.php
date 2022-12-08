@@ -57,6 +57,8 @@ $routes = [
     '/admin/book/edit'              => ['AdminController', 'editBook'],
     '/admin/story/list'             => ['AdminController', 'listStory'],
     '/admin/story/edit'             => ['AdminController', 'editStory'],
+    '/admin/report/list'            => ['AdminController', 'listReport'],
+    '/admin/report/edit'            => ['AdminController', 'editReport'],
     
     '/user/profile'                 => ['AppController', 'profile'],
     '/user/profile/edit'            => ['AppController', 'editProfile'],

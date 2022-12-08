@@ -95,6 +95,22 @@ class AdminController
         include(VIEWS . "app/backoffice/listTargetReader.php");
     }
 
+    public static function listReport()
+    {
+        if (!isset($_SESSION['user']) || ($_SESSION['user']['roles'] != 'ROLE_ADMIN' && $_SESSION['user']['roles'] != 'ROLE_MODO')) { // ? Sécurité
+            header('location:../../404.php');
+            exit();
+        }
+
+        $userReports = Report::findUser();
+
+        if (isset($_GET['fixed'])) {
+            $userReports = Report::findUserFixed();
+        }
+
+        include(VIEWS . "app/backoffice/listReport.php");
+    }
+
     // $ CRUD user
     public static function addUser()
     {
@@ -485,7 +501,7 @@ class AdminController
 
             if (!empty($_FILES['photoCoverUpdate']['name']) && $_FILES['photoCoverUpdate']['size'] < 3000000 && ($_FILES['photoCoverUpdate']['type'] == 'image/jpeg' || $_FILES['photoCoverUpdate']['type'] == 'image/png' || $_FILES['photoCoverUpdate']['type'] == 'image/gif')) :
                 $extensionPhoto = strtolower(strchr($_FILES['photoCoverUpdate']['name'], '.')); /// = srttolower => met en minuscule ||| substr => ignore un élément de la chaîne ||| strrchr => récupère l'extension du fichier
-                $photoCoverName = $user['id'] . '-' . $story['id'] . '-' . htmlspecialchars(preg_replace('/[^a-zA-Z\d\àâçéèîïìñôöùûü]+/', '', $_POST['title'])) . $extensionPhoto;
+                $photoCoverName = $story['id_user'] . '-' . $story['id'] . '-' . htmlspecialchars(preg_replace('/[^a-zA-Z\d\àâçéèîïìñôöùûü]+/', '', $_POST['title'])) . $extensionPhoto;
 
                 unlink(PUBLIC_FOLDER . 'upload/story/' . $story['photo']); // ? Suppression de la précédente image
                 copy($_FILES['photoCoverUpdate']['tmp_name'], PUBLIC_FOLDER . 'upload/story/' . $photoCoverName); // ? Copie de la nouvelle image dans le dossier concerné
@@ -535,7 +551,7 @@ class AdminController
                 ]);
 
                 $_SESSION['messages']['success'][] = 'Modification effectuée avec succès !';
-                header('location:../admin/story/list');
+                header('location:../story/list');
                 exit();
 
             endif;
@@ -731,5 +747,22 @@ class AdminController
 
         header('location:../target-reader/list');
         exit();
+    }
+
+    // $ CRUD report
+    public static function editReport()
+    {
+
+        if (isset($_POST['fixed'])) {
+            Report::update([
+                'fixed' => 1,
+                'id' => $_GET['id']
+            ]);
+            $_SESSION['messages']['success'][] = 'Signalement résolu !';
+            header('location:../report/list');
+            exit();
+        }
+
+        include(VIEWS . "app/backoffice/listReport.php");
     }
 }

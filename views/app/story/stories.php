@@ -13,9 +13,26 @@
                 </div>
             </a>
         </div>
+        <div class="clickevent">
+            <button id="btn" class="btn-deco-none" onclick="document.getElementById('stories-moreOptions-<?= $story['id']; ?>').classList.toggle('hide');">
+                <i class="fa-solid fa-ellipsis-vertical stories-report"></i>
+            </button>
+
+            <div id="stories-moreOptions-<?= $story['id']; ?>" class="stories-moreOptions hide">
+                <ul>
+                    <li><a href="<?= BASE_PATH . 'report?s='. $story['id']; ?>">Signaler</a></li>
+                    <li><a href="#">Lire</a></li>
+                    <li><a href="<?= BASE_PATH . 'user/profile?id=' . $story['id_user']; ?>">Voir l'auteur</a></li>
+                </ul>
+            </div>
+        </div>
+
     <?php endforeach; ?>
 
 </div>
+
+
+
 
 
 <?php include(VIEWS . '_partials/footer.php'); ?>

@@ -16,6 +16,9 @@
             <a href="<?= BASE_PATH . 'admin/book/list'; ?>">Gestion des Livres papiers</a>
         </li>
         <li>
+            <a href="<?= BASE_PATH . 'admin/report/list'; ?>">Gestion des Signalements</a>
+        </li>
+        <li>
             <a href="#">Gestion des emprunts</a>
         </li>
 

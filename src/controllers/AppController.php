@@ -955,10 +955,52 @@ class AppController
   public static function report()
   {
    
-    if (isset($_GET['id-user'])) {
-      if ($_POST) {
-        die(var_dump($_POST['reason']));
+    // var_dump($_POST);
+    $error = [];
+    if (!empty($_POST)) {
+      if (isset($_GET['u-reported']) && isset($_GET['u-reporter'])) {
         
+        if (empty($_POST['reason'])) {
+          $error['reason'] = 'Ce champs est obligatoire';
+        }
+
+        if (empty($error)) {
+          Report::create([
+            'id_reporter' => $_GET['u-reporter'],
+            'id_reported' => $_GET['u-reported'],
+            'id_book' => NULL,
+            'id_story' => NULL,
+            'id_chapter' => NULL,
+            'reason' => $_POST['reason']
+          ]);
+
+          $_SESSION['messages']['success'][] = 'Utilisateur signalé !';
+          header('location:user/profile?id=' . $_GET['u-reported']);
+          exit();
+        }
+
+
+      }
+
+      if (isset($_GET['s-reported']) && isset($_GET['u-reporter'])) {
+        if (empty($_POST['reason'])) {
+          $error['reason'] = 'Merci de choisir qu\'elle situation correspond le mieux ou de quitter cette page si le signalement était une erreur.';
+        }
+
+        if (empty($error)) {
+          Report::create([
+            'id_reporter' => $_GET['u-reporter'],
+            'id_reported' => NULL,
+            'id_book' => NULL,
+            'id_story' => $_GET['s-reported'],
+            'id_chapter' => NULL,
+            'reason' => $_POST['reason']
+          ]);
+
+          $_SESSION['messages']['success'][] = 'Signalement effectué !';
+          header('location:stories');
+          exit();
+        }
       }
     }
    
