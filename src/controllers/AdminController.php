@@ -103,10 +103,9 @@ class AdminController
         }
 
         $userReports = Report::findUser();
-
-        if (isset($_GET['fixed'])) {
-            $userReports = Report::findUserFixed();
-        }
+        $bookReports = Report::findBook();
+        $storyReports = Report::findStory();
+        $chapterReports = Report::findChapter();
 
         include(VIEWS . "app/backoffice/listReport.php");
     }
@@ -754,12 +753,15 @@ class AdminController
     {
 
         if (isset($_POST['fixed'])) {
+            // echo '<pre>';
+            //     die(var_dump($_SERVER['HTTP_REFERER']));
+            // echo '</pre>';
             Report::update([
                 'fixed' => 1,
                 'id' => $_GET['id']
             ]);
             $_SESSION['messages']['success'][] = 'Signalement résolu !';
-            header('location:../report/list');
+            header("location: " . $_SERVER['HTTP_REFERER']);
             exit();
         }
 

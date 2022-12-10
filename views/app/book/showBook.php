@@ -2,10 +2,13 @@
 <?php $user = User::findById(['id' => $book['id_user']]); ?>
 
 <div class="showBook-1">
-
-
-
     <div class="showBook-2 showBook-2-1">
+        <div class="showBook-moreOptions">
+            <ul>
+                <li><a href="<?= BASE_PATH . 'report?b=' . $book['id']; ?>">Signaler</a></li>
+            </ul>
+        </div>
+
         <form action="<?= BASE_PATH . 'book/show?id=' . $book['id']; ?>" method="POST" class="formCommentBook">
             <label for="comment" class="form-label">Vous avez lu et voulez partager votre avis sur le livre ?</label>
             <textarea name="comment" class="form-control" id="comment" rows="3" style="resize: none;"></textarea>

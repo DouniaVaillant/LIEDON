@@ -25,6 +25,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= BASE_PATH; ?>">Accueil</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="<?= BASE_PATH . 'books'; ?>" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Livres papiers
@@ -40,7 +43,7 @@
                         <a class="nav-link" href="<?= BASE_PATH . 'stories'; ?>">Histoires numériques</a>
                     </li>
                     <?php if (isset($_SESSION['user'])) : ?>
-                        <form class="d-flex" role="search">
+                        <!-- <form class="d-flex" role="search">
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchNav">
                             <button class="btn btn-outline-success" type="submit">
                                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -50,12 +53,12 @@
                             <a class="nav-link" href="<?= BASE_PATH . 'library'; ?>">
                                 <img src="<?= BASE . "assets/images/library.svg"; ?>" alt="Icone-bibliothèque" style="height: 30px;">
                             </a>
-                        </li>
+                        </li> -->
                     <?php endif; ?>
                     <?php if (isset($_SESSION['user'])) : ?>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img class="roundProfile" src="<?= BASE . 'upload/photos/profile/' . $_SESSION['user']['photo_profile']; ?>" alt="Photo-de-profil">
+                                <!-- <img class="roundProfile" src="<?= BASE . 'upload/photos/profile/' . $_SESSION['user']['photo_profile']; ?>" alt="Photo-de-profil" style="height: 30px; width: 30px;"> -->
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="<?= BASE_PATH . "user/profile"; ?>"> Profil</a></li>

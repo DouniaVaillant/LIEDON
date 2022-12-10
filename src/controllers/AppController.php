@@ -6,7 +6,7 @@ class AppController
   public static function index()
   {
 
-    var_dump($_SESSION['user']);
+    // var_dump($_SESSION['user']);
 
     if (isset($_SESSION['user'])) {
       if (isset($_GET['searchUser'])) :
@@ -955,6 +955,8 @@ class AppController
   public static function report()
   {
    
+    // $backToUrl = $_SERVER['HTTP_REFERER'];
+
     // var_dump($_POST);
     $error = [];
     if (!empty($_POST)) {
@@ -999,6 +1001,54 @@ class AppController
 
           $_SESSION['messages']['success'][] = 'Signalement effectué !';
           header('location:stories');
+          exit();
+        }
+      }
+
+      if (isset($_GET['c-reported']) && isset($_GET['u-reporter'])) {
+        $story = Story::findById(['id' => $_GET['c-reported']]);
+
+        if (empty($_POST['reason'])) {
+          $error['reason'] = 'Merci de choisir qu\'elle situation correspond le mieux ou de quitter cette page si le signalement était une erreur.';
+        }
+
+        if (empty($error)) {
+
+          Report::create([
+            'id_reporter' => $_GET['u-reporter'],
+            'id_reported' => NULL,
+            'id_book' => NULL,
+            'id_story' => NULL,
+            'id_chapter' => $_GET['c-reported'],
+            'reason' => $_POST['reason']
+          ]);
+
+          $_SESSION['messages']['success'][] = 'Signalement effectué !';
+          header('location:story/show?id=' . $story['id']);
+          exit();
+        }
+      }
+
+      if (isset($_GET['b-reported']) && isset($_GET['u-reporter'])) {
+
+        if (empty($_POST['reason'])) {
+          $error['reason'] = 'Merci de choisir qu\'elle situation correspond le mieux ou de quitter cette page si le signalement était une erreur.';
+        }
+
+        if (empty($error)) {
+
+          Report::create([
+            'id_reporter' => $_GET['u-reporter'],
+            'id_reported' => NULL,
+            'id_book' => $_GET['b-reported'],
+            'id_story' => NULL,
+            'id_chapter' => NULL,
+            'reason' => $_POST['reason']
+          ]);
+
+          $_SESSION['messages']['success'][] = 'Signalement effectué !';
+          header('location:book/show?id=' . $_GET['b-reported']);
+          // header('location: '. $backToUrl. '');
           exit();
         }
       }

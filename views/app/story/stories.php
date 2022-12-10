@@ -20,9 +20,9 @@
 
             <div id="stories-moreOptions-<?= $story['id']; ?>" class="stories-moreOptions hide">
                 <ul>
-                    <li><a href="<?= BASE_PATH . 'report?s='. $story['id']; ?>">Signaler</a></li>
                     <li><a href="#">Lire</a></li>
                     <li><a href="<?= BASE_PATH . 'user/profile?id=' . $story['id_user']; ?>">Voir l'auteur</a></li>
+                    <li><a href="<?= BASE_PATH . 'report?s='. $story['id']; ?>">Signaler</a></li>
                 </ul>
             </div>
         </div>

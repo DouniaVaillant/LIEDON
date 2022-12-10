@@ -17,8 +17,6 @@
 
 
 
-
-
 <?php if (isset($_GET['s'])) : ?>
 
     <h1>Signaler une histoire numérique</h1>
@@ -48,6 +46,59 @@
 
 
 
+<?php if (isset($_GET['c'])) : ?>
+
+    <h1>Signaler un chaptire</h1>
+
+    <form action="<?= BASE_PATH . 'report?c-reported=' . $_GET['c'] . '&u-reporter=' . $_SESSION['user']['id']; ?>" method="POST">
+
+        <input type="radio" value="titre" name="reason" id="title">
+        <label for="title">Le titre incite à la haine</label>
+        <br>
+        <input type="radio" value="mature" name="reason" id="mature">
+        <label for="mature">N'est pas documenté comme mature et contient des éléments à caractère sexuels et/ou violents</label>
+        <br>
+        <input type="radio" value="contenu" name="reason" id="content">
+        <label for="content">Propose un contenu incitant à la haine ou à la violence</label>
+        <br>
+        <input type="radio" value="autre" name="reason" id="other">
+        <label for="other">Autre</label>
+        <br>
+
+        <button type="submit" class="btn">Envoyer</button>
+    </form>
+
+
+<?php endif; ?>
+
+
+
+
+
+<?php if (isset($_GET['b'])) : ?>
+
+<h1>Signaler un livre</h1>
+
+<form action="<?= BASE_PATH . 'report?b-reported=' . $_GET['b'] . '&u-reporter=' . $_SESSION['user']['id']; ?>" method="POST">
+
+    <input type="radio" value="titre" name="reason" id="title">
+    <label for="title">Le titre incite à la haine</label>
+    <br>
+    <input type="radio" value="mature" name="reason" id="mature">
+    <label for="mature">N'est pas documenté comme mature et contient des éléments à caractère sexuels et/ou violents</label>
+    <br>
+    <input type="radio" value="contenu" name="reason" id="content">
+    <label for="content">Propose un contenu incitant à la haine ou à la violence</label>
+    <br>
+    <input type="radio" value="autre" name="reason" id="other">
+    <label for="other">Autre</label>
+    <br>
+
+    <button type="submit" class="btn">Envoyer</button>
+</form>
+
+
+<?php endif; ?>
 
 
 

@@ -19,8 +19,22 @@
     </div>
 </form>
 
-<div class="leftShowBook">
-    <form action="<?= BASE_PATH . 'story/chapter/show?id=' . $chapter['id']; ?>" method="post">
+
+<div class="showChapter-clickevent">
+    <button id="btn" class="btn-deco-none" onclick="document.getElementById('chapter-moreOptions-<?= $chapter['id']; ?>').classList.toggle('hide');">
+        <i class="fa-solid fa-ellipsis-vertical showChapter-report"></i>
+    </button>
+
+    <div id="chapter-moreOptions-<?= $chapter['id']; ?>" class="chapter-moreOptions hide">
+        <ul>
+            <li><a href="<?= BASE_PATH . 'user/profile?id=' . $story['id_user']; ?>">Voir l'auteur</a></li>
+            <li><a href="<?= BASE_PATH . 'report?c=' . $chapter['id']; ?>">Signaler</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="">
+    <form action="<?= BASE_PATH . 'story/chapter/show?id=' . $chapter['id']; ?>" method="POST">
         <div class="mb-3">
             <label for="comment" class="form-label">commentaire</label>
             <textarea name="comment" class="form-control" id="comment" rows="3" style="resize: none;"></textarea>
@@ -30,7 +44,7 @@
     </form>
 </div>
 <?php foreach ($comments as $comment) : ?>
-    <div class="rightShowBook otherComment">
+    <div class="otherComment">
         <?php $otherCommentUser = User::findById(['id' => $comment['id_commentator']]); ?>
         <img class="roundProfile" src="<?= BASE . 'upload/photos/profile/' . $otherCommentUser['photo_profile']; ?>" alt="Photo de profil">
         <?= $otherCommentUser['pseudo']; ?>

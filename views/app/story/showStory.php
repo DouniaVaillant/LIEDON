@@ -31,6 +31,21 @@
             <p><strong>Synopsis: <br></strong><?= $story['synopsis']; ?></p>
         </div>
 
+        
+        <div class="showStory-clickevent">
+            <button id="btn" class="btn-deco-none" onclick="document.getElementById('story-moreOptions-<?= $story['id']; ?>').classList.toggle('hide');">
+                <i class="fa-solid fa-ellipsis-vertical showStory-report"></i>
+            </button>
+
+            <div id="story-moreOptions-<?= $story['id']; ?>" class="story-moreOptions hide">
+                <ul>
+                    <li><a href="#">Lire</a></li>
+                    <li><a href="<?= BASE_PATH . 'user/profile?id=' . $story['id_user']; ?>">Voir l'auteur</a></li>
+                    <li><a href="<?= BASE_PATH . 'report?s='. $story['id']; ?>">Signaler</a></li>
+                </ul>
+            </div>
+        </div>
+
 
         <div class="showStory-3-3">
             <?php if (!empty($story['status'])) : ?>
