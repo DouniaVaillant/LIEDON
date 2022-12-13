@@ -107,6 +107,8 @@ class AdminController
         $storyReports = Report::findStory();
         $chapterReports = Report::findChapter();
 
+        $reports = Report::findAllDesc();
+
         include(VIEWS . "app/backoffice/listReport.php");
     }
 
@@ -828,6 +830,8 @@ class AdminController
         include(VIEWS . "app/backoffice/listReport.php");
     }
 
+
+    // $ CRUD notifications
     public static function addNotification()
     {
         if (!isset($_SESSION['user']) || ($_SESSION['user']['roles'] != 'ROLE_ADMIN' && $_SESSION['user']['roles'] != 'ROLE_MODO')) { // ? Sécurité

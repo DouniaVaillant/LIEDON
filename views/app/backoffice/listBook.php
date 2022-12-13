@@ -33,8 +33,14 @@
         <tbody>
             <?php foreach ($books as $book) :
                 $user = User::findById(['id' => $book['id_user']]);
+                $report = Report::findBookById(['id_book' => $book['id']]);
             ?>
-                <tr class="bg-sun">
+                <?php if ($report && $report['fixed'] != 1) : ?>
+                    <tr class="bg-danger">
+                    <?php else : ?>
+                    <tr class="bg-sun">
+                    <?php endif; ?>
+
                     <th scope="row"><?= $book['id']; ?></th>
                     <td><?php echo $user['pseudo']; ?></td>
                     <td><img src="<?= BASE . 'upload/book/' . $book['photo']; ?>" alt="couverture" height="100"></td>
@@ -51,8 +57,8 @@
                         <a href="<?= BASE_PATH . 'admin/book/edit?id=' . $book['id']; ?>" class=""><i class="fa-solid soil fa-pen"></i></a>
                         <a onclick="return confirm('Etes-vous sûr de vouloir supprimer cette documentation ?')" href="<?= BASE_PATH . 'book/delete?id=' . $book['id']; ?>" class=""><i class="fa-solid soil fa-trash"></i></a>
                     </td>
-                </tr>
-            <?php endforeach; ?>
+                    </tr>
+                <?php endforeach; ?>
         </tbody>
     </table>
 

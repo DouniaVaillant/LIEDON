@@ -1,130 +1,143 @@
-<?php 
+<?php
 
-class Report extends Db {
-
-
-    public static function create(array $data)
-    {
-
-        $request = "INSERT INTO report (id_reporter, id_reported, id_book, id_story, id_chapter, reason, fixed, date_created) VALUES (:id_reporter, :id_reported, :id_book, :id_story, :id_chapter, :reason, 0, NOW())";
-        $response = self::getDb()->prepare($request);
-        $response->execute(self::htmlspecialchars($data));
-
-        return self::getDb()->lastInsertId();
-    }
-
-    public static function update(array $data)
-    {
-  
-      $request = "UPDATE report SET fixed = :fixed WHERE id=:id";
-      $response = self::getDb()->prepare($request);
-      $response->execute(self::htmlspecialchars($data));
-  
-      return self::getDb()->lastInsertId();
-    }
-
-    public static function updateGroup(array $data)
-    {
-  
-      $request = "UPDATE report SET fixed = :fixed WHERE id_chapter=:id_chapter";
-      $response = self::getDb()->prepare($request);
-      $response->execute(self::htmlspecialchars($data));
-  
-      return self::getDb()->lastInsertId();
-    }
-
-    public static function findAllDesc()
-    {
-  
-      $request = "SELECT * FROM report ORDER BY date_created DESC";
-      $response = self::getDb()->prepare($request);
-      $response->execute();
-  
-      return $response->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public static function findAllFixed()
-    {
-  
-      $request = "SELECT * FROM report WHERE fixed = 1 ORDER BY date_created DESC";
-      $response = self::getDb()->prepare($request);
-      $response->execute();
-  
-      return $response->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public static function findUser()
-    {
-  
-      $request = "SELECT * FROM report WHERE id_reported != 0 ORDER BY date_created DESC";
-      $response = self::getDb()->prepare($request);
-      $response->execute();
-  
-      return $response->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public static function findUserPseudo()
-    {
-  
-      $request = "SELECT * FROM report INNER JOIN user ON report.id_reported = user.id WHERE id_reported != 0 ORDER BY date_created DESC";
-      $response = self::getDb()->prepare($request);
-      $response->execute();
-  
-      return $response->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public static function findBook()
-    {
-  
-      $request = "SELECT * FROM report WHERE id_book != 0 ORDER BY date_created DESC";
-      $response = self::getDb()->prepare($request);
-      $response->execute();
-  
-      return $response->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public static function findStory()
-    {
-  
-      $request = "SELECT * FROM report WHERE id_story != 0 ORDER BY date_created DESC";
-      $response = self::getDb()->prepare($request);
-      $response->execute();
-  
-      return $response->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public static function findChapter()
-    {
-  
-      $request = "SELECT * FROM report WHERE id_chapter != 0 ORDER BY date_created DESC";
-      $response = self::getDb()->prepare($request);
-      $response->execute();
-  
-      return $response->fetchAll(PDO::FETCH_ASSOC);
-    }
+class Report extends Db
+{
 
 
+  public static function create(array $data)
+  {
 
+    $request = "INSERT INTO report (id_reporter, id_reported, id_book, id_story, id_chapter, reason, fixed, date_created) VALUES (:id_reporter, :id_reported, :id_book, :id_story, :id_chapter, :reason, 0, NOW())";
+    $response = self::getDb()->prepare($request);
+    $response->execute(self::htmlspecialchars($data));
 
+    return self::getDb()->lastInsertId();
+  }
 
+  // -                                                                                                                                                  
 
+  public static function update(array $data)
+  {
 
+    $request = "UPDATE report SET fixed = :fixed WHERE id=:id";
+    $response = self::getDb()->prepare($request);
+    $response->execute(self::htmlspecialchars($data));
 
+    return self::getDb()->lastInsertId();
+  }
 
+  public static function updateGroup(array $data)
+  {
 
+    $request = "UPDATE report SET fixed = :fixed WHERE id_chapter=:id_chapter";
+    $response = self::getDb()->prepare($request);
+    $response->execute(self::htmlspecialchars($data));
 
+    return self::getDb()->lastInsertId();
+  }
 
+  // -                                                                                                                                                  
 
+  public static function findAllDesc()
+  {
 
+    $request = "SELECT * FROM report ORDER BY date_created DESC";
+    $response = self::getDb()->prepare($request);
+    $response->execute();
 
+    return $response->fetchAll(PDO::FETCH_ASSOC);
+  }
 
+  public static function findUser()
+  {
 
+    $request = "SELECT * FROM report WHERE id_reported != 0 ORDER BY date_created DESC";
+    $response = self::getDb()->prepare($request);
+    $response->execute();
 
+    return $response->fetchAll(PDO::FETCH_ASSOC);
+  }
 
+  public static function findUserPseudo()
+  {
 
+    $request = "SELECT * FROM report INNER JOIN user ON report.id_reported = user.id WHERE id_reported != 0 ORDER BY date_created DESC";
+    $response = self::getDb()->prepare($request);
+    $response->execute();
 
+    return $response->fetchAll(PDO::FETCH_ASSOC);
+  }
 
+  public static function findBook()
+  {
 
+    $request = "SELECT * FROM report WHERE id_book != 0 ORDER BY date_created DESC";
+    $response = self::getDb()->prepare($request);
+    $response->execute();
 
+    return $response->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  public static function findStory()
+  {
+
+    $request = "SELECT * FROM report WHERE id_story != 0 ORDER BY date_created DESC";
+    $response = self::getDb()->prepare($request);
+    $response->execute();
+
+    return $response->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  public static function findChapter()
+  {
+
+    $request = "SELECT * FROM report WHERE id_chapter != 0 ORDER BY date_created DESC";
+    $response = self::getDb()->prepare($request);
+    $response->execute();
+
+    return $response->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  // -                                                                                                                                                  
+
+  public static function findUserById(array $data)
+  {
+
+    $request = "SELECT * FROM report WHERE id_reported = :id_reported";
+    $response = self::getDb()->prepare($request);
+    $response->execute($data);
+
+    return $response->fetch(PDO::FETCH_ASSOC);
+  }
+
+  public static function findBookById(array $data)
+  {
+
+    $request = "SELECT * FROM report WHERE id_book = :id_book";
+    $response = self::getDb()->prepare($request);
+    $response->execute($data);
+
+    return $response->fetch(PDO::FETCH_ASSOC);
+  }
+
+  public static function findStoryById(array $data)
+  {
+
+    $request = "SELECT * FROM report WHERE id_story = :id_story";
+    $response = self::getDb()->prepare($request);
+    $response->execute($data);
+
+    return $response->fetch(PDO::FETCH_ASSOC);
+  }
+
+  public static function findChapterById(array $data)
+  {
+
+    $request = "SELECT * FROM report WHERE id_chapter = :id_chapter";
+    $response = self::getDb()->prepare($request);
+    $response->execute($data);
+
+    return $response->fetch(PDO::FETCH_ASSOC);
+  }
 
 }

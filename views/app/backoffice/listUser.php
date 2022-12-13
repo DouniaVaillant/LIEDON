@@ -45,8 +45,14 @@
 
 
         <tbody>
-            <?php foreach ($users as $user) : ?>
-                <tr class="<?php if ($user['roles'] == 'ROLE_ADMIN') : ?> text-light bg-lightGreen<?php elseif ($user['roles'] == 'ROLE_MODO') : ?>bg-lightBrown<?php elseif ($user['roles'] == 'ROLE_USER') : ?>bg-sun<?php endif; ?>">
+            <?php foreach ($users as $user) :
+                $report = Report::findUserById(['id_reported' => $user['id']]);
+            ?>
+                <?php if ($report && $report['fixed'] != 1) : ?>
+                    <tr class="bg-danger">
+                    <?php else : ?>
+                    <tr class="<?php if ($user['roles'] == 'ROLE_ADMIN') : ?> text-light bg-lightGreen<?php elseif ($user['roles'] == 'ROLE_MODO') : ?>bg-lightBrown<?php elseif ($user['roles'] == 'ROLE_USER') : ?>bg-sun<?php endif; ?>">
+                    <?php endif; ?>
                     <th scope="row"><?= $user['id']; ?></th>
 
 
@@ -112,8 +118,8 @@
                             <a onclick="return confirm('Etes-vous sûr de vouloir supprimer cet utilisateur ?')" href="<?= BASE_PATH . 'admin/user/delete?id=' . $user['id']; ?>" class=""><i class="fa-solid soil fa-trash"></i></a>
                         <?php endif; ?>
                     </td>
-                </tr>
-            <?php endforeach; ?>
+                    </tr>
+                <?php endforeach; ?>
         </tbody>
     </table>
 
