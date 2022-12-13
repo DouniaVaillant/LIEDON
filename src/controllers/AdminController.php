@@ -783,7 +783,47 @@ class AdminController
             exit();
         }
 
-
+        if ($_POST) {
+            if ($_GET['u']) {
+                User::updateStatus([
+                    'status' => 'ban',
+                    'id' => $_GET['u']
+                ]);
+            }
+            if ($_GET['b']) {
+                Book::updateStatus([
+                    'status' => 'ban',
+                    'id' => $_GET['b']
+                ]);
+            }
+            if ($_GET['s']) {
+                Story::updateStatus([
+                    'status' => 'ban',
+                    'id' => $_GET['s']
+                ]);
+            }
+            if ($_GET['c']) {
+                Chapter::updateStatus([
+                    'status' => 'ban',
+                    'id' => $_GET['c']
+                ]);
+            }
+            if ($_GET['c']) {
+                Report::updateGroup([
+                    'fixed' => 1,
+                    'id_chapter' => $_GET['report']
+                ]);
+                $_SESSION['messages']['success'][] = 'Banni';
+                header('location:' . $_SERVER['HTTP_REFERER']);
+            } else {
+                Report::update([
+                    'fixed' => 1,
+                    'id' => $_GET['report']
+                ]);
+                $_SESSION['messages']['success'][] = 'Banni';
+                header('location:' . $_SERVER['HTTP_REFERER']);
+            }
+        }
 
         include(VIEWS . "app/backoffice/listReport.php");
     }
@@ -828,7 +868,7 @@ class AdminController
                     'content' => $_POST['content'],
                 ]);
                 $_SESSION['messages']['success'][] = 'Notification envoyée';
-                header('location:../backoffice');
+                header('location:../report/list');
                 exit();
             }
         }

@@ -23,6 +23,16 @@ class Report extends Db {
       return self::getDb()->lastInsertId();
     }
 
+    public static function updateGroup(array $data)
+    {
+  
+      $request = "UPDATE report SET fixed = :fixed WHERE id_chapter=:id_chapter";
+      $response = self::getDb()->prepare($request);
+      $response->execute(self::htmlspecialchars($data));
+  
+      return self::getDb()->lastInsertId();
+    }
+
     public static function findAllDesc()
     {
   
@@ -33,10 +43,10 @@ class Report extends Db {
       return $response->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function findUserFixed()
+    public static function findAllFixed()
     {
   
-      $request = "SELECT * FROM report WHERE fixed = 1 AND id_reported != 0 ORDER BY date_created DESC";
+      $request = "SELECT * FROM report WHERE fixed = 1 ORDER BY date_created DESC";
       $response = self::getDb()->prepare($request);
       $response->execute();
   

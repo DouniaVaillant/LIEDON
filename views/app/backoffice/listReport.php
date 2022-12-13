@@ -74,7 +74,78 @@
                                     <form action="<?= BASE_PATH . 'admin/report/edit?id=' . $report['id']; ?>" method="post">
                                         <button name="fixed" type="submit" class="btn-deco-none"><i class="fa-solid fa-check"></i></button>
                                     </form>
-                                        <a href="<?= BASE_PATH . 'admin/notification/add?id=' . $report['id_reported']; ?>" class="btn-deco-none"><i class="fa-regular fa-message"></i></a>
+
+                                    <a href="<?= BASE_PATH . 'admin/notification/add?id=' . $report['id_reported']; ?>" class="btn-deco-none"><i class="fa-regular fa-message"></i></a>
+
+                                    <form action="<?= BASE_PATH . 'admin/report/ban?u=' . $report['id_reported'] . '&report=' . $report['id']; ?>" method="POST">
+                                        <button name="status" type="submit" class="btn-deco-none"><i class="fa-solid fa-ban"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+
+        <?php endif; ?>
+
+        <!-- TABLEAU DES UTILISATEURS SIGNALES -->
+        <?php if ($_GET['list'] == 'user') : ?>
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Signalement de</th>
+                        <th>Signalé</th>
+                        <th>Raison</th>
+                        <th>Etat</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <?php foreach ($userReports as $report) :
+                        $reporter = User::findById(['id' => $report['id_reporter']]);
+                        $reported = User::findById(['id' => $report['id_reported']]);
+                    ?>
+                        <?php if ($report['fixed'] == 0) : ?>
+                            <tr class="bg-sun">
+                                <th scope="row"><?= $report['id']; ?></th>
+
+                                <?php if ($reporter) : ?>
+                                    <td><a href="<?= BASE_PATH . 'user/profile?id=' . $reporter['id']; ?>"><?= $reporter['pseudo']; ?></a></td>
+                                <?php else : ?>
+                                    <td><i>Utilisateur supprimé ou inexistant</i></td>
+                                <?php endif; ?>
+
+                                <?php if ($reported) : ?>
+                                    <td><a href="<?= BASE_PATH . 'user/profile?id=' . $reported['id']; ?>">#<?= $report['id_reported'] . ' ' . $reported['pseudo']; ?><br><?= $reported['email']; ?></a></td>
+                                <?php else : ?>
+                                    <td><i>Utilisateur supprimé ou inexistant</i></td>
+                                <?php endif; ?>
+
+                                <td><?= $report['reason']; ?></td>
+
+                                <td><?php if ($report['fixed'] == 0) {
+                                        echo 'en attente de vérification';
+                                    } elseif ($report['fixed'] == 1) {
+                                        echo 'résolu';
+                                    }; ?></td>
+
+                                <td><?= $report['date_created']; ?></td>
+
+                                <td>
+                                    <form action="<?= BASE_PATH . 'admin/report/edit?id=' . $report['id']; ?>" method="post">
+                                        <button name="fixed" type="submit" class="btn-deco-none"><i class="fa-solid fa-check"></i></button>
+                                    </form>
+
+                                    <a href="<?= BASE_PATH . 'admin/notification/add?id=' . $report['id_reported']; ?>" class="btn-deco-none"><i class="fa-regular fa-message"></i></a>
+
+                                    <form action="<?= BASE_PATH . 'admin/report/ban?u=' . $report['id_reported'] . '&report=' . $report['id']; ?>" method="POST">
+                                        <button name="status" type="submit" class="btn-deco-none"><i class="fa-solid fa-ban"></i></button>
+                                    </form>
                                 </td>
                             </tr>
                         <?php endif; ?>
@@ -138,6 +209,12 @@
                                     <form action="<?= BASE_PATH . 'admin/report/edit?id=' . $report['id']; ?>" method="post">
                                         <button name="fixed" type="submit" class="btn-deco-none"><i class="fa-solid fa-check"></i></button>
                                     </form>
+
+                                    <a href="<?= BASE_PATH . 'admin/notification/add?id=' . $book['id_user']; ?>" class="btn-deco-none"><i class="fa-regular fa-message"></i></a>
+
+                                    <form action="<?= BASE_PATH . 'admin/report/ban?b=' . $book['id'] . '&report=' . $report['id']; ?>" method="POST">
+                                        <button name="status" type="submit" class="btn-deco-none"><i class="fa-solid fa-ban"></i></button>
+                                    </form>
                                 </td>
                             </tr>
                         <?php endif; ?>
@@ -200,6 +277,12 @@
                                 <td>
                                     <form action="<?= BASE_PATH . 'admin/report/edit?id=' . $report['id']; ?>" method="post">
                                         <button name="fixed" type="submit" class="btn-deco-none"><i class="fa-solid fa-check"></i></button>
+                                    </form>
+
+                                    <a href="<?= BASE_PATH . 'admin/notification/add?id=' . $story['id_user']; ?>" class="btn-deco-none"><i class="fa-regular fa-message"></i></a>
+
+                                    <form action="<?= BASE_PATH . 'admin/report/ban?s=' . $story['id'] . '&report=' . $report['id']; ?>" method="POST">
+                                        <button name="status" type="submit" class="btn-deco-none"><i class="fa-solid fa-ban"></i></button>
                                     </form>
                                 </td>
                             </tr>
@@ -272,7 +355,10 @@
                                     <form action="<?= BASE_PATH . 'admin/report/edit?id=' . $report['id']; ?>" method="POST">
                                         <button name="fixed" type="submit" class="btn-deco-none"><i class="fa-solid fa-check"></i></button>
                                     </form>
-                                    <form action="<?= BASE_PATH . 'admin/report/ban?id=' . $report['id']; ?>" method="POST">
+
+                                    <a href="<?= BASE_PATH . 'admin/notification/add?id=' . $chapter['id']; ?>" class="btn-deco-none"><i class="fa-regular fa-message"></i></a>
+
+                                    <form action="<?= BASE_PATH . 'admin/report/ban?c=' . $story['id_user'] . '&report=' . $report['id_chapter']; ?>" method="POST">
                                         <button name="status" type="submit" class="btn-deco-none"><i class="fa-solid fa-ban"></i></button>
                                     </form>
                                 </td>
@@ -290,18 +376,10 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             <h4 class="alert-heading">Information</h4>
             <p class="mb-0">
-                Dans cette page est recensé les différents signalements, une fois le signalement vérifié et résolu il faut le marqué comme vérifié ("<i class="fa-solid fa-check"></i>") ou à bannir ("<i class="fa-solid fa-ban"></i>").
-                <br>
-                "<u>image de couverture</u>" => Image susceptible de choquer
-                <br>
-                "<u>titre</u>" => Le titre a été interprété comme offusquant (peut être du racisme, discrimination ...)
-                <br>
-                "<u>contenu</u>" => contenu inapproprié /!\ Si le livre / chapitre est indiqué et documenté comme "mature" (pouvant heurter la sensibilité de certains) et ne promeut pas la haine, il peut être marqué comme non-sanctionné.
-                <br>
-                "<u>mature</u>" => Propose un contenu mature sans être documenté comme tel
-                <br>
-                "<u>autre</u>" => indéfini précedemment il faut tout regarder
-                <br>
+                Dans cette page est recensé tous les signalements. <br>
+                "<i class="fa-solid fa-check"></i>" : signalement annulé/réglé <br>
+                "<i class="fa-regular fa-message"></i>" : avertissement de bannissement à envoyer <br>
+                "<i class="fa-solid fa-ban"></i>" : bannissement de l'utilisateur/livre/histoire <br>
             </p>
         </div>
 

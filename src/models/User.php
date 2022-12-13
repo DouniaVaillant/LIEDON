@@ -23,10 +23,20 @@ class User extends Db
     return self::getDb()->lastInsertId();
   }
 
+  public static function updateStatus(array $data)
+  {
+
+    $request = "UPDATE user SET status = :status WHERE id=:id";
+    $response = self::getDb()->prepare($request);
+    $response->execute(self::htmlspecialchars($data));
+
+    return self::getDb()->lastInsertId();
+  }
+
   public static function findAll()
   {
 
-    $request = "SELECT * FROM user";
+    $request = "SELECT * FROM user WHERE status != 'ban'";
     $response = self::getDb()->prepare($request);
     $response->execute();
 

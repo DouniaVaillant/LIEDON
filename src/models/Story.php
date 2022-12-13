@@ -23,6 +23,16 @@ class Story extends Db
     return self::getDb()->lastInsertId();
   }
 
+  public static function updateStatus(array $data)
+  {
+
+    $request = "UPDATE story SET status = :status WHERE id=:id";
+    $response = self::getDb()->prepare($request);
+    $response->execute(self::htmlspecialchars($data));
+
+    return self::getDb()->lastInsertId();
+  }
+
   public static function findAll()
   {
 
