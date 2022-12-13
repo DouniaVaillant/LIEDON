@@ -66,7 +66,7 @@
 
         <form action="<?= BASE_PATH . 'book/show?id=' . $book['id']; ?>" method="POST">
             <button type="submit" class="btn-deco-none" name="likes">
-                <?php if ($likeFound && ($likeFound['likes'] == 1)) : ?>
+                <?php if (isset($_SESSION['user']) && ($likeFound && ($likeFound['likes'] == 1))) : ?>
                     <i class="fa-solid fa-heart"></i>
                 <?php else : ?>
                     <i class="fa-regular fa-heart"></i>

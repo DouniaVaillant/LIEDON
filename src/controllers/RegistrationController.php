@@ -113,7 +113,7 @@ class RegistrationController {
 
     if (!empty($_POST)) :
       $user = User::findByEmail(['email' => $_POST['email']]);
-      var_dump($_POST['password'], $user['password']);
+      // var_dump($_POST['password'], $user['password']);
 
       if ($user) :
         if (password_verify($_POST['password'], $user['password'])) :

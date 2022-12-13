@@ -53,11 +53,12 @@ class User extends Db
     return $response->fetch(PDO::FETCH_ASSOC);
   }
 
-  public static function findByPseudo(array $pseudo)
+  public static function findByPseudo($pseudo)
   {
-    $request = "SELECT * FROM user WHERE pseudo = :pseudo";
+    // die(var_dump($pseudo));
+    $request = "SELECT * FROM user WHERE pseudo LIKE '%".$pseudo."%'";
     $response = self::getDb()->prepare($request);
-    $response->execute(self::htmlspecialchars($pseudo));
+    $response->execute();
 
     // die(var_dump($pseudo));
     return $response->fetchAll(PDO::FETCH_ASSOC);

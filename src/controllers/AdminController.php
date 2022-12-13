@@ -487,6 +487,10 @@ class AdminController
     // $ CRUD story
     public static function editStory()
     {
+        if (!isset($_SESSION['user']) || ($_SESSION['user']['roles'] != 'ROLE_ADMIN' && $_SESSION['user']['roles'] != 'ROLE_MODO')) { // ? Sécurité
+            header('location:../../404.php');
+            exit();
+        }
 
         if (!empty($_GET['id'])) {
             $story = Story::findById(['id' => $_GET['id']]);
@@ -751,6 +755,10 @@ class AdminController
     // $ CRUD report
     public static function editReport()
     {
+        if (!isset($_SESSION['user']) || ($_SESSION['user']['roles'] != 'ROLE_ADMIN' && $_SESSION['user']['roles'] != 'ROLE_MODO')) { // ? Sécurité
+            header('location:../../404.php');
+            exit();
+        }
 
         if (isset($_POST['fixed'])) {
             // echo '<pre>';
@@ -766,5 +774,75 @@ class AdminController
         }
 
         include(VIEWS . "app/backoffice/listReport.php");
+    }
+
+    public static function ban()
+    {
+        if (!isset($_SESSION['user']) || ($_SESSION['user']['roles'] != 'ROLE_ADMIN' && $_SESSION['user']['roles'] != 'ROLE_MODO')) { // ? Sécurité
+            header('location:../../404.php');
+            exit();
+        }
+
+
+
+        include(VIEWS . "app/backoffice/listReport.php");
+    }
+
+    public static function addNotification()
+    {
+        if (!isset($_SESSION['user']) || ($_SESSION['user']['roles'] != 'ROLE_ADMIN' && $_SESSION['user']['roles'] != 'ROLE_MODO')) { // ? Sécurité
+            header('location:../../404.php');
+            exit();
+        }
+
+        if ($_GET['id']) {
+            $user = User::findById(['id' => $_GET['id']]);
+        } else {
+            $users = Report::findUserPseudo();
+        }
+
+        $error = [];
+        if ($_POST) {
+
+            if ($_SESSION['user']['roles'] == 'ROLE_ADMIN') {
+                $sentBy = 'Equipe Liedon';
+            } elseif ($_SESSION['user']['roles'] == 'ROLE_MODO') {
+                $sentBy = 'Modération';
+            }
+
+            if (empty($_POST['receiver'])) {
+                $error['receiver'] = 'Pas de destinataire trouvé';
+            }
+            if (empty($_POST['subject'])) {
+                $error['subject'] = "Merci d'entrer un object pour cette notification";
+            }
+            if (empty($_POST['content'])) {
+                $error['content'] = 'Pas de contenu';
+            }
+
+            if (empty($error)) {
+                Notifications::create([
+                    'receiver' => $_POST['receiver'],
+                    'sent_by' => $sentBy,
+                    'subject' => $_POST['subject'],
+                    'content' => $_POST['content'],
+                ]);
+                $_SESSION['messages']['success'][] = 'Notification envoyée';
+                header('location:../backoffice');
+                exit();
+            }
+        }
+
+
+        include(VIEWS . "app/backoffice/addNotification.php");
+    }
+
+    public static function notifications()
+    {
+
+        $notifs = Notifications::findAll();
+
+
+        include(VIEWS . "app/backoffice/notifications.php");
     }
 }

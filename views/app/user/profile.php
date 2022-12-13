@@ -16,6 +16,8 @@ if (!isset($_SESSION['user'])) {
     <img src="<?= BASE . 'upload/photos/profile/' . $user['photo_profile']; ?>" alt="Photo de profil" style="width: 200%;">
 </div>
 
+<a href="<?= BASE_PATH . 'notifications'; ?>" class="btn btn-warning">Notifications</a>
+
 <p><?= $user['lastname']; ?></p>
 <p><?= $user['firstname']; ?></p>
 <p><?= $user['roles']; ?></p>

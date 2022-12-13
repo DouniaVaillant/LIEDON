@@ -53,6 +53,16 @@ class Report extends Db {
       return $response->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function findUserPseudo()
+    {
+  
+      $request = "SELECT * FROM report INNER JOIN user ON report.id_reported = user.id WHERE id_reported != 0 ORDER BY date_created DESC";
+      $response = self::getDb()->prepare($request);
+      $response->execute();
+  
+      return $response->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public static function findBook()
     {
   

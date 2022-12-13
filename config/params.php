@@ -59,6 +59,9 @@ $routes = [
     '/admin/story/edit'             => ['AdminController', 'editStory'],
     '/admin/report/list'            => ['AdminController', 'listReport'],
     '/admin/report/edit'            => ['AdminController', 'editReport'],
+    '/admin/report/ban'             => ['AdminController', 'ban'],
+    '/admin/notifications'          => ['AdminController', 'notifications'],
+    '/admin/notification/add'       => ['AdminController', 'addNotification'],
     
     '/user/profile'                 => ['AppController', 'profile'],
     '/user/profile/edit'            => ['AppController', 'editProfile'],
@@ -81,6 +84,7 @@ $routes = [
     '/story/chapter/add'            => ['AppController', 'addChapter'],
     '/story/chapter/show'           => ['AppController', 'showChapter'],
 
-    '/report'                        => ['AppController', 'report'],
+    '/report'                       => ['AppController', 'report'],
+    '/notifications'                => ['AppController', 'notifications'],
 
 ];

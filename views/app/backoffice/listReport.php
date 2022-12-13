@@ -51,13 +51,13 @@
                                 <?php if ($reporter) : ?>
                                     <td><a href="<?= BASE_PATH . 'user/profile?id=' . $reporter['id']; ?>"><?= $reporter['pseudo']; ?></a></td>
                                 <?php else : ?>
-                                    <td>utilisateur supprimé ou inexistant</td>
+                                    <td><i>Utilisateur supprimé ou inexistant</i></td>
                                 <?php endif; ?>
 
                                 <?php if ($reported) : ?>
                                     <td><a href="<?= BASE_PATH . 'user/profile?id=' . $reported['id']; ?>">#<?= $report['id_reported'] . ' ' . $reported['pseudo']; ?><br><?= $reported['email']; ?></a></td>
                                 <?php else : ?>
-                                    <td>utilisateur supprimé ou inexistant</td>
+                                    <td><i>Utilisateur supprimé ou inexistant</i></td>
                                 <?php endif; ?>
 
                                 <td><?= $report['reason']; ?></td>
@@ -74,6 +74,7 @@
                                     <form action="<?= BASE_PATH . 'admin/report/edit?id=' . $report['id']; ?>" method="post">
                                         <button name="fixed" type="submit" class="btn-deco-none"><i class="fa-solid fa-check"></i></button>
                                     </form>
+                                        <a href="<?= BASE_PATH . 'admin/notification/add?id=' . $report['id_reported']; ?>" class="btn-deco-none"><i class="fa-regular fa-message"></i></a>
                                 </td>
                             </tr>
                         <?php endif; ?>
@@ -272,7 +273,7 @@
                                         <button name="fixed" type="submit" class="btn-deco-none"><i class="fa-solid fa-check"></i></button>
                                     </form>
                                     <form action="<?= BASE_PATH . 'admin/report/ban?id=' . $report['id']; ?>" method="POST">
-                                        <button name="fixed" type="submit" class="btn-deco-none"><i class="fa-solid fa-ban"></i></button>
+                                        <button name="status" type="submit" class="btn-deco-none"><i class="fa-solid fa-ban"></i></button>
                                     </form>
                                 </td>
                             </tr>
@@ -311,14 +312,6 @@
 
 
 </div>
-
-
-
-
-
-
-
-
 
 
 

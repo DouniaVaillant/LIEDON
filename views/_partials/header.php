@@ -43,7 +43,7 @@
                         <a class="nav-link" href="<?= BASE_PATH . 'stories'; ?>">Histoires numériques</a>
                     </li>
                     <?php if (isset($_SESSION['user'])) : ?>
-                        <!-- <form class="d-flex" role="search">
+                        <form class="d-flex" role="search">
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchNav">
                             <button class="btn btn-outline-success" type="submit">
                                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -53,7 +53,7 @@
                             <a class="nav-link" href="<?= BASE_PATH . 'library'; ?>">
                                 <img src="<?= BASE . "assets/images/library.svg"; ?>" alt="Icone-bibliothèque" style="height: 30px;">
                             </a>
-                        </li> -->
+                        </li>
                     <?php endif; ?>
                     <?php if (isset($_SESSION['user'])) : ?>
                         <li class="nav-item dropdown">

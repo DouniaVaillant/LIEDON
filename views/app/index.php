@@ -7,14 +7,14 @@
     <form action="<?= BASE_PATH; ?>" method="get" class="col-3">
         <input class="form-control" type="text" name="searchUser" id="" placeholder="@pseudo">
         <input class="btn bg-beige" type="submit" value="Rechercher">
-        <a href="<?= BASE_PATH . 'admin/story/list'; ?>" class="btn bg-transparent border-warning">Réinitialiser</a>
+        <a href="<?= BASE_PATH; ?>" class="btn bg-transparent border-warning">Réinitialiser</a>
     </form>
 
     <?php if (isset($_GET['searchUser'])) : ?>
         <ul>
             <?php foreach ($users as $user) : ?>
                 <a href="<?= BASE_PATH . 'user/profile?id=' . $user['id']; ?>">
-                    <?= $user['pseudo']; ?>
+                    <?= $user['pseudo']; ?> <br>
                 </a>
             <?php endforeach; ?>
         </ul>

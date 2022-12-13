@@ -10,10 +10,10 @@ class AppController
 
     if (isset($_SESSION['user'])) {
       if (isset($_GET['searchUser'])) :
-        $pseudo = $_GET['searchUser'];
-        $users = User::findByPseudo([
-          'pseudo' => $pseudo
-        ]);
+        $pseudo = htmlspecialchars($_GET['searchUser']);
+        $users = User::findByPseudo(
+          $pseudo
+        );
       endif;
     }
 
@@ -241,10 +241,12 @@ class AppController
     $id = $_GET['id'];
     $book = Book::findById(['id' => $id]);
     $comments = Comment::findAllByBook(['id_book' => $book['id']]);
-    $likeFound = Likes::findLikeBook([
-      'id_liker' => intval($_SESSION['user']['id']),
-      'id_book' => intval($_GET['id'])
-    ]);
+    if (isset($_SESSION['user'])) {
+      $likeFound = Likes::findLikeBook([
+        'id_liker' => intval($_SESSION['user']['id']),
+        'id_book' => intval($_GET['id'])
+      ]);
+    }
     $countLikes = Likes::countLikesBook(['id_book' => $id]);
 
 
@@ -538,10 +540,12 @@ class AppController
     $story = Story::findById(['id' => $id]);
     $chapters = Chapter::findByStory(['id_story' => intval($_GET['id'])]);
     $comments = Comment::findAllByStory(['id_story' => $story['id']]);
-    $likeFound = Likes::findLikeStory([
-      'id_liker' => intval($_SESSION['user']['id']),
-      'id_story' => intval($_GET['id'])
-    ]);
+    if (isset($_SESSION['user'])) {
+      $likeFound = Likes::findLikeStory([
+        'id_liker' => intval($_SESSION['user']['id']),
+        'id_story' => intval($_GET['id'])
+      ]);
+    }
     $countLikes = Likes::countLikesStory(['id_story' => $id]);
     $discoverStories = Story::discoverNew();
 
@@ -607,9 +611,11 @@ class AppController
 
     $stories = Story::findAll();
     // ! $inLibrary 
-    $inLibrary = Library::findAll([
-      'id_user' => $_SESSION['user']['id']
-    ]);
+    if (isset($_SESSION['user'])) {
+      $inLibrary = Library::findAll([
+        'id_user' => $_SESSION['user']['id']
+      ]);
+    }
 
     include(VIEWS . "app/story/stories.php");
   }
@@ -954,110 +960,120 @@ class AppController
 
   public static function report()
   {
-   
+
     // $backToUrl = $_SERVER['HTTP_REFERER'];
 
     // var_dump($_POST);
-    $error = [];
-    if (!empty($_POST)) {
-      if (isset($_GET['u-reported']) && isset($_GET['u-reporter'])) {
-        
-        if (empty($_POST['reason'])) {
-          $error['reason'] = 'Ce champs est obligatoire';
+    if (isset($_SESSION['user'])) {
+      $error = [];
+      if (!empty($_POST)) {
+        if (isset($_GET['u-reported']) && isset($_GET['u-reporter'])) {
+
+          if (empty($_POST['reason'])) {
+            $error['reason'] = 'Ce champs est obligatoire';
+          }
+
+          if (empty($error)) {
+            Report::create([
+              'id_reporter' => $_GET['u-reporter'],
+              'id_reported' => $_GET['u-reported'],
+              'id_book' => NULL,
+              'id_story' => NULL,
+              'id_chapter' => NULL,
+              'reason' => $_POST['reason']
+            ]);
+
+            $_SESSION['messages']['success'][] = 'Utilisateur signalé !';
+            header('location:user/profile?id=' . $_GET['u-reported']);
+            exit();
+          }
         }
 
-        if (empty($error)) {
-          Report::create([
-            'id_reporter' => $_GET['u-reporter'],
-            'id_reported' => $_GET['u-reported'],
-            'id_book' => NULL,
-            'id_story' => NULL,
-            'id_chapter' => NULL,
-            'reason' => $_POST['reason']
-          ]);
+        if (isset($_GET['s-reported']) && isset($_GET['u-reporter'])) {
+          if (empty($_POST['reason'])) {
+            $error['reason'] = 'Merci de choisir qu\'elle situation correspond le mieux ou de quitter cette page si le signalement était une erreur.';
+          }
 
-          $_SESSION['messages']['success'][] = 'Utilisateur signalé !';
-          header('location:user/profile?id=' . $_GET['u-reported']);
-          exit();
+          if (empty($error)) {
+            Report::create([
+              'id_reporter' => $_GET['u-reporter'],
+              'id_reported' => NULL,
+              'id_book' => NULL,
+              'id_story' => $_GET['s-reported'],
+              'id_chapter' => NULL,
+              'reason' => $_POST['reason']
+            ]);
+
+            $_SESSION['messages']['success'][] = 'Signalement effectué !';
+            header('location:stories');
+            exit();
+          }
         }
 
+        if (isset($_GET['c-reported']) && isset($_GET['u-reporter'])) {
+          $story = Story::findById(['id' => $_GET['c-reported']]);
 
+          if (empty($_POST['reason'])) {
+            $error['reason'] = 'Merci de choisir qu\'elle situation correspond le mieux ou de quitter cette page si le signalement était une erreur.';
+          }
+
+          if (empty($error)) {
+
+            Report::create([
+              'id_reporter' => $_GET['u-reporter'],
+              'id_reported' => NULL,
+              'id_book' => NULL,
+              'id_story' => NULL,
+              'id_chapter' => $_GET['c-reported'],
+              'reason' => $_POST['reason']
+            ]);
+
+            $_SESSION['messages']['success'][] = 'Signalement effectué !';
+            header('location:story/show?id=' . $story['id']);
+            exit();
+          }
+        }
+
+        if (isset($_GET['b-reported']) && isset($_GET['u-reporter'])) {
+
+          if (empty($_POST['reason'])) {
+            $error['reason'] = 'Merci de choisir qu\'elle situation correspond le mieux ou de quitter cette page si le signalement était une erreur.';
+          }
+
+          if (empty($error)) {
+
+            Report::create([
+              'id_reporter' => $_GET['u-reporter'],
+              'id_reported' => NULL,
+              'id_book' => $_GET['b-reported'],
+              'id_story' => NULL,
+              'id_chapter' => NULL,
+              'reason' => $_POST['reason']
+            ]);
+
+            $_SESSION['messages']['success'][] = 'Signalement effectué !';
+            header('location:book/show?id=' . $_GET['b-reported']);
+            // header('location: '. $backToUrl. '');
+            exit();
+          }
+        }
       }
-
-      if (isset($_GET['s-reported']) && isset($_GET['u-reporter'])) {
-        if (empty($_POST['reason'])) {
-          $error['reason'] = 'Merci de choisir qu\'elle situation correspond le mieux ou de quitter cette page si le signalement était une erreur.';
-        }
-
-        if (empty($error)) {
-          Report::create([
-            'id_reporter' => $_GET['u-reporter'],
-            'id_reported' => NULL,
-            'id_book' => NULL,
-            'id_story' => $_GET['s-reported'],
-            'id_chapter' => NULL,
-            'reason' => $_POST['reason']
-          ]);
-
-          $_SESSION['messages']['success'][] = 'Signalement effectué !';
-          header('location:stories');
-          exit();
-        }
-      }
-
-      if (isset($_GET['c-reported']) && isset($_GET['u-reporter'])) {
-        $story = Story::findById(['id' => $_GET['c-reported']]);
-
-        if (empty($_POST['reason'])) {
-          $error['reason'] = 'Merci de choisir qu\'elle situation correspond le mieux ou de quitter cette page si le signalement était une erreur.';
-        }
-
-        if (empty($error)) {
-
-          Report::create([
-            'id_reporter' => $_GET['u-reporter'],
-            'id_reported' => NULL,
-            'id_book' => NULL,
-            'id_story' => NULL,
-            'id_chapter' => $_GET['c-reported'],
-            'reason' => $_POST['reason']
-          ]);
-
-          $_SESSION['messages']['success'][] = 'Signalement effectué !';
-          header('location:story/show?id=' . $story['id']);
-          exit();
-        }
-      }
-
-      if (isset($_GET['b-reported']) && isset($_GET['u-reporter'])) {
-
-        if (empty($_POST['reason'])) {
-          $error['reason'] = 'Merci de choisir qu\'elle situation correspond le mieux ou de quitter cette page si le signalement était une erreur.';
-        }
-
-        if (empty($error)) {
-
-          Report::create([
-            'id_reporter' => $_GET['u-reporter'],
-            'id_reported' => NULL,
-            'id_book' => $_GET['b-reported'],
-            'id_story' => NULL,
-            'id_chapter' => NULL,
-            'reason' => $_POST['reason']
-          ]);
-
-          $_SESSION['messages']['success'][] = 'Signalement effectué !';
-          header('location:book/show?id=' . $_GET['b-reported']);
-          // header('location: '. $backToUrl. '');
-          exit();
-        }
-      }
+    } else {
+      $_SESSION['messages']['warning'][] = 'Merci de vous connecter';
+      header('location:user/logIn');
+      exit();
     }
-   
-   
-   include(VIEWS."app/report.php" ) ;
+
+
+    include(VIEWS . "app/report.php");
   }
 
+  public static function notifications()
+  {
+
+    $notifs = Notifications::findAllUser(['receiver' => intval($_SESSION['user']['id'])]);
 
 
+    include(VIEWS . "app/user/notifications.php");
+  }
 }
