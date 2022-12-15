@@ -42,7 +42,7 @@
                     <?php endif; ?>
 
                     <th scope="row"><?= $book['id']; ?></th>
-                    <td><?php echo $user['pseudo']; ?></td>
+                    <td><?php if ($user) { echo $user['pseudo']; } else { echo '<i>Utilisateur supprimé</i>'; } ?></td>
                     <td><img src="<?= BASE . 'upload/book/' . $book['photo']; ?>" alt="couverture" height="100"></td>
                     <td><?= $book['title']; ?></td>
                     <td><?= $book['category']; ?></td>
@@ -53,8 +53,8 @@
                     <td><?= $book['date_publication']; ?></td>
                     <td><?= $book['date_created']; ?></td>
                     <td>
-                        <a href="<?= BASE_PATH . 'book/show?id=' . $book['id']; ?>" class=""><i class="fa-solid soil fa-eye"></i></a>
-                        <a href="<?= BASE_PATH . 'admin/book/edit?id=' . $book['id']; ?>" class=""><i class="fa-solid soil fa-pen"></i></a>
+                        <a href="<?= BASE_PATH . 'book/show?id=' . $book['id']; ?>" class=""><i class="fa-solid soil fa-eye"></i></a><br>
+                        <a href="<?= BASE_PATH . 'admin/book/edit?id=' . $book['id']; ?>" class=""><i class="fa-solid soil fa-pen"></i></a><br>
                         <a onclick="return confirm('Etes-vous sûr de vouloir supprimer cette documentation ?')" href="<?= BASE_PATH . 'book/delete?id=' . $book['id']; ?>" class=""><i class="fa-solid soil fa-trash"></i></a>
                     </td>
                     </tr>

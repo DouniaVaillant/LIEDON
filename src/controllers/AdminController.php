@@ -832,6 +832,17 @@ class AdminController
 
 
     // $ CRUD notifications
+    public static function notifications()
+    {
+
+        $notifs = Notifications::findAll();
+        if (isset($_GET['id'])) {
+            $message = Notifications::findById(['id' => $_GET['id']]);
+        }
+
+        include(VIEWS . "app/backoffice/notifications.php");
+    }
+
     public static function addNotification()
     {
         if (!isset($_SESSION['user']) || ($_SESSION['user']['roles'] != 'ROLE_ADMIN' && $_SESSION['user']['roles'] != 'ROLE_MODO')) { // ? Sécurité
@@ -881,12 +892,4 @@ class AdminController
         include(VIEWS . "app/backoffice/addNotification.php");
     }
 
-    public static function notifications()
-    {
-
-        $notifs = Notifications::findAll();
-
-
-        include(VIEWS . "app/backoffice/notifications.php");
-    }
 }

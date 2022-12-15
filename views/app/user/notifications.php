@@ -3,6 +3,13 @@
 
 <h1>Notifications</h1>
 
+
+
+
+
+
+
+
 <div class="notif bg-lightBrown p-2">
     <?php if ($notifs) : ?>
         <?php foreach ($notifs as $notif) : ?>

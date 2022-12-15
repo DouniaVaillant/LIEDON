@@ -682,3 +682,20 @@ li {
     text-align: center;
   }
 }
+
+
+/* -                                                                   */
+/* _ FOOTER                                                            */
+
+.testHeader {
+  position: relative;
+}
+
+/* footer {
+  position: absolute;
+  bottom: 0;
+  height: 200px;
+  width: 100%;
+  background: var(--darkGreen);
+  color: var(--sun);
+} */

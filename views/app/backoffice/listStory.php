@@ -32,25 +32,48 @@
         <tbody>
             <?php foreach ($stories as $story) :
                 $user = User::findById(['id' => $story['id_user']]);
+                $report = Report::findStoryById(['id_story' => $story['id']]);
             ?>
-                <tr class="bg-sun">
+
+                <?php if ($report && $report['fixed'] != 1) : ?>
+                    <tr class="bg-danger">
+                    <?php else : ?>
+                    <tr class="bg-sun">
+                    <?php endif; ?>
+
                     <th scope="row"><?= $story['id']; ?></th>
-                    <td><?php echo $user['pseudo']; ?></td>
+
+                    <td><?php if ($user) {
+                            echo $user['pseudo'];
+                        } else {
+                            echo '<i>Utilisateur supprimé</i>';
+                        } ?></td>
+
                     <td><img src="<?= BASE . 'upload/story/' . $story['photo']; ?>" alt="couverture" height="100"></td>
+
                     <td><?= $story['title']; ?></td>
-                    <!-- <td><?php $nbChapitre = Chapter::count(['id_story' => intval($story['id'])]); echo $nbChapitre; ?></td> -->
+
+                    <!-- <td><?php $nbChapitre = Chapter::count(['id_story' => intval($story['id'])]);
+                                echo $nbChapitre; ?></td> -->
+
                     <td><?= $story['category']; ?></td>
+
                     <td><?= $story['target_reader']; ?></td>
+
                     <td><?= $story['status']; ?></td>
+
                     <td><?= $story['language']; ?></td>
+
                     <td><?= $story['date_created']; ?></td>
+
                     <td>
-                        <a href="<?= BASE_PATH . 'story/show?id=' . $story['id']; ?>" class=""><i class="fa-solid soil fa-eye"></i></a>
-                        <a href="<?= BASE_PATH . 'admin/story/edit?id=' . $story['id']; ?>" class=""><i class="fa-solid soil fa-pen"></i></a>
+                        <a href="<?= BASE_PATH . 'story/show?id=' . $story['id']; ?>" class=""><i class="fa-solid soil fa-eye"></i></a><br>
+                        <a href="<?= BASE_PATH . 'admin/story/edit?id=' . $story['id']; ?>" class=""><i class="fa-solid soil fa-pen"></i></a><br>
                         <a onclick="return confirm('Etes-vous sûr de vouloir supprimer cette histoire ?')" href="<?= BASE_PATH . 'story/delete?id=' . $story['id']; ?>" class=""><i class="fa-solid soil fa-trash"></i></a>
                     </td>
-                </tr>
-            <?php endforeach; ?>
+
+                    </tr>
+                <?php endforeach; ?>
         </tbody>
     </table>
 
