@@ -104,6 +104,59 @@ li {
 }
 
 /* -                                                                                                                                               - */
+/* $                                                  HEADER                                                                                         */
+
+nav ul:first-child {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-evenly;
+  background: var(--beige);
+  align-items: center;
+  text-transform: uppercase;
+}
+
+/* - */
+
+.searchNavForm {
+  position: relative;
+}
+
+#searchNav {
+  background: rgba(255, 253, 241, 0.47);
+  border-radius: 100px 0 0 100px;
+  border: none;
+  padding: 5px;
+}
+
+.searchNavForm button {
+  background: rgba(255, 253, 241, 0.47);
+  border-radius: 0 100px 100px 0;  
+  padding-inline: 5px;
+}
+
+
+/* - */
+
+#dropdownProfile, #dropdownBook {
+  position: relative;
+}
+
+#dropdown-profile-nav, #dropdown-book-nav {
+  position: absolute;
+  background: var(--beige);
+  padding: 15px 5px;  
+  text-align: center;
+}
+
+#dropdown-profile-nav {
+  right: 0px;
+}
+
+#dropdown-book-nav li {
+  padding-top: 5px;
+}
+
+/* -                                                                                                                                               - */
 /*  _  books                                                                                                                                */
 
 @media screen and (min-width: 760px) {
@@ -185,7 +238,7 @@ li {
     font-size: 0.8rem;
     text-align: justify;
     line-height: 1;
-    -webkit-line-clamp: 6;
+    -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -221,6 +274,10 @@ li {
 
   .coverBook {
     height: 90%;
+  }
+
+  .right .title {
+    font-size: 1rem;
   }
 }
 
@@ -687,9 +744,9 @@ li {
 /* -                                                                   */
 /* _ FOOTER                                                            */
 
-.testHeader {
+/* .testHeader {
   position: relative;
-}
+} */
 
 /* footer {
   position: absolute;

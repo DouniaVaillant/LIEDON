@@ -13,6 +13,8 @@ class User extends Db
     return self::getDb()->lastInsertId();
   }
 
+  // -                                                                                                                                  - //
+
   public static function update(array $data)
   {
 
@@ -23,24 +25,69 @@ class User extends Db
     return self::getDb()->lastInsertId();
   }
 
+
   public static function updateStatus(array $data)
   {
 
-    $request = "UPDATE user SET status = :status WHERE id=:id";
+    $request = "UPDATE user SET status = :status, newsletter = :newsletter WHERE id=:id";
     $response = self::getDb()->prepare($request);
     $response->execute(self::htmlspecialchars($data));
 
     return self::getDb()->lastInsertId();
   }
 
+  public static function updateNewsletter(array $data)
+  {
+
+    $request = "UPDATE user SET newsletter = :newsletter WHERE id=:id";
+    $response = self::getDb()->prepare($request);
+    $response->execute(self::htmlspecialchars($data));
+
+    return self::getDb()->lastInsertId();
+  }
+
+  // -                                                                                                                                  - //
+
   public static function findAll()
   {
 
-    $request = "SELECT * FROM user WHERE status != 'ban'";
+    $request = "SELECT *, DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(), birthday)), '%Y') + 0 AS age FROM user WHERE status != 'ban'";
     $response = self::getDb()->prepare($request);
     $response->execute();
 
     return $response->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  public static function findByNewsletter()
+  {
+
+    $request = "SELECT * ,DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(), birthday)), '%Y') + 0 AS age FROM user WHERE newsletter = 1";
+    $response = self::getDb()->prepare($request);
+    $response->execute();
+
+    return $response->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  public static function findByRole(array $data)
+  {
+
+    $request = "SELECT * FROM user WHERE roles = :role";
+    $response = self::getDb()->prepare($request);
+    $response->execute($data);
+
+    return $response->fetchAll(PDO::FETCH_ASSOC);
+  }
+  
+  // -                                                                                                                                  - //
+
+  public static function findById(array $id)
+  {
+
+    $request = "SELECT * FROM user WHERE id = :id";
+    $response = self::getDb()->prepare($request);
+    $response->execute($id);
+
+    return $response->fetch(PDO::FETCH_ASSOC);
   }
 
   public static function findByEmail($email)
@@ -53,20 +100,10 @@ class User extends Db
     return $response->fetch(PDO::FETCH_ASSOC);
   }
 
-  public static function findById(array $id)
-  {
-
-    $request = "SELECT * FROM user WHERE id = :id";
-    $response = self::getDb()->prepare($request);
-    $response->execute($id);
-
-    return $response->fetch(PDO::FETCH_ASSOC);
-  }
-
   public static function findByPseudo($pseudo)
   {
     // die(var_dump($pseudo));
-    $request = "SELECT * FROM user WHERE pseudo LIKE '%".$pseudo."%'";
+    $request = "SELECT * FROM user WHERE pseudo LIKE '%" . $pseudo . "%'";
     $response = self::getDb()->prepare($request);
     $response->execute();
 
@@ -74,16 +111,7 @@ class User extends Db
     return $response->fetchAll(PDO::FETCH_ASSOC);
   }
 
-  public static function findByRole(array $role)
-  {
-   
-    $request = "SELECT * FROM user WHERE roles = :role";
-    $response = self::getDb()->prepare($request);
-    $response->execute($role);
-
-    return $response->fetchAll(PDO::FETCH_ASSOC);
-   
-  }
+  // -                                                                                                                                  - //
 
   public static function editPassword(array $data)
   {
@@ -92,6 +120,8 @@ class User extends Db
 
     return $response->execute($data);
   }
+
+  // -                                                                                                                                  - //
 
   public static function delete(array $data)
   {

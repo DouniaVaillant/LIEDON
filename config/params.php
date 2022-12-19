@@ -62,6 +62,7 @@ $routes = [
     '/admin/report/ban'             => ['AdminController', 'ban'],
     '/admin/notifications'          => ['AdminController', 'notifications'],
     '/admin/notification/add'       => ['AdminController', 'addNotification'],
+    '/admin/newsletter/list'        => ['AdminController', 'listNewsletter'],
     
     '/user/profile'                 => ['AppController', 'profile'],
     '/user/profile/edit'            => ['AppController', 'editProfile'],
@@ -86,5 +87,6 @@ $routes = [
 
     '/report'                       => ['AppController', 'report'],
     '/notifications'                => ['AppController', 'notifications'],
+    '/newsletter'                   => ['AppController', 'newsletter'],
 
 ];

@@ -789,24 +789,28 @@ class AdminController
             if ($_GET['u']) {
                 User::updateStatus([
                     'status' => 'ban',
+                    'newsletter' => 0,
                     'id' => $_GET['u']
                 ]);
             }
             if ($_GET['b']) {
                 Book::updateStatus([
                     'status' => 'ban',
+                    'newsletter' => 0,
                     'id' => $_GET['b']
                 ]);
             }
             if ($_GET['s']) {
                 Story::updateStatus([
                     'status' => 'ban',
+                    'newsletter' => 0,
                     'id' => $_GET['s']
                 ]);
             }
             if ($_GET['c']) {
                 Chapter::updateStatus([
                     'status' => 'ban',
+                    'newsletter' => 0,
                     'id' => $_GET['c']
                 ]);
             }
@@ -891,5 +895,16 @@ class AdminController
 
         include(VIEWS . "app/backoffice/addNotification.php");
     }
+
+    public static function listNewsletter()
+    {
+     
+      $users = User::findByNewsletter();
+     
+     include(VIEWS."app/backoffice/listNewsletter.php" ) ;
+    }
+
+
+
 
 }

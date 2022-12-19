@@ -1076,4 +1076,39 @@ class AppController
 
     include(VIEWS . "app/user/notifications.php");
   }
+
+  public static function newsletter()
+  {
+    if (!isset($_SESSION['user'])) {  // ? Sécurité
+      $_SESSION['messages']['warning'][] = 'Merci de vous connecter pour accéder à cette option.';
+      header('location:user/logIn');
+      exit();
+    }
+
+    $user = User::findById(['id' => $_SESSION['user']['id']]);
+
+    if ($user['newsletter'] == 0) {
+      User::updateNewsletter([
+        'newsletter' => 1,
+        'id' => $_SESSION['user']['id']
+      ]);
+
+      $_SESSION['messages']['success'][] = 'Inscription à la newsletter effectuée';
+      header('location:' . $_SERVER['HTTP_REFERER']);
+      exit();
+
+    } elseif ($user['newsletter'] == 1) {
+      User::updateNewsletter([
+        'newsletter' => 0,
+        'id' => $_SESSION['user']['id']
+      ]);
+
+    $_SESSION['messages']['success'][] = 'Désinscription à la newsletter effectuée';
+    header('location:' . $_SERVER['HTTP_REFERER']);
+    exit();
+    
+    }
+
+  }
+
 }

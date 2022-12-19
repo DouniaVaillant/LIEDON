@@ -20,6 +20,9 @@
             <a href="<?= BASE_PATH . 'admin/report/list'; ?>">Signalements</a>
         </li>
         <li>
+            <a href="<?= BASE_PATH . 'admin/newsletter/list'; ?>">Newsletter</a>
+        </li>
+        <li>
             <a href="#">Emprunts</a>
         </li>
 

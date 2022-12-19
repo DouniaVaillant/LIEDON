@@ -29,7 +29,7 @@
                 <th>Pseudo</th>
                 <th>Email</th>
                 <th>Genre</th>
-                <th>Date de naissance</th>
+                <th>Age</th>
                 <?php if ($_SESSION['user']['roles'] == 'ROLE_ADMIN') : ?>
                     <th>N° de voie</th>
                     <th>Adresse</th>
@@ -95,7 +95,7 @@
                         <td>Autre</td>
                     <?php endif; ?>
 
-                    <td><?= $user['birthday']; ?></td>
+                    <td><?= $user['age']; ?></td>
 
                     <?php if ($_SESSION['user']['roles'] == 'ROLE_ADMIN') : ?>
                         <td><?= $user['way']; ?></td>
@@ -112,9 +112,9 @@
                     <td><?= $user['date_registration']; ?></td>
 
                     <td>
-                        <a href="<?= BASE_PATH . 'user/profile?id=' . $user['id']; ?>" class=""><i class="fa-solid soil fa-eye"></i></a>
+                        <a href="<?= BASE_PATH . 'user/profile?id=' . $user['id']; ?>" class=""><i class="fa-solid soil fa-eye"></i></a><br>
                         <?php if (($_SESSION['user']['roles'] != 'ROLE_ADMIN' && $user['roles'] == 'ROLE_USER') || $_SESSION['user']['roles'] == 'ROLE_ADMIN') : ?>
-                            <a href="<?= BASE_PATH . 'admin/user/edit?id=' . $user['id']; ?>" class=""><i class="fa-solid soil fa-pen"></i></a>
+                            <a href="<?= BASE_PATH . 'admin/user/edit?id=' . $user['id']; ?>" class=""><i class="fa-solid soil fa-pen"></i></a><br>
                             <a onclick="return confirm('Etes-vous sûr de vouloir supprimer cet utilisateur ?')" href="<?= BASE_PATH . 'admin/user/delete?id=' . $user['id']; ?>" class=""><i class="fa-solid soil fa-trash"></i></a>
                         <?php endif; ?>
                     </td>
