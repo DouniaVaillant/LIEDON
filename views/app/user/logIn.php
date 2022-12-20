@@ -17,7 +17,7 @@
         <label class="form-check-label" id="label" for="button">Afficher le mot de passe</label>
     </div>
 
-    <button class="mt-4 btn btn-warning text-light" type="submit">Se connecter</button>
+    <button class="mt-4 btn bg-sun text-dark" type="submit">Se connecter</button>
 
 </form>
 

@@ -1,5 +1,5 @@
 :root {
-  --black: #141414;
+  --black: #252525;
   --darkGreen: #283618;
   --lightGreen: #588157;
   --bg: whitesmoke;
@@ -106,18 +106,57 @@ li {
   object-fit: cover;
   border-radius: 150px;
 }
+/* - */
 
-.darkMode {
-  background: rgb(37, 37, 37);
-  /* color: white; */
+.bg {
+  height: 30px;
+  width: 30px;
+  background: #895737;
+  position: relative;
+  border-radius: 100px;
 }
 
-.darkMode *:not(li) {
+.circle {
+  height: 26px;
+  width: 26px;
+  background: #fefae0;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  border-radius: 100px;
+}
+
+/* - */
+
+.darkMode {
+  background: var(--black);
+}
+
+.darkMode * {
   color: white;
 }
 
 .darkCircle {
   right: 2px;
+}
+
+.inCircle {
+  position: relative;
+}
+
+.darkMode .moon {
+  height: 20px;
+  width: 20px;
+  background: var(--soil);
+  z-index: 3;
+  position: absolute;
+  border-radius: 100px;
+  top: -9px;
+  left: -2px;
+}
+
+.darkMode .alert, .darkMode input {
+  color: #141414 !important;
 }
 
 /* -                                                                                                                                               - */
@@ -139,44 +178,57 @@ nav a {
 
 /* - */
 
-.searchNavForm {
-  position: relative;
+@media screen and (min-width: 900px) {
+  .searchNavForm {
+    position: relative;
+  }
+
+  #searchNav {
+    background: rgba(255, 253, 241, 0.47);
+    border-radius: 100px 0 0 100px;
+    border: none;
+    padding: 5px;
+  }
+
+  .searchNavForm button {
+    background: rgba(255, 253, 241, 0.47);
+    border-radius: 0 100px 100px 0;
+    padding-inline: 5px;
+  }
+
+  /* - */
+
+  #dropdownProfile,
+  #dropdownBook {
+    position: relative;
+  }
+
+  #dropdown-profile-nav,
+  #dropdown-book-nav {
+    position: absolute;
+    background: var(--beige);
+    padding: 15px 5px;
+    text-align: center;
+  }
+
+  #dropdown-profile-nav {
+    right: 0px;
+  }
+
+  #dropdown-book-nav li {
+    padding-top: 5px;
+  }
 }
 
-#searchNav {
-  background: rgba(255, 253, 241, 0.47);
-  border-radius: 100px 0 0 100px;
-  border: none;
-  padding: 5px;
-}
+/* -                                                                                                                                               - */
+/*  _  registration                                                                                                                                */
 
-.searchNavForm button {
-  background: rgba(255, 253, 241, 0.47);
-  border-radius: 0 100px 100px 0;  
-  padding-inline: 5px;
+.form-check-input:checked {
+  background-color: var(--lightGreen);
+  border-color: var(--lightGreen);
 }
 
 
-/* - */
-
-#dropdownProfile, #dropdownBook {
-  position: relative;
-}
-
-#dropdown-profile-nav, #dropdown-book-nav {
-  position: absolute;
-  background: var(--beige);
-  padding: 15px 5px;  
-  text-align: center;
-}
-
-#dropdown-profile-nav {
-  right: 0px;
-}
-
-#dropdown-book-nav li {
-  padding-top: 5px;
-}
 
 /* -                                                                                                                                               - */
 /*  _  books                                                                                                                                */
@@ -301,6 +353,22 @@ nav a {
   .right .title {
     font-size: 1rem;
   }
+
+  /* - */
+
+  .darkMode .cardBook {
+    box-shadow: -1px 1px 2px rgba(255, 255, 255, 0.2);
+  }
+
+  .darkMode .bgSynopsis::before,
+  .darkMode .bgCommentUser::before {
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.336);
+  }
+
+  .darkMode .status {
+    color: var(--darkGreen);
+  }
 }
 
 /* -                                                                                                                                                     */
@@ -338,10 +406,10 @@ nav a {
   }
 
   .showBook-2-1 button[type="submit"] {
-    padding: 3px 8px;
     background: rgba(88, 129, 87, 0.3);
     border: 1px solid rgba(40, 54, 24, 0.3);
     color: var(--darkGreen);
+    padding: 3px 8px;
     border-radius: 50px;
     text-transform: uppercase;
     font-size: 0.8rem;
@@ -449,10 +517,10 @@ nav a {
   }
 
   .showBook-comments {
+    background: rgba(40, 54, 24, 0.03);
     display: flex;
     align-items: center;
     align-content: center;
-    background: rgba(40, 54, 24, 0.03);
     padding: 5px;
     margin: 2px 0;
   }
@@ -462,6 +530,21 @@ nav a {
     flex-direction: column;
     text-align: center;
     margin-right: 20px;
+  }
+
+  /* - */
+
+  .darkMode .showBook-4-3 .showBook-5-1 {
+    background: #58815749;
+  }
+
+  .darkMode .showBook-2-1 button[type="submit"] {
+    background: rgba(88, 129, 87, 0.596);
+    color: var(--sun);
+  }
+
+  .darkMode .showBook-comments {
+    background: #ebebeb22;
   }
 }
 
@@ -761,7 +844,6 @@ nav a {
     text-align: center;
   }
 }
-
 
 /* -                                                                   */
 /* _ FOOTER                                                            */
