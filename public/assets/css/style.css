@@ -94,7 +94,7 @@ li {
   background: none;
 }
 
-.fa-heart {
+.fa-heart, .darkMode .fa-heart {
   color: red;
   font-size: 2rem;
 }
@@ -106,6 +106,7 @@ li {
   object-fit: cover;
   border-radius: 150px;
 }
+
 /* - */
 
 .bg {
@@ -155,7 +156,10 @@ li {
   left: -2px;
 }
 
-.darkMode .alert, .darkMode input {
+.darkMode .alert,
+.darkMode input,
+.darkMode nav a,
+.darkMode nav * {
   color: #141414 !important;
 }
 
@@ -227,8 +231,6 @@ nav a {
   background-color: var(--lightGreen);
   border-color: var(--lightGreen);
 }
-
-
 
 /* -                                                                                                                                               - */
 /*  _  books                                                                                                                                */
@@ -590,14 +592,13 @@ nav a {
   }
 
   .titleStories {
+    background: var(--bg);
     position: absolute;
     top: 5px;
-    left: 5px;
-    font-size: 1rem;
+    font-size: 0.9rem;
     text-align: center;
-    background: var(--bg);
-    border-radius: 150px;
-    padding: 0 5px;
+    border-radius: 0 150px 150px 0;
+    padding: 2px 15px;
   }
 
   .stories-report {
@@ -611,12 +612,24 @@ nav a {
   .stories-moreOptions,
   .story-moreOptions,
   .chapter-moreOptions {
+    background: var(--bg);
     border: 1px solid black;
     border-radius: 3px;
     padding: 5px;
     position: absolute;
     z-index: 2;
-    background: var(--bg);
+  }
+
+  
+  .darkMode .stories-moreOptions,
+  .darkMode .story-moreOptions,
+  .darkMode .chapter-moreOptions {
+    background: var(--black);
+    border: 1px solid white;
+  }
+
+  .darkMode .titleStories {
+    background: var(--black);
   }
 }
 
@@ -671,10 +684,6 @@ nav a {
     font-size: 2rem;
   }
 
-  .showStory-report {
-    /* position: absolute; */
-  }
-
   .showStory-2-2 .showStory-3-3,
   .showStory-2-2 .showStory-3-4,
   .showStory-2-2 .showStory-3-5 {
@@ -706,8 +715,12 @@ nav a {
   .showStory-2-2 .showStory-3-4 a {
     background: rgba(238, 206, 159, 1);
     padding: 3px 50px;
-    color: #ad5600;
     border-radius: 50px;
+  }
+
+  .showStory-2-2 .showStory-3-4 a,.showStory-2-2 .showStory-3-4 .fa-plus {
+    color: #ad5600;
+    font-weight: bold;
   }
 
   .showStory-3-5 {
@@ -740,13 +753,13 @@ nav a {
   }
 
   .showStory-2-3 .showStory-card h3 {
+    background: var(--bg);
     position: absolute;
     bottom: 5px;
-    left: 5px;
-    background: var(--bg);
-    border-radius: 50px;
-    font-size: 1rem;
-    padding: 0 5px;
+    /* left: 5px; */
+    border-radius: 0 50px 50px 0;
+    font-size: 0.9rem;
+    padding: 2px 15px;
   }
 
   .showStory-discover {
@@ -755,6 +768,18 @@ nav a {
     object-fit: cover;
     border-radius: 5px;
     background: #14141414;
+  }
+
+  .darkMode .showStory-2-3 .showStory-card h3 {
+    background: var(--black);
+  }
+
+  .darkMode .showStory-status {
+    color: var(--sun) !important;
+  }
+
+  .darkMode .showStory-target {
+    background: rgba(255, 255, 255, 0.105);
   }
 }
 
@@ -834,6 +859,14 @@ nav a {
   .table {
     text-align: center;
   }
+
+  .darkMode .table tr, .darkMode .table tr:hover {
+    background: var(--black);
+  }
+
+  .darkMode .table tr, .darkMode .table tr:hover {
+    color: var(--bg);
+  }
 }
 
 @media screen and (max-width: 760px) {
@@ -842,6 +875,14 @@ nav a {
   }
   .table {
     text-align: center;
+  }
+
+  .darkMode .table tr, .darkMode .table tr:hover {
+    background: var(--black);
+  }
+
+  .darkMode .table tr, .darkMode .table tr:hover {
+    color: var(--bg);
   }
 }
 
