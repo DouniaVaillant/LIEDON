@@ -12,6 +12,8 @@ class Story extends Db
 
     return self::getDb()->lastInsertId();
   }
+  
+  // -                                                                                                                                  - //
 
   public static function update(array $data)
   {
@@ -32,6 +34,8 @@ class Story extends Db
 
     return self::getDb()->lastInsertId();
   }
+    
+  // -                                                                                                                                  - //
 
   public static function findAll()
   {
@@ -42,17 +46,7 @@ class Story extends Db
 
     return $response->fetchAll(PDO::FETCH_ASSOC);
   }
-
-  public static function findById(array $id)
-  {
-
-    $request = "SELECT * FROM story WHERE id = :id";
-    $response = self::getDb()->prepare($request);
-    $response->execute($id);
-
-    return $response->fetch(PDO::FETCH_ASSOC);
-  }
-
+    
   public static function findByIdUser(array $idUser)
   {
 
@@ -83,8 +77,6 @@ class Story extends Db
     return $response->fetchAll(PDO::FETCH_ASSOC);
   }
 
-  // -                                                            - //
-
   public static function discoverNew()
   {
 
@@ -94,6 +86,30 @@ class Story extends Db
 
     return $response->fetchAll(PDO::FETCH_ASSOC);
   }
+
+  public static function findBySearch($data)
+  {
+    
+    $request = "SELECT * FROM story WHERE title LIKE '%" . $data . "%'";
+    $response = self::getDb()->prepare($request);
+    $response->execute();
+
+    return $response->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  // -                                                                                                                                  - //
+
+  public static function findById(array $id)
+  {
+
+    $request = "SELECT * FROM story WHERE id = :id";
+    $response = self::getDb()->prepare($request);
+    $response->execute($id);
+
+    return $response->fetch(PDO::FETCH_ASSOC);
+  }
+
+  // -                                                            - //
 
   public static function delete(array $data)
   {

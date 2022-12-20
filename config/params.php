@@ -88,5 +88,6 @@ $routes = [
     '/report'                       => ['AppController', 'report'],
     '/notifications'                => ['AppController', 'notifications'],
     '/newsletter'                   => ['AppController', 'newsletter'],
+    '/search'                       => ['AppController', 'search'],
 
 ];

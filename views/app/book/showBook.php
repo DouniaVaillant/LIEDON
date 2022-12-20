@@ -83,15 +83,18 @@
 
 
         <div class="showBook-3 showBook-3-3">
-            <?php foreach ($comments as $comment) : ?>
-                <?php $otherCommentUser = User::findById(['id' => $comment['id_commentator']]); ?>
-                <div class="showBook-comments">
-                    <div class="showBook-profile-2">
-                        <img class="roundProfile" src="<?= BASE . 'upload/photos/profile/' . $otherCommentUser['photo_profile']; ?>" alt="Photo de profil">
-                        <p><?= $otherCommentUser['pseudo']; ?></p>
+            <?php foreach ($comments as $comment) :
+                $otherCommentUser = User::findById(['id' => $comment['id_commentator']]);
+            ?>
+                <?php if ($otherCommentUser) : ?>
+                    <div class="showBook-comments">
+                        <div class="showBook-profile-2">
+                            <img class="roundProfile" src="<?= BASE . 'upload/photos/profile/' . $otherCommentUser['photo_profile']; ?>" alt="Photo de profil">
+                            <p><?= $otherCommentUser['pseudo']; ?></p>
+                        </div>
+                        <p><?= $comment['comment']; ?></p>
                     </div>
-                    <p><?= $comment['comment']; ?></p>
-                </div>
+                <?php endif; ?>
             <?php endforeach; ?>
         </div>
 

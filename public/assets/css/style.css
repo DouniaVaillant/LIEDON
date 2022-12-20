@@ -27,6 +27,10 @@ a {
   color: #141414;
 }
 
+a:hover {
+  color: var(--lightGreen);
+}
+
 ul {
   margin: 0;
   padding: 0;
@@ -103,6 +107,19 @@ li {
   border-radius: 150px;
 }
 
+.darkMode {
+  background: rgb(37, 37, 37);
+  /* color: white; */
+}
+
+.darkMode *:not(li) {
+  color: white;
+}
+
+.darkCircle {
+  right: 2px;
+}
+
 /* -                                                                                                                                               - */
 /* $                                                  HEADER                                                                                         */
 
@@ -113,6 +130,11 @@ nav ul:first-child {
   background: var(--beige);
   align-items: center;
   text-transform: uppercase;
+  color: var(--darkGreen);
+}
+
+nav a {
+  color: var(--darkGreen);
 }
 
 /* - */

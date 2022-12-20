@@ -77,7 +77,28 @@ class User extends Db
 
     return $response->fetchAll(PDO::FETCH_ASSOC);
   }
-  
+
+  public static function findByPseudo($data)
+  {
+    // die(var_dump($pseudo));
+    $request = "SELECT * FROM user WHERE pseudo LIKE '%" . $data . "%'";
+    $response = self::getDb()->prepare($request);
+    $response->execute();
+
+    // die(var_dump($pseudo));
+    return $response->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  public static function findBySearch($data)
+  {
+    
+    $request = "SELECT * FROM user WHERE pseudo LIKE '%" . $data . "%'";
+    $response = self::getDb()->prepare($request);
+    $response->execute();
+
+    return $response->fetchAll(PDO::FETCH_ASSOC);
+  }
+
   // -                                                                                                                                  - //
 
   public static function findById(array $id)
@@ -98,17 +119,6 @@ class User extends Db
     $response->execute($email);
 
     return $response->fetch(PDO::FETCH_ASSOC);
-  }
-
-  public static function findByPseudo($pseudo)
-  {
-    // die(var_dump($pseudo));
-    $request = "SELECT * FROM user WHERE pseudo LIKE '%" . $pseudo . "%'";
-    $response = self::getDb()->prepare($request);
-    $response->execute();
-
-    // die(var_dump($pseudo));
-    return $response->fetchAll(PDO::FETCH_ASSOC);
   }
 
   // -                                                                                                                                  - //

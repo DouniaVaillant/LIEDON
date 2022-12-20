@@ -237,6 +237,11 @@ class AppController
   // $ User Book
   public static function showBook()
   {
+    if (!isset($_GET['id']) || ($_GET['id'] == 0) || ($_GET['id'] == NULL)) {
+      header('location:../books');
+      exit();
+    }
+
     //. infos
     $id = $_GET['id'];
     $book = Book::findById(['id' => $id]);
@@ -535,6 +540,10 @@ class AppController
   // $ User Story
   public static function showStory()
   {
+    if (!isset($_GET['id']) || ($_GET['id'] == 0) || ($_GET['id'] == NULL)) {
+      header('location:../stories');
+      exit();
+    }
 
     $id = $_GET['id'];
     $story = Story::findById(['id' => $id]);
@@ -1109,6 +1118,29 @@ class AppController
     
     }
 
+  }
+
+  public static function search()
+  {
+   
+    if (isset($_POST)) {
+      
+      if (isset($_POST['search'])) {
+        $users = User::findBySearch(
+          $_POST['search']
+        );
+        $books = Book::findBySearch(
+          $_POST['search']
+        );
+        $stories = Story::findBySearch(
+          $_POST['search']
+        );
+      }
+
+    }
+   
+   
+   include(VIEWS."app/search.php" ) ;
   }
 
 }

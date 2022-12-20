@@ -13,16 +13,16 @@
 
 </head>
 
-<body>
+<body class="darkMode" id="body">
 
     <nav>
         <ul>
-            <li>
+            <li class="no" > 
                 <a href="<?= BASE_PATH; ?>">
                     <img src="<?= BASE . "assets/images/logo.svg"; ?>" alt="Logo_light" style="height: 70px;">
                 </a>
             </li>
-            <li>
+            <li class="no" > 
                 <a href="<?= BASE_PATH; ?>">
                     Accueil
                 </a>
@@ -34,42 +34,42 @@
                 <a href="<?= BASE_PATH . 'books'; ?>">
                     Livres Papiers
                     <ul class="hide" id="dropdown-book-nav">
-                        <li>
+                        <li class="no" > 
                             <a class="" href="<?= BASE_PATH . 'books?status=partage'; ?>">Au partage</a>
                         </li>
-                        <li>
+                        <li class="no" > 
                             <a class="" href="<?= BASE_PATH . 'books?status=don'; ?>">Au don</a>
                         </li>
-                        <li>
+                        <li class="no" > 
                             <a class="" href="<?= BASE_PATH . 'books?status=documentation'; ?>">Documentés</a>
                         </li>
-                        <li>
+                        <li class="no" > 
                             <a class="" href="<?= BASE_PATH . 'books'; ?>">Tous</a>
                         </li>
                     </ul>
                 </a>
             </li>
-            <li>
+            <li class="no" > 
                 <a href="<?= BASE_PATH . 'stories'; ?>">
                     Histoires numériques
                 </a>
             </li>
             <?php if (isset($_SESSION['user'])) : ?>
-                <li>
-                    <form class="d-flex searchNavForm" role="search">
-                        <input class="searchNavInput" id="searchNav" type="search" aria-label="Search" name="searchNav">
+                <li class="no" > 
+                    <form action="<?= BASE_PATH . 'search'; ?>" method="POST" class="d-flex searchNavForm" role="search">
+                        <input class="searchNavInput" id="searchNav" type="search" aria-label="Search" name="search">
                         <button class="btn-deco-none" type="submit">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
                     </form>
                 </li>
-                <li>
+                <li class="no" > 
                     <a href="<?= BASE_PATH . 'library'; ?>">
                         <img src="<?= BASE . "assets/images/library.svg"; ?>" alt="Icone-bibliothèque" style="height: 30px;">
                     </a>
                 </li>
                 <?php if (isset($_SESSION['user']) && ($_SESSION['user']['roles'] == 'ROLE_ADMIN' || $_SESSION['user']['roles'] == 'ROLE_MODO')) : ?>
-                    <li>
+                    <li class="no" > 
                         <a class="nav-link" href="<?= BASE_PATH . "admin/backoffice"; ?>">Backoffice</a>
                     </li>
                 <?php endif; ?>
@@ -82,17 +82,17 @@
                     <a href="<?= BASE_PATH . 'user/profile'; ?>">
                         <img class="roundProfile" src="<?= BASE . 'upload/photos/profile/' . $_SESSION['user']['photo_profile']; ?>" alt="Photo-de-profil">
                         <ul class="hide" id="dropdown-profile-nav">
-                            <li><a class="" href="<?= BASE_PATH . "user/profile"; ?>"> Profil</a></li>
+                            <li class="no" > <a class="" href="<?= BASE_PATH . "user/profile"; ?>"> Profil</a></li>
                             <hr>
-                            <li><a class="" href="<?= BASE_PATH . 'user/stories'; ?>">Mes histoires</a></li>
-                            <li><a class="" href="<?= BASE_PATH . 'user/books'; ?>">Mes livres</a></li>
-                            <li><a class="" href="#">Mes emprunts</a></li>
+                            <li class="no" > <a class="" href="<?= BASE_PATH . 'user/stories'; ?>">Mes histoires</a></li>
+                            <li class="no" > <a class="" href="<?= BASE_PATH . 'user/books'; ?>">Mes livres</a></li>
+                            <li class="no" > <a class="" href="#">Mes emprunts</a></li>
                             <hr>
-                            <li><a class="" href="<?= BASE_PATH . 'book/add'; ?>">Ajouter un livre</a></li>
-                            <li><a class="" href="<?= BASE_PATH . 'story/add'; ?>">Créer une histoire</a></li>
+                            <li class="no" > <a class="" href="<?= BASE_PATH . 'book/add'; ?>">Ajouter un livre</a></li>
+                            <li class="no" > <a class="" href="<?= BASE_PATH . 'story/add'; ?>">Créer une histoire</a></li>
                             <hr>
-                            <li><a class="" href="#">Paramètres</a></li>
-                            <li><a class="" href="<?= BASE_PATH . "user/logOut"; ?>">Déconnexion</a></li>
+                            <li class="no" > <a class="" href="#">Paramètres</a></li>
+                            <li class="no" > <a class="" href="<?= BASE_PATH . "user/logOut"; ?>">Déconnexion</a></li>
                         </ul>
                     </a>
                 </li>
@@ -104,6 +104,30 @@
                     <a class="" href="<?= BASE_PATH . "user/logIn"; ?>">Connexion</a>
                 </li>
             <?php endif; ?>
+                <li>
+                    <div class="bg"
+                    style="
+                    height: 30px;
+                    width: 50px;
+                    background: #895737;
+                    position: relative;
+                    border-radius: 100px;
+                    "
+                    >
+                        <button class="circle btn-deco-none"
+                        style="
+                        height: 26px;
+                        width: 26px;
+                        background: #fefae0;
+                        position: absolute;
+                        top: 2px;
+                        left: 2px;
+                        border-radius: 100px;
+                        " onclick="document.getElementById('body').classList.toggle('darkMode'); document.getElementById('circle').classList.toggle('darkCircle');"
+                        >
+                        </button>
+                    </div>
+                </li>
         </ul>
     </nav>
 

@@ -896,6 +896,8 @@ class AdminController
         include(VIEWS . "app/backoffice/addNotification.php");
     }
 
+    // $ CRUD notifications
+
     public static function listNewsletter()
     {
      

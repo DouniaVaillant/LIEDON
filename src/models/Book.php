@@ -12,6 +12,8 @@ class Book extends Db
 
     return self::getDb()->lastInsertId();
   }
+  
+  // -                                                                                                                                  - //
 
   public static function update(array $data)
   {
@@ -32,6 +34,8 @@ class Book extends Db
 
     return self::getDb()->lastInsertId();
   }
+    
+  // -                                                                                                                                  - //
 
   public static function findAll()
   {
@@ -43,52 +47,66 @@ class Book extends Db
     return $response->fetchAll(PDO::FETCH_ASSOC);
   }
 
-  public static function findById(array $id)
-  {
-
-    $request = "SELECT * FROM book WHERE id = :id";
-    $response = self::getDb()->prepare($request);
-    $response->execute($id);
-
-    return $response->fetch(PDO::FETCH_ASSOC);
-  }
-
-  public static function findByIdUser(array $idUser)
+  public static function findByIdUser(array $data)
   {
 
     $request = "SELECT * FROM book WHERE id_user = :id_user";
     $response = self::getDb()->prepare($request);
-    $response->execute($idUser);
+    $response->execute($data);
 
     return $response->fetchAll(PDO::FETCH_ASSOC);
   }
 
-  public static function findByCategory(array $category)
+  public static function findByCategory(array $data)
   {
 
     $request = "SELECT * FROM book WHERE category = :category";
     $response = self::getDb()->prepare($request);
-    $response->execute($category);
+    $response->execute($data);
 
     return $response->fetchAll(PDO::FETCH_ASSOC);
   }
 
-  public static function findByStatus(array $status)
+  public static function findByStatus(array $data)
   {
 
     $request = "SELECT * FROM book WHERE status = :status";
     $response = self::getDb()->prepare($request);
-    $response->execute($status);
+    $response->execute($data);
 
     return $response->fetchAll(PDO::FETCH_ASSOC);
   }
+  
+  public static function findBySearch($data)
+  {
+    
+    $request = "SELECT * FROM book WHERE title LIKE '%" . $data . "%'";
+    $response = self::getDb()->prepare($request);
+    $response->execute();
+
+    return $response->fetchAll(PDO::FETCH_ASSOC);
+  }
+    
+  // -                                                                                                                                  - //
+
+  public static function findById(array $data)
+  {
+
+    $request = "SELECT * FROM book WHERE id = :id";
+    $response = self::getDb()->prepare($request);
+    $response->execute($data);
+
+    return $response->fetch(PDO::FETCH_ASSOC);
+  }
+    
+  // -                                                                                                                                  - //
 
   public static function delete(array $data)
   {
 
     $request = "DELETE FROM book WHERE id = :id";
-
     $response = self::getDb()->prepare($request);
+
     return $response->execute(self::htmlspecialchars($data));
   }
 }
