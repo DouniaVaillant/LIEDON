@@ -13,7 +13,7 @@
     </form>
 
     <!-- TABLEAU DES LIVRES -->
-    <table class="table table-hover">
+    <table class="table  ">
         <thead>
             <tr>
                 <th>#</th>
@@ -42,7 +42,11 @@
                     <?php endif; ?>
 
                     <th scope="row"><?= $book['id']; ?></th>
-                    <td><?php if ($user) { echo $user['pseudo']; } else { echo '<i>Utilisateur supprimé</i>'; } ?></td>
+                    <td><?php if ($user) {
+                            echo $user['pseudo'];
+                        } else {
+                            echo '<i>Utilisateur supprimé</i>';
+                        } ?></td>
                     <td><img src="<?= BASE . 'upload/book/' . $book['photo']; ?>" alt="couverture" height="100"></td>
                     <td><?= $book['title']; ?></td>
                     <td><?= $book['category']; ?></td>

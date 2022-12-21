@@ -61,7 +61,7 @@ class User extends Db
   public static function findByNewsletter()
   {
 
-    $request = "SELECT * ,DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(), birthday)), '%Y') + 0 AS age FROM user WHERE newsletter = 1";
+    $request = "SELECT *, DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(), birthday)), '%Y') + 0 AS age FROM user WHERE newsletter = 1";
     $response = self::getDb()->prepare($request);
     $response->execute();
 

@@ -4,21 +4,20 @@
 
 <div class="container-fluid mt-5 pageListUser">
 
+        <form action="<?= BASE_PATH . 'admin/user/list'; ?>" method="GET" class="my-4 col-lg-2">
+            <select name="roles" class="form-select btn-deco-none">
+                <option value="ROLE_USER">Membre</option>
+                <option value="ROLE_ADMIN">Administrateur</option>
+                <option value="ROLE_MODO">Modérateur</option>
+            </select>
+            <button class="btn border" type="submit">Filtrer</button>
+            <a href="<?= BASE_PATH . 'admin/user/list'; ?>" class="btn border">Réinitialiser</a>
+        </form>
 
-    <form action="<?= BASE_PATH . 'admin/user/list'; ?>" method="GET" class="mt-4 col-lg-3">
-        <select name="roles" class="form-select">
-            <option value="ROLE_USER">Membre</option>
-            <option value="ROLE_ADMIN">Administrateur</option>
-            <option value="ROLE_MODO">Modérateur</option>
-        </select>
-        <button class="btn btn-light border border-warning" type="submit">Filtrer</button>
-        <a href="<?= BASE_PATH . 'admin/user/list'; ?>" class="btn btn-light border-warning">Réinitialiser</a>
-    </form>
-
-    <a href="<?= BASE_PATH . 'admin/user/add'; ?>" class="btn btn-warning mt-4">Ajouter un membre</a>
+    <a href="<?= BASE_PATH . 'admin/user/add'; ?>" class="btn border mt-4">Ajouter un membre</a>
 
     <!-- TABLEAU DES UTILISATEURS -->
-    <table class="table table-hover">
+    <table class="table  ">
 
         <thead>
             <tr>

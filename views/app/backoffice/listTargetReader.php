@@ -5,7 +5,7 @@
 
 <a href="<?= BASE_PATH . 'admin/target-reader/add'; ?>" class="btn btn-warning mt-4">Ajouter une cible</a>
 
-<table class="table table-hover text-center w-50">
+<table class="table   text-center w-50">
     <thead>
         <tr>
             <th scope="col">Tranche d'âge</th>

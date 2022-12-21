@@ -13,8 +13,8 @@
         <button class="btn btn-light border border-warning" type="submit">Filtrer</button>
         <a href="<?= BASE_PATH . 'admin/newsletter/list'; ?>" class="btn btn-light border-warning">Réinitialiser</a>
     </form>
-    
-    <table class="table table-hover">
+
+    <table class="table  ">
 
         <thead>
             <tr>

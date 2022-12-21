@@ -30,7 +30,7 @@
         <!-- TABLEAU DE TOUS LES RESOLUS -->
         <?php if ($_GET['fixed'] == 'yes') : ?>
 
-            <table class="table table-hover">
+            <table class="table  ">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -57,7 +57,7 @@
                                 <th scope="row"><?= $report['id']; ?></th>
 
                                 <td><?= $reporter['pseudo']; ?></td>
-                                
+
                                 <td>
                                     <?php if ($report['id_reported'] != 0) : ?>
                                         <strong>Utilisateur: </strong><?= $reported['pseudo']; ?>
@@ -87,7 +87,7 @@
         <!-- TABLEAU DE TOUS LES RESOLUS -->
         <?php if ($_GET['fixed'] == 'no') : ?>
 
-            <table class="table table-hover">
+            <table class="table  ">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -114,7 +114,7 @@
                                 <th scope="row"><?= $report['id']; ?></th>
 
                                 <td><?= $reporter['pseudo']; ?></td>
-                                
+
                                 <td>
                                     <?php if ($report['id_reported'] != 0) : ?>
                                         <strong>Utilisateur: </strong><?= $reported['pseudo']; ?>
@@ -149,7 +149,7 @@
         <!-- TABLEAU DES UTILISATEURS SIGNALES -->
         <?php if ($_GET['list'] == 'user') : ?>
 
-            <table class="table table-hover">
+            <table class="table  ">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -216,7 +216,7 @@
         <!-- TABLEAU DES LIVRES SIGNALES -->
         <?php if ($_GET['list'] == 'book') : ?>
 
-            <table class="table table-hover">
+            <table class="table  ">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -283,7 +283,7 @@
         <!-- TABLEAU DES HISTOIRES SIGNALES -->
         <?php if ($_GET['list'] == 'story') : ?>
 
-            <table class="table table-hover">
+            <table class="table  ">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -350,7 +350,7 @@
         <!-- TABLEAU DES CHAPITRES SIGNALES -->
         <?php if ($_GET['list'] == 'chapter') : ?>
 
-            <table class="table table-hover">
+            <table class="table  ">
                 <thead>
                     <tr>
                         <th>#</th>

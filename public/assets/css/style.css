@@ -94,7 +94,8 @@ li {
   background: none;
 }
 
-.fa-heart, .darkMode .fa-heart {
+.fa-heart,
+.darkMode .fa-heart {
   color: red;
   font-size: 2rem;
 }
@@ -620,7 +621,6 @@ nav a {
     z-index: 2;
   }
 
-  
   .darkMode .stories-moreOptions,
   .darkMode .story-moreOptions,
   .darkMode .chapter-moreOptions {
@@ -718,7 +718,8 @@ nav a {
     border-radius: 50px;
   }
 
-  .showStory-2-2 .showStory-3-4 a,.showStory-2-2 .showStory-3-4 .fa-plus {
+  .showStory-2-2 .showStory-3-4 a,
+  .showStory-2-2 .showStory-3-4 .fa-plus {
     color: #ad5600;
     font-weight: bold;
   }
@@ -805,18 +806,25 @@ nav a {
     margin: auto 20px;
   }
 
-  .cardLibrary {
+  .library-cardStory {
     position: relative;
   }
 
   .titleStory {
-    position: absolute;
-    top: 10px;
-    /* left: 5px; */
-    text-align: center;
     background: var(--bg);
-    border-radius: 150px;
-    padding: 0 5px;
+    position: absolute;
+    top: 5px;
+    font-size: 0.9rem;
+    text-align: center;
+    border-radius: 0 150px 150px 0;
+    padding: 2px 15px;
+  }
+
+  /* - */
+
+  .darkMode .titleStory {
+    border: 1px solid white;
+    background: var(--black);
   }
 }
 
@@ -856,16 +864,19 @@ nav a {
   .pageListUser * {
     font-size: 0.9rem;
   }
+
   .table {
     text-align: center;
   }
 
-  .darkMode .table tr, .darkMode .table tr:hover {
-    background: var(--black);
+  .darkMode .pageListUser select,
+  .darkMode .pageListUser button {
+    border: 1px solid var(--lightGreen);
   }
 
-  .darkMode .table tr, .darkMode .table tr:hover {
-    color: var(--bg);
+  .darkMode .table tr,
+  .darkMode .pageListUser option {
+    background: var(--black);
   }
 }
 
@@ -877,27 +888,10 @@ nav a {
     text-align: center;
   }
 
-  .darkMode .table tr, .darkMode .table tr:hover {
+  .darkMode .table tr {
     background: var(--black);
-  }
-
-  .darkMode .table tr, .darkMode .table tr:hover {
-    color: var(--bg);
   }
 }
 
 /* -                                                                   */
 /* _ FOOTER                                                            */
-
-/* .testHeader {
-  position: relative;
-} */
-
-/* footer {
-  position: absolute;
-  bottom: 0;
-  height: 200px;
-  width: 100%;
-  background: var(--darkGreen);
-  color: var(--sun);
-} */
