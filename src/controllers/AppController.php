@@ -655,19 +655,18 @@ class AppController
     if (!empty($_POST)) :
 
       $category = $_POST['category'];
-      $targetReader = $_POST['target_reader'];
+      $target = $_POST['target_reader'];
 
       if (!empty($_FILES['photo']['name']) && $_FILES['photo']['size'] < 3000000 && ($_FILES['photo']['type'] == 'image/jpeg' || $_FILES['photo']['type'] == 'image/png' || $_FILES['photo']['type'] == 'image/gif')) :
 
         $extensionPhoto = strtolower(strchr($_FILES['photo']['name'], '.')); /// = srttolower => met en minuscule ||| substr => ignore un élément de la chaîne ||| strrchr => récupère l'extension du fichier
         $photoCoverName = $user['id'] . '-' . strval(htmlspecialchars(preg_replace('/[^a-zA-Z\d\àâçéèîïìñôöùûü]+/', '', $_POST['title']))) . '-' . strval(uniqid()) . $extensionPhoto;
-
+        
         copy($_FILES['photo']['tmp_name'], PUBLIC_FOLDER . 'upload/story/' . $photoCoverName); // ? Copie de la nouvelle image dans le dossier concerné
-
-      else :
-
-        $photoCoverName = $_POST['photo'];
-
+        
+        else :
+          
+          $photoCoverName = 'Pas de couverture';
       endif;
 
       if (empty($_POST['title'])) {
@@ -690,9 +689,7 @@ class AppController
         $error['language'] = 'Le champs est obligatoire';
       }
 
-      if (empty($_POST['status'])) {
-        $status = 'Brouillon';
-      }
+      $status = 'En cours';
 
       if (empty($error)) :
         Story::create([
@@ -721,7 +718,7 @@ class AppController
 
     $user = $_SESSION['user'];
 
-    if (!isset($user)) {
+    if (!isset($user) || !isset($_GET['id'])) {
       $_SESSION['messages']['danger'][] = "Impossible d'accéder à cette requête";
       header('location:../../');
       exit();
@@ -767,8 +764,10 @@ class AppController
         $error['language'] = 'Le champs est obligatoire';
       }
 
-      if (empty($_POST['status'])) {
-        $status = 'Brouillon';
+      if ($story['status'] == 'ban') {
+        $status = 'ban';
+      } elseif (empty($_POST['status'])) {
+        $status = 'En cours';
       }
 
       if (empty($error)) :
@@ -777,7 +776,7 @@ class AppController
           'title' => $_POST['title'],
           'synopsis' => $_POST['synopsis'],
           'photo' => $photoCoverName,
-          'status' => $_POST['status'],
+          'status' => $status,
           'category' => $_POST['category'],
           'target_reader' => $_POST['target_reader'],
           'language' => $_POST['language'],
@@ -868,6 +867,9 @@ class AppController
     }
 
     $chapter = Chapter::findById(['id' => $_GET['id']]);
+    $chapters = Chapter::findAllChapter([
+      'id_story' => $chapter['id_story']
+    ]);
     // die(var_dump($chapter));
 
     $comments = Comment::findAllByChapter(['id_chapter' => $chapter['id']]);
@@ -945,12 +947,14 @@ class AppController
           'id_user' => $_SESSION['user']['id'],
           'id_story' => $_GET['id']
         ]);
+        $_SESSION['messages']['success'][] = 'Retiré de la bibliothèque';
       } else {
 
         Library::create([
           'id_user' => $_SESSION['user']['id'],
           'id_story' => $_GET['id']
         ]);
+        $_SESSION['messages']['success'][] = 'Ajouté à la bibliothèque';
       }
 
       header('location:stories');
@@ -966,6 +970,9 @@ class AppController
 
     include(VIEWS . "app/story/library/library.php");
   }
+
+
+  // $ Other
 
   public static function report()
   {
@@ -1105,26 +1112,23 @@ class AppController
       $_SESSION['messages']['success'][] = 'Inscription à la newsletter effectuée';
       header('location:' . $_SERVER['HTTP_REFERER']);
       exit();
-
     } elseif ($user['newsletter'] == 1) {
       User::updateNewsletter([
         'newsletter' => 0,
         'id' => $_SESSION['user']['id']
       ]);
 
-    $_SESSION['messages']['success'][] = 'Désinscription à la newsletter effectuée';
-    header('location:' . $_SERVER['HTTP_REFERER']);
-    exit();
-    
+      $_SESSION['messages']['success'][] = 'Désinscription à la newsletter effectuée';
+      header('location:' . $_SERVER['HTTP_REFERER']);
+      exit();
     }
-
   }
 
   public static function search()
   {
-   
+
     if (isset($_POST)) {
-      
+
       if (isset($_POST['search'])) {
         $users = User::findBySearch(
           $_POST['search']
@@ -1136,11 +1140,9 @@ class AppController
           $_POST['search']
         );
       }
-
     }
-   
-   
-   include(VIEWS."app/search.php" ) ;
-  }
 
+
+    include(VIEWS . "app/search.php");
+  }
 }

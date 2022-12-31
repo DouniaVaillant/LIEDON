@@ -63,23 +63,23 @@ $routes = [
     '/admin/notifications'          => ['AdminController', 'notifications'],
     '/admin/notification/add'       => ['AdminController', 'addNotification'],
     '/admin/newsletter/list'        => ['AdminController', 'listNewsletter'],
-    
+
     '/user/profile'                 => ['AppController', 'profile'],
     '/user/profile/edit'            => ['AppController', 'editProfile'],
     '/user/editPassword'            => ['AppController', 'editPassword'],
-    
+
     '/books'                        => ['AppController', 'books'],
     '/user/books'                   => ['AppController', 'userBook'],
     '/book/show'                    => ['AppController', 'showBook'],
     '/book/add'                     => ['AppController', 'addBook'],
     '/user/books/edit'              => ['AppController', 'editUserBook'],
     '/book/delete'                  => ['AppController', 'deleteBook'],
-    
+
     '/stories'                      => ['AppController', 'stories'],
     '/user/stories'                 => ['AppController', 'userStory'],
     '/story/show'                   => ['AppController', 'showStory'],
     '/story/add'                    => ['AppController', 'addStory'],
-    '/user/stories/edit'            => ['AppController', 'editUserStories'],
+    '/user/story/edit'            => ['AppController', 'editUserStories'],
     '/story/delete'                 => ['AppController', 'deleteStory'],
     '/library'                      => ['AppController', 'library'],
     '/story/chapter/add'            => ['AppController', 'addChapter'],

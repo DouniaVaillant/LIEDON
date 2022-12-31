@@ -1,7 +1,7 @@
 <?php include(VIEWS . '_partials/header.php'); ?>
 
 
-<form method="POST" action="<?= BASE_PATH . "user/registration"; ?>">
+<form method="POST" class="pageRegistration" action="<?= BASE_PATH . "user/registration"; ?>">
 
     <h1 class="text-center my-5">Inscription</h1>
 
@@ -40,7 +40,7 @@
 
             <div class="mb-3 col-lg-2">
                 <label for="gender" class="form-label">Genre</label>
-                <select name="gender" value="<?= $_POST['gender'] ?? ''; ?>" class="form-select" aria-label="Default select example">
+                <select name="gender" value="<?= $_POST['gender'] ?? ''; ?>" class="form-select" aria-label="exemple de select par défaut">
                     <option selected>Selectionner</option>
                     <option value="h">Homme</option>
                     <option value="f">Femme</option>

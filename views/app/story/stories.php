@@ -13,7 +13,11 @@
 
             <a href="<?= BASE_PATH . 'story/show?id=' . $story['id']; ?>">
                 <div class="cardStory">
-                    <img class="coverStory" src="<?= BASE . 'upload/story/' . $story['photo']; ?>" alt="Image de couverture">
+                    <img class="coverStory" src="<?php if ($story['photo'] == 'Pas de couverture') {
+                                                        echo BASE . 'assets/images/coverDefault.png';
+                                                    } else {
+                                                        echo BASE . 'upload/story/' . $story['photo'];
+                                                    } ?>" alt="Image de couverture">
                 </div>
             </a>
 
@@ -33,7 +37,7 @@
                     <li><a href="<?= BASE_PATH . 'report?s=' . $story['id']; ?>">Signaler</a></li>
                 </ul>
             </div>
-    
+
         </div>
     <?php endforeach; ?>
 

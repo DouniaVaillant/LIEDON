@@ -13,13 +13,15 @@
 
 </head>
 
-<body class="darkMode" id="body">
+<body class="" id="body">
 
     <nav>
         <ul>
             <li class="">
-                <a href="<?= BASE_PATH; ?>">
-                    <img src="<?= BASE . "assets/images/logo.svg"; ?>" alt="Logo_light" style="height: 70px;">
+                <a class="darkLogo" href="<?= BASE_PATH; ?>">
+                    <img src="<?= BASE . "assets/images/logo_base.png"; ?>" alt="Logo_light" style="height: 70px;">
+                
+                    Lie<span>d</span>on 
                 </a>
             </li>
             <li class="">
@@ -118,7 +120,7 @@
     </nav>
 
 
-    <div class="container-fluid mt-4 testHeader">
+    <div class="container-fluid mt-4 divBeginHeader">
         <!-- <div class="position-relative text-center position-absolute z-index-2"> -->
 
         <?php if (isset($_SESSION['messages'])) :

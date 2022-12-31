@@ -1,23 +1,113 @@
 <?php include(VIEWS . '_partials/header.php'); ?>
 
+<div class="showChapter-1">
 
-<h1 class="text-center"><?= $chapter['title']; ?></h1>
-<div class="col-lg-6">
-    <p class="px-5" style="text-align: justify;">
-        <?= $chapter['content']; ?><br>
-    </p>
-</div>
-<form action="<?= BASE_PATH . 'story/chapter/show?id=' . $chapter['id']; ?>" method="post">
-    <div>
-        <button type="submit" class="btn" name="likes">
-            <?php if ($likeFound && ($likeFound['likes'] == 1)) : ?>
-                <i class="fa-solid fa-heart"></i>
-            <?php else : ?>
-                <i class="fa-regular fa-heart"></i>
-            <?php endif; ?>
-        </button>
+
+
+    <div class="showChapter-2-1">
+        <div class="showChapter-fullsrceen"></div>
+        <div class="notice">
+            <form action="<?= BASE_PATH . 'story/chapter/show?id=' . $chapter['id']; ?>" method="POST">
+                <div class="mb-3">
+                    <label for="comment" class="form-label">commentaire</label>
+                    <textarea name="comment" class="form-control" id="comment" rows="3" style="resize: none;"></textarea>
+                    <small><?= $error['comment'] ?? ""; ?></small>
+                    <button class="btn bg-lightGreen darkGreen" type="submit">Envoyer</button>
+                </div>
+            </form>
+
+            <form action="<?= BASE_PATH . 'story/chapter/show?id=' . $chapter['id']; ?>" method="post">
+                <div>
+                    <button type="submit" class="btn" name="likes">
+                        <?php if ($likeFound && ($likeFound['likes'] == 1)) : ?>
+                            <i class="fa-solid fa-heart"></i>
+                        <?php else : ?>
+                            <i class="fa-regular fa-heart"></i>
+                        <?php endif; ?>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+
+
+        <div class="showChapter-2-2">
+
+            <h1 class="text-center"><?= $chapter['title']; ?></h1>
+            <div class="col-lg-6">
+                <p class="px-5" style="text-align: justify;">
+                    <?= $chapter['content']; ?><br>
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="showChapter-2-3">
+            <?php foreach ($chapters as $chapter) : ?>
+
+                <a href="<?= BASE_PATH . 'story/chapter/show?id=' . $chapter['id']; ?>"><?= $chapter['title']; ?></a>
+
+            <?php endforeach; ?>
+        </div>
+
+
+
     </div>
-</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <div class="showChapter-clickevent">
@@ -34,14 +124,6 @@
 </div>
 
 <div class="">
-    <form action="<?= BASE_PATH . 'story/chapter/show?id=' . $chapter['id']; ?>" method="POST">
-        <div class="mb-3">
-            <label for="comment" class="form-label">commentaire</label>
-            <textarea name="comment" class="form-control" id="comment" rows="3" style="resize: none;"></textarea>
-            <small><?= $error['comment'] ?? ""; ?></small>
-            <button class="btn bg-lightGreen darkGreen" type="submit">Envoyer</button>
-        </div>
-    </form>
 </div>
 <?php foreach ($comments as $comment) : ?>
     <div class="otherComment">

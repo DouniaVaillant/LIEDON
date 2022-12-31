@@ -1,5 +1,9 @@
 <?php include(VIEWS . '_partials/header.php'); ?>
-<?php $user = User::findById(['id' => $story['id_user']]); ?>
+<?php $user = User::findById(['id' => $story['id_user']]);
+// echo "<pre>";
+// print_r($_SERVER);
+// echo "</pre>";
+?>
 
 
 
@@ -23,7 +27,11 @@
 
         <div class="showStory-3-1">
             <h2><?= $story['title']; ?></h2>
-            <img src="<?= BASE . 'upload/story/' . $story['photo']; ?>" alt="Couverture de <?= $story['title']; ?>">
+            <img src="<?php if ($story['photo'] == 'Pas de couverture') {
+                            echo BASE . 'assets/images/coverDefault.png';
+                        } else {
+                            echo BASE . 'upload/story/' . $story['photo'];
+                        } ?>" alt="Couverture de <?= $story['title']; ?>">
         </div>
 
 
@@ -31,7 +39,7 @@
             <p><strong>Synopsis: <br></strong><?= $story['synopsis']; ?></p>
         </div>
 
-        
+
         <div class="showStory-clickevent">
             <button id="btn" class="btn-deco-none" onclick="document.getElementById('story-moreOptions-<?= $story['id']; ?>').classList.toggle('hide');">
                 <i class="fa-solid fa-ellipsis-vertical showStory-report"></i>
@@ -41,7 +49,7 @@
                 <ul>
                     <li><a href="#">Lire</a></li>
                     <li><a href="<?= BASE_PATH . 'user/profile?id=' . $story['id_user']; ?>">Voir l'auteur</a></li>
-                    <li><a href="<?= BASE_PATH . 'report?s='. $story['id']; ?>">Signaler</a></li>
+                    <li><a href="<?= BASE_PATH . 'report?s=' . $story['id']; ?>">Signaler</a></li>
                 </ul>
             </div>
         </div>
@@ -74,7 +82,7 @@
 
             <a href="#">Lire</a>
 
-            <a href="#"><i class="fas fa-plus"></i></a>
+            <a href="<?= BASE_PATH . 'library?id=' . $story['id']; ?>"><i class="fas fa-plus"></i></a>
 
         </div>
 
@@ -101,7 +109,11 @@
                     <a href="<?= BASE_PATH . 'library?id=' . $story['id']; ?>"><i class="fa-solid fa-bookmark <?php if (isset($inLibrary['id_story']) == $story['id']) : ?> bookmarkStoryInLibrary <?php else : ?> bookmarkStory <?php endif; ?>"></i></a>
                     <h3><?= $story['title']; ?></h3>
                     <a href="<?= BASE_PATH . 'story/show?id=' . $story['id']; ?>">
-                        <img class="showStory-discover" src="<?= BASE . 'upload/story/' . $story['photo']; ?>" alt="">
+                        <img class="showStory-discover" src="<?php if ($story['photo'] == 'Pas de couverture') {
+                                                                    echo BASE . 'assets/images/coverDefault.png';
+                                                                } else {
+                                                                    echo BASE . 'upload/story/' . $story['photo'];
+                                                                } ?>" alt="">
                     </a>
                 </div>
             <?php endforeach; ?>

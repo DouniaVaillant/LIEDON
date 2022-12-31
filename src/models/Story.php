@@ -40,19 +40,19 @@ class Story extends Db
   public static function findAll()
   {
 
-    $request = "SELECT * FROM story";
+    $request = "SELECT * FROM story WHERE status != 'ban'";
     $response = self::getDb()->prepare($request);
     $response->execute();
 
     return $response->fetchAll(PDO::FETCH_ASSOC);
   }
     
-  public static function findByIdUser(array $idUser)
+  public static function findByIdUser(array $data)
   {
 
     $request = "SELECT * FROM story WHERE id_user = :id_user";
     $response = self::getDb()->prepare($request);
-    $response->execute($idUser);
+    $response->execute($data);
 
     return $response->fetchAll(PDO::FETCH_ASSOC);
   }

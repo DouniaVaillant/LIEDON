@@ -49,7 +49,11 @@
                             echo '<i>Utilisateur supprimé</i>';
                         } ?></td>
 
-                    <td><img src="<?= BASE . 'upload/story/' . $story['photo']; ?>" alt="couverture" height="100"></td>
+                    <td><img src="<?php if ($story['photo'] == 'Pas de couverture') {
+                                        echo BASE . 'assets/images/coverDefault.png';
+                                    } else {
+                                        echo BASE . 'upload/story/' . $story['photo'];
+                                    } ?>" alt="couverture" class="miniCoverStory"></td>
 
                     <td><?= $story['title']; ?></td>
 

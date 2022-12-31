@@ -14,6 +14,8 @@ class Chapter extends Db
         return self::getDb()->lastInsertId();
     }
 
+    // -                                                                                                                                  - //
+
     public static function update(array $data)
     {
 
@@ -24,35 +26,37 @@ class Chapter extends Db
         return self::getDb()->lastInsertId();
     }
 
-    
-  public static function updateStatus(array $data)
-  {
 
-    $request = "UPDATE chapter SET status = :status WHERE id=:id";
-    $response = self::getDb()->prepare($request);
-    $response->execute(self::htmlspecialchars($data));
+    public static function updateStatus(array $data)
+    {
 
-    return self::getDb()->lastInsertId();
-  }
+        $request = "UPDATE chapter SET status = :status WHERE id=:id";
+        $response = self::getDb()->prepare($request);
+        $response->execute(self::htmlspecialchars($data));
+
+        return self::getDb()->lastInsertId();
+    }
+
+    // -                                                                                                                                  - //
 
     public static function findAll()
     {
 
-        $request = "SELECT * FROM chapter";
+        $request = "SELECT * FROM chapter WHERE status != 'ban'";
         $response = self::getDb()->prepare($request);
         $response->execute();
 
         return $response->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function findById(array $id)
+    public static function findAllChapter(array $data)
     {
 
-        $request = "SELECT * FROM chapter WHERE id = :id";
+        $request = "SELECT * FROM chapter WHERE id_story = :id_story";
         $response = self::getDb()->prepare($request);
-        $response->execute($id);
+        $response->execute($data);
 
-        return $response->fetch(PDO::FETCH_ASSOC);
+        return $response->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public static function findByStory(array $data)
@@ -64,6 +68,18 @@ class Chapter extends Db
 
         return $response->fetchAll(PDO::FETCH_ASSOC);
     }
+    
+    // -                                                                                                                                  - //
+
+    public static function findById(array $id)
+    {
+
+        $request = "SELECT * FROM chapter WHERE id = :id";
+        $response = self::getDb()->prepare($request);
+        $response->execute($id);
+
+        return $response->fetch(PDO::FETCH_ASSOC);
+    }
 
     public static function readFirstChapter(array $data)
     {
@@ -74,6 +90,8 @@ class Chapter extends Db
 
         return $response->fetch(PDO::FETCH_ASSOC);
     }
+
+    // -                                                                                                                                  - //
 
     public static function count(array $data)
     {

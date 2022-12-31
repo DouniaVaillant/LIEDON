@@ -108,6 +108,14 @@ li {
   border-radius: 150px;
 }
 
+.form-check-input {
+  border: none;
+}
+
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.25rem rgba(238, 206, 159, 0.201);
+}
+
 /* - */
 
 .bg {
@@ -126,6 +134,14 @@ li {
   top: 2px;
   left: 2px;
   border-radius: 100px;
+}
+
+.miniCoverStory {
+  height: 144px;
+  width: 87px;
+  object-fit: cover;
+  border-radius: 5px;
+  background: #14141414;
 }
 
 /* - */
@@ -214,6 +230,7 @@ nav a {
     background: var(--beige);
     padding: 15px 5px;
     text-align: center;
+    z-index: 100;
   }
 
   #dropdown-profile-nav {
@@ -222,6 +239,7 @@ nav a {
 
   #dropdown-book-nav li {
     padding-top: 5px;
+    width: 130px;
   }
 }
 
@@ -231,6 +249,10 @@ nav a {
 .form-check-input:checked {
   background-color: var(--lightGreen);
   border-color: var(--lightGreen);
+}
+
+.darkMode .pageRegistration .form-select {
+  color: #141414 !important;
 }
 
 /* -                                                                                                                                               - */
@@ -633,6 +655,93 @@ nav a {
   }
 }
 
+/* * USER STORY */
+
+@media screen and (min-width: 760px) {
+  .pageUserStory {
+    display: flex;
+    flex-flow: row wrap;
+    /* overflow: scroll; */
+  }
+
+  .userStory {
+    display: flex;
+  }
+
+  .userStory-cover,
+  .userStory-synopsis {
+    height: 350px;
+    width: 200px;
+    object-fit: cover;
+    border-radius: 3px;
+  }
+
+  .userStory-show {
+    display: flex;
+    position: relative;
+    margin: 5px;
+  }
+
+  .titleUserStories {
+    background: var(--bg);
+    position: absolute;
+    top: 5px;
+    font-size: 0.9rem;
+    text-align: center;
+    border-radius: 0 150px 150px 0;
+    padding: 2px 15px;
+  }
+
+  .darkMode .titleUserStories {
+    background: var(--black);
+  }
+
+  .userStory-synopsis {
+    position: absolute;
+    background: #000000b3;
+    opacity: 0;
+    transition: 0.2s;
+    padding: 15% 10px;
+
+    white-space: pre-wrap;
+    display: -webkit-box;
+    font-size: 0.9rem;
+    text-align: justify;
+    line-height: 1.01;
+    -webkit-line-clamp: 22;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .userStory-show:hover .userStory-synopsis {
+    opacity: 1;
+    color: white;
+  }
+
+  .userStory-actions {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .userStory-actions a {
+    margin: 5px;
+  }
+}
+
+/* * ADD STORY */
+
+@media screen and (min-width: 760px) {
+  .pageAddStory h1 {
+    text-align: center;
+  }
+
+  #coverFile {
+    background: none;
+    border: none;
+  }
+}
+
 /* -                                                                       */
 /* _ SHOW STORY */
 
@@ -895,3 +1004,17 @@ nav a {
 
 /* -                                                                   */
 /* _ FOOTER                                                            */
+
+.divBeginHeader {
+  /* position: relative; */
+}
+
+footer {
+  /* position: absolute;
+  bottom: 0; */
+  margin-top: 30vh;
+  height: 100px;
+  width: 100%;
+  padding: 2%;
+  background: #2f452e5f;
+}
