@@ -22,6 +22,29 @@ body {
   background: var(--bg);
 }
 
+/* width */
+body ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+/* Track */
+body ::-webkit-scrollbar-track {
+  background: none;
+  border-radius: 10px;
+}
+/* Handle */
+body ::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.128);
+  border-radius: 10px;
+}
+body ::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.21);
+}
+/* Corner */
+body ::-webkit-scrollbar-corner {
+  display: none;
+}
+
 a {
   text-decoration: none;
   color: #141414;
@@ -583,7 +606,8 @@ nav a {
     overflow: scroll;
   }
 
-  .coverStory {
+  .coverStory,
+  .stories-synopsis {
     height: 350px;
     width: 200px;
     object-fit: cover;
@@ -597,6 +621,7 @@ nav a {
   }
 
   .bookmarkStory {
+    z-index: 3;
     font-size: 1.5rem;
     position: absolute;
     right: 5px;
@@ -606,6 +631,7 @@ nav a {
   }
 
   .bookmarkStoryInLibrary {
+    z-index: 3;
     font-size: 1.5rem;
     position: absolute;
     right: 5px;
@@ -616,12 +642,37 @@ nav a {
 
   .titleStories {
     background: var(--bg);
+    z-index: 3;
     position: absolute;
     top: 5px;
     font-size: 0.9rem;
     text-align: center;
     border-radius: 0 150px 150px 0;
     padding: 2px 15px;
+  }
+
+  .stories-synopsis {
+    position: absolute;
+    background: #000000b3;
+    opacity: 0;
+    transition: 0.2s;
+    padding: 15% 10px;
+    top: 0;
+    z-index: 2;
+
+    white-space: pre-wrap;
+    display: -webkit-box;
+    font-size: 0.8rem;
+    text-align: justify;
+    line-height: 1.32;
+    -webkit-line-clamp: 19;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .stories-show:hover .stories-synopsis {
+    opacity: 1;
   }
 
   .stories-report {
@@ -683,6 +734,7 @@ nav a {
   }
 
   .titleUserStories {
+    z-index: 3;
     background: var(--bg);
     position: absolute;
     top: 5px;
@@ -890,6 +942,75 @@ nav a {
 
   .darkMode .showStory-target {
     background: rgba(255, 255, 255, 0.105);
+  }
+}
+
+/* -                                                                   */
+/* _ SHOW CHAPTER */
+
+@media screen and (min-width: 760px) {
+  .pageShowChapter {
+    display: flex;
+  }
+
+  .showChapter-2-1 {
+    width: 15vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 1%;
+    align-content: space-between;
+    justify-content: space-between;
+    text-align: center;
+  }
+
+  .showChapter-comment > * {
+    margin: 5px;
+  }
+
+  .showChapter-comment button {
+    background: rgba(88, 129, 87, 0.3);
+    border: 1px solid rgba(40, 54, 24, 0.3);
+    color: var(--darkGreen);
+    padding: 3px 8px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    text-align: right;
+  }
+  
+  .darkMode .showChapter-comment button {
+    color: var(--sun);
+    background: none;
+  }
+  
+  .showChapter-2-2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 85vw;
+  }
+
+  .showChapter-text {
+    width: 95%;
+    height: 85%;
+    text-align: justify;
+  }
+
+  .showChapter-2-3 {
+    display: flex;
+    flex-direction: column;
+    width: 15vw;
+    height: 100%;
+    overflow: scroll;
+  }
+  .chapter {
+    padding: 10px 5px;
+    margin: 2px;
+    border: 1px solid;
+    border-radius: 3px;
+    text-transform: uppercase;
+    text-align: center;
   }
 }
 

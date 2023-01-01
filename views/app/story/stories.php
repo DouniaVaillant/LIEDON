@@ -11,15 +11,20 @@
 
             <h3 class="titleStories"><?= $story['title']; ?></h3>
 
-            <a href="<?= BASE_PATH . 'story/show?id=' . $story['id']; ?>">
-                <div class="cardStory">
-                    <img class="coverStory" src="<?php if ($story['photo'] == 'Pas de couverture') {
-                                                        echo BASE . 'assets/images/coverDefault.png';
-                                                    } else {
-                                                        echo BASE . 'upload/story/' . $story['photo'];
-                                                    } ?>" alt="Image de couverture">
-                </div>
-            </a>
+            <div class="stories-show cardStory">
+                <a href="<?= BASE_PATH . 'story/show?id=' . $story['id']; ?>">
+                    <div class="">
+                        <img class="coverStory" src="<?php if ($story['photo'] == 'Pas de couverture') {
+                                                            echo BASE . 'assets/images/coverDefault.png';
+                                                        } else {
+                                                            echo BASE . 'upload/story/' . $story['photo'];
+                                                        } ?>" alt="Image de couverture">
+                    </div>
+                    <div class="stories-synopsis">
+                        <p class=""><?= $story['synopsis']; ?></p>
+                    </div>
+                </a>
+            </div>
 
         </div>
 
