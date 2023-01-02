@@ -63,6 +63,7 @@ $routes = [
     '/admin/notifications'          => ['AdminController', 'notifications'],
     '/admin/notification/add'       => ['AdminController', 'addNotification'],
     '/admin/newsletter/list'        => ['AdminController', 'listNewsletter'],
+    '/admin/contact/delete'         => ['AdminController', 'deleteContact'],
 
     '/user/profile'                 => ['AppController', 'profile'],
     '/user/profile/edit'            => ['AppController', 'editProfile'],
@@ -79,7 +80,7 @@ $routes = [
     '/user/stories'                 => ['AppController', 'userStory'],
     '/story/show'                   => ['AppController', 'showStory'],
     '/story/add'                    => ['AppController', 'addStory'],
-    '/user/story/edit'            => ['AppController', 'editUserStories'],
+    '/user/story/edit'              => ['AppController', 'editUserStories'],
     '/story/delete'                 => ['AppController', 'deleteStory'],
     '/library'                      => ['AppController', 'library'],
     '/story/chapter/add'            => ['AppController', 'addChapter'],
@@ -89,5 +90,6 @@ $routes = [
     '/notifications'                => ['AppController', 'notifications'],
     '/newsletter'                   => ['AppController', 'newsletter'],
     '/search'                       => ['AppController', 'search'],
+    '/contact'                      => ['AppController', 'contact'],
 
 ];

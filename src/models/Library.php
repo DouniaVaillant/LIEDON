@@ -12,6 +12,8 @@ class Library extends Db {
         return self::getDb()->lastInsertId();
     }
 
+    // -                                                                                                                                  - //
+
     public static function findAll(array $data)
     {
 
@@ -21,6 +23,8 @@ class Library extends Db {
 
         return $response->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    // -                                                                                                                                  - //
     
     public static function findByIdStoryAndUser(array $id)
     {
@@ -32,6 +36,8 @@ class Library extends Db {
         return $response->fetch(PDO::FETCH_ASSOC);
     }
 
+    // -                                                                                                                                  - //
+
     public static function delete(array $data)
     {
   
@@ -40,14 +46,5 @@ class Library extends Db {
       $response = self::getDb()->prepare($request);
       return $response->execute(self::htmlspecialchars($data));
     }
-
-
-
-
-
-
-
-
-
 
 }

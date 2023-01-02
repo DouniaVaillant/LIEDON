@@ -82,7 +82,7 @@ class Likes extends Db
     public static function countLikesBook(array $data)
     {
 
-        $request = "SELECT * FROM likes WHERE id_book = :id_book";
+        $request = "SELECT * FROM likes WHERE id_book = :id_book AND likes = 1";
         $response = self::getDb()->prepare($request);
         $response->execute($data);
 
@@ -92,7 +92,17 @@ class Likes extends Db
     public static function countLikesStory(array $data)
     {
 
-        $request = "SELECT * FROM likes WHERE id_story = :id_story";
+        $request = "SELECT * FROM likes WHERE id_story = :id_story AND likes = 1";
+        $response = self::getDb()->prepare($request);
+        $response->execute($data);
+
+        return $response->rowCount();
+    }
+
+    public static function countLikesChapter(array $data)
+    {
+
+        $request = "SELECT * FROM likes WHERE id_chapter = :id_chapter AND likes = 1";
         $response = self::getDb()->prepare($request);
         $response->execute($data);
 

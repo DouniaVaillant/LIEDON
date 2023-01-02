@@ -72,7 +72,7 @@
                     <i class="fa-regular fa-heart"></i>
                 <?php endif; ?>
             </button>
-            <?= $countLikes; ?>
+            <span><?= $countLikes; ?></span>
         </form>
 
 

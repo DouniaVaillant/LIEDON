@@ -842,7 +842,13 @@ class AdminController
         $notifs = Notifications::findAll();
         if (isset($_GET['id'])) {
             $message = Notifications::findById(['id' => $_GET['id']]);
+            Notifications::updateSeen([
+                'seen' => 1,
+                'id' => $_GET['id']
+            ]);
         }
+
+        $contact = Notifications::findAllIdReceiver(['receiver' => 0]);
 
         include(VIEWS . "app/backoffice/notifications.php");
     }
@@ -854,7 +860,7 @@ class AdminController
             exit();
         }
 
-        if ($_GET['id']) {
+        if (isset($_GET['id'])) {
             $user = User::findById(['id' => $_GET['id']]);
         } else {
             $users = Report::findUserPseudo();
@@ -896,7 +902,26 @@ class AdminController
         include(VIEWS . "app/backoffice/addNotification.php");
     }
 
-    // $ CRUD notifications
+    public static function deleteContact()
+    {
+        if (!isset($_SESSION['user']) || $_SESSION['user']['roles'] != 'ROLE_ADMIN') { // ? Sécurité
+            header('location:../../404.php');
+            exit();
+        }
+
+        if (!empty($_GET['id'])) :
+            Notifications::delete([
+                'id' => intval($_GET['id'])
+            ]);
+
+            $_SESSION['messages']['success'][] = 'Message supprimé avec succès';
+        endif;
+
+        header('location:../notifications');
+        exit();
+    }
+
+    // $ CRUD newsletter
 
     public static function listNewsletter()
     {

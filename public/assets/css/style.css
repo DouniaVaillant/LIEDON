@@ -267,7 +267,7 @@ nav a {
 }
 
 /* -                                                                                                                                               - */
-/*  _  registration                                                                                                                                */
+/*  ?  registration                                                                                                                                */
 
 .form-check-input:checked {
   background-color: var(--lightGreen);
@@ -279,7 +279,7 @@ nav a {
 }
 
 /* -                                                                                                                                               - */
-/*  _  books                                                                                                                                */
+/*  ?  books                                                                                                                                */
 
 @media screen and (min-width: 760px) {
   .cards {
@@ -420,7 +420,7 @@ nav a {
 }
 
 /* -                                                                                                                                                     */
-/*  _ showBook                                                                                                                                         */
+/*  ? showBook                                                                                                                                         */
 
 @media screen and (min-width: 760px) {
   .showBook-1 {
@@ -597,7 +597,7 @@ nav a {
 }
 
 /* -                                                                                                                                                 */
-/* _   stories                                                                                                                                    */
+/* ?   stories                                                                                                                                    */
 
 @media screen and (min-width: 760px) {
   .pageStory {
@@ -795,7 +795,7 @@ nav a {
 }
 
 /* -                                                                       */
-/* _ SHOW STORY */
+/* ? SHOW STORY */
 
 @media screen and (min-width: 760px) {
   .pageShowStory {
@@ -946,7 +946,7 @@ nav a {
 }
 
 /* -                                                                   */
-/* _ SHOW CHAPTER */
+/* ? SHOW CHAPTER */
 
 @media screen and (min-width: 760px) {
   .pageShowChapter {
@@ -959,9 +959,23 @@ nav a {
     display: flex;
     flex-direction: column;
     padding: 1%;
-    align-content: space-between;
-    justify-content: space-between;
+    align-content: space-around;
+    justify-content: space-around;
     text-align: center;
+  }
+
+  .showChapter-moreOptions {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .chapter-moreOptions {
+    top: 2.2rem;
+  }
+
+  .showChapter-report {
+    font-size: 2rem;
   }
 
   .showChapter-comment > * {
@@ -978,12 +992,12 @@ nav a {
     font-size: 0.8rem;
     text-align: right;
   }
-  
+
   .darkMode .showChapter-comment button {
     color: var(--sun);
     background: none;
   }
-  
+
   .showChapter-2-2 {
     display: flex;
     flex-direction: column;
@@ -1004,6 +1018,7 @@ nav a {
     height: 100%;
     overflow: scroll;
   }
+
   .chapter {
     padding: 10px 5px;
     margin: 2px;
@@ -1012,10 +1027,19 @@ nav a {
     text-transform: uppercase;
     text-align: center;
   }
+
+  .showChapter-storyTitle {
+    padding: 10px 5px;
+    margin: 2px;
+    border: 1px solid var(--soil);
+    border-radius: 3px;
+    text-transform: uppercase;
+    text-align: center;
+  }
 }
 
 /* -                                                                   */
-/* _ LIBRARY                                                           */
+/* ? LIBRARY                                                           */
 
 @media screen and (min-width: 760px) {
   .pageLibrary {
@@ -1059,7 +1083,22 @@ nav a {
 }
 
 /* -                                                                   */
-/* _ BACKOFFICE                                                           */
+/* ? NOTIFICATIONS USER                                                           */
+
+.notifsUser-message {
+  background: rgba(205, 135, 66, 0.3);
+  display: flex;
+  align-items: center;
+}
+
+.notifsUser-message p {
+  background: #f4f4f4;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+/* -                                                                   */
+/* ? BACKOFFICE                                                           */
 
 @media screen and (min-width: 760px) {
   #dashboard-h1 {
@@ -1088,7 +1127,7 @@ nav a {
 }
 
 /* -                                                                   */
-/* _ list :     USER  |  BOOKS  |  STORIES  |  ...                                                         */
+/* ? list :     USER  |  BOOKS  |  STORIES  |  ...                                                         */
 
 @media screen and (min-width: 760px) {
   .pageListUser * {
@@ -1124,7 +1163,45 @@ nav a {
 }
 
 /* -                                                                   */
-/* _ FOOTER                                                            */
+/* ? NOTIFICATION ADMIN                                                            */
+
+@media screen and (min-width: 760px) {
+  .notifsAdmin-message {
+    background: rgba(205, 135, 66, 0.3);
+    display: flex;
+    align-items: center;
+    min-height: 70vh;
+    max-width: 90vh;
+  }
+
+  .notifsAdmin-message p {
+    background: #f4f4f4;
+    border-radius: 5px;
+    padding: 10px;
+  }
+
+  .notifsAdmin-contacts {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+  }
+
+  .notifsAdmin-cardContact {
+    background: #58815749;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.482);
+    padding: 10px;
+    margin: 10px;
+    width: 25%;
+    text-align: center;
+  }
+/* 
+  .notifsAdmin-cardContact p {
+    text-align: justify;
+  } */
+}
+
+/* -                                                                   */
+/* ? FOOTER                                                            */
 
 .divBeginHeader {
   /* position: relative; */

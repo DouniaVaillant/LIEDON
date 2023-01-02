@@ -2,9 +2,6 @@
 
 class Notifications extends Db
 {
-
-
-
   public static function create(array $data)
   {
 
@@ -14,6 +11,8 @@ class Notifications extends Db
 
     return self::getDb()->lastInsertId();
   }
+
+  // -                                                                                                                                  - //
 
   public static function update(array $data)
   {
@@ -25,6 +24,18 @@ class Notifications extends Db
     return self::getDb()->lastInsertId();
   }
 
+  public static function updateSeen(array $data)
+  {
+
+    $request = "UPDATE notifications SET seen = :seen WHERE id=:id";
+    $response = self::getDb()->prepare($request);
+    $response->execute(self::htmlspecialchars($data));
+
+    return self::getDb()->lastInsertId();
+  }
+
+  // -                                                                                                                                  - //
+
   public static function findAll()
   {
 
@@ -34,6 +45,28 @@ class Notifications extends Db
 
     return $response->fetchAll(PDO::FETCH_ASSOC);
   }
+
+  public static function findAllIdReceiver(array $data)
+  {
+
+    $request = "SELECT * FROM notifications WHERE receiver = :receiver ORDER BY date_created DESC";
+    $response = self::getDb()->prepare($request);
+    $response->execute($data);
+
+    return $response->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  public static function findAllUser(array $data)
+  {
+
+    $request = "SELECT DISTINCT * FROM notifications WHERE receiver = :receiver";
+    $response = self::getDb()->prepare($request);
+    $response->execute($data);
+
+    return $response->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  // -                                                                                                                                  - //
 
   public static function findById(array $data)
   {
@@ -45,13 +78,15 @@ class Notifications extends Db
     return $response->fetch(PDO::FETCH_ASSOC);
   }
 
-  public static function findAllUser(array $data)
+  // -                                                                                                                                  - //
+
+
+  public static function delete(array $data)
   {
 
-    $request = "SELECT DISTINCT * FROM notifications WHERE receiver = :receiver";
-    $response = self::getDb()->prepare($request);
-    $response->execute($data);
+    $request = "DELETE FROM notifications WHERE id = :id";
 
-    return $response->fetchAll(PDO::FETCH_ASSOC);
+    $response = self::getDb()->prepare($request);
+    return $response->execute(self::htmlspecialchars($data));
   }
 }

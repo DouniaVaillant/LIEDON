@@ -13,6 +13,8 @@ class Category extends Db
         return self::getDb()->lastInsertId();
     }
 
+    // -                                                                                                                                  - //
+
     public static function update(array $data)
     {
 
@@ -23,6 +25,8 @@ class Category extends Db
         return self::getDb()->lastInsertId();
     }
 
+    // -                                                                                                                                  - //
+
     public static function findAll()
     {
 
@@ -32,6 +36,8 @@ class Category extends Db
 
         return $response->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    // -                                                                                                                                  - //
 
     public static function findById(array $id)
     {
@@ -52,6 +58,8 @@ class Category extends Db
 
         return $response->fetch(PDO::FETCH_ASSOC);
     }
+
+    // -                                                                                                                                  - //
 
     public static function delete(array $data)
     {

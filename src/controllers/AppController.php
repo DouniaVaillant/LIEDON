@@ -661,12 +661,12 @@ class AppController
 
         $extensionPhoto = strtolower(strchr($_FILES['photo']['name'], '.')); /// = srttolower => met en minuscule ||| substr => ignore un élément de la chaîne ||| strrchr => récupère l'extension du fichier
         $photoCoverName = $user['id'] . '-' . strval(htmlspecialchars(preg_replace('/[^a-zA-Z\d\àâçéèîïìñôöùûü]+/', '', $_POST['title']))) . '-' . strval(uniqid()) . $extensionPhoto;
-        
+
         copy($_FILES['photo']['tmp_name'], PUBLIC_FOLDER . 'upload/story/' . $photoCoverName); // ? Copie de la nouvelle image dans le dossier concerné
-        
-        else :
-          
-          $photoCoverName = 'Pas de couverture';
+
+      else :
+
+        $photoCoverName = 'Pas de couverture';
       endif;
 
       if (empty($_POST['title'])) {
@@ -870,7 +870,10 @@ class AppController
     $chapters = Chapter::findAllChapter([
       'id_story' => $chapter['id_story']
     ]);
+    $story = Story::findById(['id' => $chapter['id_story']]);
+    $user = User::findById(['id' => $story['id_user']]);
     // die(var_dump($chapter));
+    $countLikes = Likes::countLikesChapter(['id_chapter' => $_GET['id']]);
 
     $comments = Comment::findAllByChapter(['id_chapter' => $chapter['id']]);
     $likeFound = Likes::findLikeChapter([
@@ -1088,7 +1091,9 @@ class AppController
   {
 
     $notifs = Notifications::findAllUser(['receiver' => intval($_SESSION['user']['id'])]);
-
+    if (isset($_GET['id'])) {
+      $message = Notifications::findById(['id' => $_GET['id']]);
+    }
 
     include(VIEWS . "app/user/notifications.php");
   }
@@ -1144,5 +1149,43 @@ class AppController
 
 
     include(VIEWS . "app/search.php");
+  }
+
+  public static function contact()
+  {
+
+    if (!isset($_SESSION['user'])) { // ? Sécurité
+      header('location:404.php');
+      exit();
+    }
+
+    $error = [];
+    if ($_POST) {
+
+      if (empty($_POST['subject'])) {
+        $error['subject'] = "Merci d'entrer un object pour ce message";
+      }
+      if (empty($_POST['content'])) {
+        $error['content'] = 'Un contenu est nécessaire';
+      }
+
+      if (empty($error)) {
+        Notifications::create([
+          'receiver' => intval(0),
+          'sent_by' => $_SESSION['user']['id'],
+          'subject' => $_POST['subject'],
+          'content' => $_POST['content']
+        ]);
+        // die(var_dump($_POST));
+        $_SESSION['messages']['success'][] = 'Notification envoyée';
+        header('location:../');
+        exit();
+      }
+    }
+
+
+
+
+    include(VIEWS . "app/user/contact.php");
   }
 }

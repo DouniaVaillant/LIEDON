@@ -13,14 +13,13 @@
 
 </head>
 
-<body class="darkMode" id="body">
+<body class="" id="body">
 
     <nav>
         <ul>
             <li class="">
                 <a class="darkLogo" href="<?= BASE_PATH; ?>">
                     <img src="<?= BASE . "assets/images/logo_base.png"; ?>" alt="Logo_light" style="height: 70px;">
-                
                     Liedon
                 </a>
             </li>
@@ -108,7 +107,7 @@
             <?php endif; ?>
             <li>
                 <div class="bg">
-                    <button class="circle btn-deco-none" onclick="document.getElementById('body').classList.toggle('darkMode');">
+                    <button class="circle btn-deco-none" onclick="themeToggle()"> <!-- document.getElementById('body').classList.toggle('darkMode'); -->
                         <div class="inCircle">
                             <div class="moon"></div>
                         </div>
