@@ -63,6 +63,10 @@ li {
   list-style: none;
 }
 
+::selection {
+  background: var(--lightGreen);
+}
+
 /* -                                                                                                                                              - */
 
 .bg-darkGreen {
@@ -199,7 +203,9 @@ li {
 .darkMode .alert,
 .darkMode input,
 .darkMode nav a,
-.darkMode nav * {
+.darkMode nav *,
+.darkMode .form-select,
+.darkMode option {
   color: #141414 !important;
 }
 
@@ -276,6 +282,127 @@ nav a {
 
 .darkMode .pageRegistration .form-select {
   color: #141414 !important;
+}
+
+/* -                                                                                                                                               - */
+/*  ?  profile                                                                                                                                */
+
+@media screen and (min-width: 760px) {
+  .bgPageProfile {
+    background: rgb(88, 129, 87, 18%);
+    position: absolute;
+    height: 150%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+
+  .banner {
+    text-align: center;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+  }
+
+  .profile-info {
+    position: absolute;
+    top: 20%;
+    display: flex;
+    align-items: center;
+    color: white;
+  }
+
+  .profile-photoProfile {
+    height: 100px;
+    width: 100px;
+    overflow: hidden;
+    object-fit: cover;
+    border-radius: 150px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.434);
+  }
+
+  .photoBanner {
+    height: 20vh;
+    object-fit: cover;
+    overflow: hidden;
+    width: 96vw;
+    min-height: 200px;
+    filter: blur(1px);
+    box-shadow: 0 0 2px rgb(0, 0, 0);
+  }
+
+  .profile-btn {
+    padding: 5px;
+    margin: 10px;
+    width: 250px;
+    background: rgba(255, 255, 255, 0.83);
+    border: 1px solid rgba(88, 129, 87, 0.3);
+
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+
+  .profile-btn-session {
+    border: 1px solid;
+    padding: 10px;
+    border-radius: 2px;
+    margin-top: 10px;
+  }
+
+  .profile-overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 0.2s;
+    visibility: hidden;
+    z-index: 5;
+  }
+
+  .profile-overlay:target /* ! Notion importante de cet exo ! */ {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .profile-popup {
+    margin: 10px auto;
+    padding: 5%;
+    background: whitesmoke;
+    border-radius: 5px;
+    width: 80%;
+    max-height: 90vh;
+    overflow: scroll;
+    position: relative;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .profile-popup p,
+  .profile-popup h2,
+  .profile-popup h4 {
+    color: var(--black);
+  }
+
+  .profile-popup .profile-cross {
+    position: absolute;
+    top: 1%;
+    right: 1.5rem;
+    font-size: 2rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.2s ease;
+    color: #333;
+  }
+
+  /* - */
+
+  .darkMode .profile-btn {
+    color: var(--black);
+  }
 }
 
 /* -                                                                                                                                               - */
@@ -417,6 +544,19 @@ nav a {
   .darkMode .status {
     color: var(--darkGreen);
   }
+}
+
+/* * USER BOOK */
+
+@media screen and (min-width: 760px) {
+  .userBook-cards {
+    display: flex;
+  }
+}
+
+/* * ADD BOOK */
+
+@media screen and (min-width: 760px) {
 }
 
 /* -                                                                                                                                                     */
@@ -1194,7 +1334,7 @@ nav a {
     width: 25%;
     text-align: center;
   }
-/* 
+  /* 
   .notifsAdmin-cardContact p {
     text-align: justify;
   } */
@@ -1203,9 +1343,6 @@ nav a {
 /* -                                                                   */
 /* ? FOOTER                                                            */
 
-.divBeginHeader {
-  /* position: relative; */
-}
 
 footer {
   /* position: absolute;

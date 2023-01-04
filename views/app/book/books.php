@@ -20,18 +20,18 @@
                     </div>
                     <div class="comment">
                         <?php if (isset($user['id'])) : ?>
-                        <div class="user">
-                            <img class="photoProfile" src="<?= BASE . 'upload/photos/profile/' . $user['photo_profile']; ?>" alt="Photo de profil">
-                            <?= $user['pseudo']; ?>
-                        </div>
-                        <div class="bgCommentUser">
-                            <p class="commentUser">Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim saepe id sint praesentium dolor tenetur officia voluptates, dolores accusamus ad earum non, in nostrum porro excepturi, maxime sit iusto molestias.</p>
-                        </div>
+                            <div class="user">
+                                <img class="photoProfile" src="<?= BASE . 'upload/photos/profile/' . $user['photo_profile']; ?>" alt="Photo de profil">
+                                <?= $user['pseudo']; ?>
+                            </div>
+                            <div class="bgCommentUser">
+                                <p class="commentUser">Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim saepe id sint praesentium dolor tenetur officia voluptates, dolores accusamus ad earum non, in nostrum porro excepturi, maxime sit iusto molestias.</p>
+                            </div>
                         <?php endif; ?>
                     </div>
                 </div>
             </div>
-            </a>
+        </a>
     <?php endforeach; ?>
 </div>
 

@@ -2,25 +2,41 @@
 
 <h1>Mes livres</h1>
 
-<a href="<?= BASE_PATH . 'book/add'; ?>" class="btn btn-warning">Ajouter un livre</a>
+<a href="<?= BASE_PATH . 'book/add'; ?>" class="btn bg-lightBrown">Ajouter un livre</a>
 
-<?php foreach ($books as $book) : ?>
-
-    <div class=" border-primary mb-3" style="max-width: 20rem;">
-        <img src="<?= BASE . 'upload/book/' . $book['photo']; ?>" alt="<?= 'Couverture de ' . $book['title']; ?>" height="300">
-        <div class="">
-            <h4 class=""><?= $book['title']; ?></h4>
-            <p class=""><?= $book['synopsis']; ?></p>
-        </div>
-        <a href="<?= BASE_PATH . 'user/books/edit?id=' . $book['id']; ?>" class="btn bg-soil text-light"><i class="fas fa-edit"></i></a>
-        <a href="<?= BASE_PATH . 'user/books/delete?id=' . $book['id']; ?>" class="btn bg-soil text-light"><i class="fas fa-trash"></i></a>
-    </div>
-
-
-
-
-
-<?php endforeach; ?>
+<div class="userBook-cards">
+    <?php foreach ($books as $book) : ?>
+        <?php $user = User::findById(['id' => $book['id_user']]); ?>
+        <a href="<?= BASE_PATH . 'book/show?id=' . $book['id']; ?>">
+            <div class="cardBook">
+                <div class="right">
+                    <img src="<?= BASE . 'upload/book/' . $book['photo']; ?>" alt="Image de couverture" class="coverBook">
+                    <h3 class="title"><?= $book['title']; ?></h3>
+                </div>
+                <div class="left">
+                    <div class="tags">
+                        <p class="status"><?= $book['status']; ?></p>
+                        <p class="separator">∣</p>
+                    </div>
+                    <div class="bgSynopsis">
+                        <p class="synopsis"><?= $book['synopsis']; ?></p>
+                    </div>
+                    <div class="comment">
+                        <?php if (isset($user['id'])) : ?>
+                            <!-- <div class="user">
+                                <img class="photoProfile" src="<?= BASE . 'upload/photos/profile/' . $user['photo_profile']; ?>" alt="Photo de profil">
+                                <?= $user['pseudo']; ?>
+                            </div> -->
+                            <div class="bgCommentUser">
+                                <p class="commentUser">Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim saepe id sint praesentium dolor tenetur officia voluptates, dolores accusamus ad earum non, in nostrum porro excepturi, maxime sit iusto molestias.</p>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        </a>
+    <?php endforeach; ?>
+</div>
 
 
 

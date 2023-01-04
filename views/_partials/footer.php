@@ -29,16 +29,12 @@
   <script src="<?= BASE . "assets/js/script.js"; ?>"></script>
 
   <script>
-    // localStorage.setItem('theme', "darkMode"); // On indique une clé 'theme' ayant pour valeur "darkMode"
-
     (function() {
       let onpageLoad = localStorage.getItem("theme") || ""; // On récupère la clé 'theme et sa valeur' dans la variable onPageLoad
       let element = document.getElementById("body"); // Element avec lequel nous voulons intéragir
       element.classList.add(onpageLoad);
       document.getElementsById("body").classList.toggle(localStorage.getItem("theme") || "");
     })();
-
-    // console.log(localStorage);
 
     function themeToggle() {
       let element = document.body;
