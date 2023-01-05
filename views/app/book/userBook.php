@@ -28,7 +28,7 @@
                                 <?= $user['pseudo']; ?>
                             </div> -->
                             <div class="bgCommentUser">
-                                <p class="commentUser">Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim saepe id sint praesentium dolor tenetur officia voluptates, dolores accusamus ad earum non, in nostrum porro excepturi, maxime sit iusto molestias.</p>
+                                <p class="commentUser"><?= $book['notice']; ?></p>
                             </div>
                         <?php endif; ?>
                     </div>

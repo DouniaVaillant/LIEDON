@@ -285,6 +285,56 @@ nav a {
 }
 
 /* -                                                                                                                                               - */
+/*  ?  home                                                                                                                                */
+
+@media screen and (min-width: 760px) {
+  .pageHome {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+  }
+  
+  /* .home-separator {
+    height: 90%;
+    width: 1px;
+    background: #141414;
+  } */
+
+  .home-2-1, .home-2-2 {
+    width: 48%;
+    margin: 10px;
+  }
+
+  .home-3-1 {
+    margin: 50px auto 100px;
+    display: flex;
+    height: 60vh;
+    padding: 10px;
+  }
+
+  .home-infosDiscover {
+    text-align: justify;
+    padding: 10px;
+  }
+
+  .home-3-1 img {
+    height: 350px;
+    /* width: 200px; */
+    max-width: 200px;
+    object-fit: cover;
+    /* overflow: hidden; */
+    border-radius: 3px;
+  }
+
+
+  .home-display {
+    display: flex;
+    flex-flow: row wrap;
+  }
+}
+
+
+/* -                                                                                                                                               - */
 /*  ?  profile                                                                                                                                */
 
 @media screen and (min-width: 760px) {
@@ -320,7 +370,11 @@ nav a {
     overflow: hidden;
     object-fit: cover;
     border-radius: 150px;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.434);
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
+  }
+
+  .pageProfile h1 {
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
   }
 
   .photoBanner {
@@ -330,7 +384,7 @@ nav a {
     width: 96vw;
     min-height: 200px;
     filter: blur(1px);
-    box-shadow: 0 0 2px rgb(0, 0, 0);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
   }
 
   .profile-btn {
@@ -768,16 +822,6 @@ nav a {
     color: var(--darkGreen);
     text-shadow: 1px 0px var(--beige), 0 1px var(--beige), -1px 0 var(--beige),
       0 -1px var(--beige);
-  }
-
-  .bookmarkStoryInLibrary {
-    z-index: 3;
-    font-size: 1.5rem;
-    position: absolute;
-    right: 5px;
-    color: var(--beige);
-    text-shadow: 1px 0px var(--darkGreen), 0 1px var(--darkGreen),
-      -1px 0 var(--darkGreen), 0 -1px var(--darkGreen);
   }
 
   .titleStories {
@@ -1342,7 +1386,6 @@ nav a {
 
 /* -                                                                   */
 /* ? FOOTER                                                            */
-
 
 footer {
   /* position: absolute;

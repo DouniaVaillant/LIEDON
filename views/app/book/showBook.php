@@ -50,7 +50,7 @@
             <div class="showBook-4 showBook-4-3">
                 <?php if (isset($user['id'])) : ?>
                     <div class="showBook-5-1">
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus omnis quam est voluptas animi architecto expedita hic facere sed possimus necessitatibus odit iste corporis labore magnam molestias, excepturi perspiciatis odio?</p>
+                        <p><?= $book['notice']; ?></p>
                     </div>
                     <a class="showBook-profile-1" href="<?= BASE_PATH . 'user/profile?id=' . $book['id_user']; ?>">
                         <img src="<?= BASE . 'upload/photos/profile/' . $user['photo_profile']; ?>" class="photoProfile" alt="Photo de profil">

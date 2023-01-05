@@ -17,6 +17,12 @@ class AppController
       endif;
     }
 
+    $bookDiscover = Book::findById(['id' => 1]);
+    $storyDiscover = Story::findById(['id' => 1]);
+
+    $books = Book::findAll();
+    $stories = Story::findAll();
+
     include(VIEWS . 'app/index.php');
   }
 
